@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
+#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/11 15:03:20 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/11 16:41:21 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,5 +45,11 @@ fclean:
 			$(RM) $(NAME) $(OBJS)
 
 re:			fclean all
+
+exec:		all
+			@./$(NAME)
+
+rexec:		re
+			@./$(NAME)
 
 .PHONY: all clean fclean re
