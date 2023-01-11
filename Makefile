@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/11 12:46:43 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/11 15:03:20 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBFT	=	libft/libft.a
 CLNLIB	=	@make clean -C libft
 FCLNLIB	=	@make fclean -C libft
 
-SRCS	=	SRCS/parsing/test.c
+SRCS	=	SRCS/main.c
 
 OBJS	=	$(SRCS:.c=.o)
 
