@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:58:28 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/11 16:41:09 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/11 16:43:40 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int ac, char **av, char **env)
 {
 	(void) ac;
 	(void) av;
-	(void) env;
 
-	printf("hello worl\n");
+	for(int i = 0; env[i]; i++)
+		printf("%s\n", env[i]);
 }
