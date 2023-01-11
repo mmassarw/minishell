@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 21:26:50 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/07 06:27:15 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/11 13:11:36 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,11 @@ void	ft_putnbr_base(long long nbr, long long len, char *base, int *i)
 void	ft_uputnbr(unsigned long nbr, unsigned long len, char *base, int *i)
 {
 	*i += 1;
-	if (nbr < 0)
+	if (nbr > (len - 1))
 	{
-		ft_putchar_fd('-', STDOUT_FILENO);
-		ft_putnbr_base(-nbr, len, base, i);
+		ft_putnbr_base((nbr / len), len, base, i);
 	}
-	else
-	{
-		if (nbr > (len - 1))
-		{
-			ft_putnbr_base((nbr / len), len, base, i);
-		}
-		ft_putchar_fd(base[(nbr % len)], STDOUT_FILENO);
-	}
+	ft_putchar_fd(base[(nbr % len)], STDOUT_FILENO);
 }
 
 int	ft_printf_flag(va_list ptr, const char *arg, int *len)
