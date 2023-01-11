@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:58:28 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/11 16:41:09 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/11 17:02:58 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ int	main(int ac, char **av, char **env)
 	(void) av;
 	(void) env;
 
-	printf("hello worl\n");
+	// printf("hello world\n");
 }
