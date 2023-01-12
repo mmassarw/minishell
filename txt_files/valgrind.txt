@@ -1,7 +1,7 @@
 valgrind --track-fds=yes ./minishell
-valgrind --suppressions=rl.supp --track-fds=yes  --leak-check=full --show-leak-kinds=all ./minishell
-valgrind --suppressions=rl.supp  --leak-check=full --show-leak-kinds=all ./minishell
-valgrind --suppressions=rl.supp  --trace-children=yes --leak-check=full --show-leak-kinds=all ./minishell
+valgrind --suppressions=.rl.supp --track-fds=yes  --leak-check=full --show-leak-kinds=all ./minishell
+valgrind --suppressions=.rl.supp  --leak-check=full --show-leak-kinds=all ./minishell
+valgrind --suppressions=.rl.supp  --trace-children=yes --leak-check=full --show-leak-kinds=all ./minishell
 
 create file  rl.supp 
 to ignore some errors in valgrind

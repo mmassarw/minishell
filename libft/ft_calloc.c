@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 15:41:18 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/11 13:10:02 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:25:35 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*p;
 
-	if (nmemb >= SIZE_MAX || size >= SIZE_MAX)
-		return (NULL);
 	p = malloc(nmemb * size);
 	if (!p)
 		return (NULL);

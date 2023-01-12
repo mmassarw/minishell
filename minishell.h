@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/11 00:09:53 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/13 01:27:27 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,30 @@
 # include <readline/history.h>
 
 // redirections enumiration
-typedef enum e_rdr
+enum e_rdr
 {
 	NONE = 0,
 	INPUT = 1,
 	OUTPUT = 2,
 	HEREDOC = 3,
 	APPEND = 4,
+};
+
+// redirections linked list
+typedef struct s_rdr
+{
+	char			*file;
+	enum e_rdr		e_rdr;
+	struct s_rdr	*next;
 }	t_rdr;
 
-//	cmd linked list
+// command linked list
 typedef struct s_cmd
 {
-	char			**cmd;
-	t_rdr			rdr;
+	char			**arg;
+	t_rdr			*rdr;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
-}	t_cmd;
-
-// pipeline linked list
-typedef struct s_pipeline
-{
-	t_cmd				*arg;
-	struct s_pipline	*next_pipe;
-}	t_pipeline;
+} t_cmd;
 
 // enviromental linked list
 typedef struct s_env
@@ -62,5 +62,7 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
+
+t_env	*ft_parse_env(const char **envp);
 
 #endif

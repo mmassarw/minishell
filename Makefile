@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
+#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/11 16:41:21 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/12 02:07:15 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ LIBFT	=	libft/libft.a
 CLNLIB	=	@make clean -C libft
 FCLNLIB	=	@make fclean -C libft
 
-SRCS	=	SRCS/main.c
+SRCS	=	SRCS/main.c \
+			SRCS/parsing/ft_parse_env.c \
 
 OBJS	=	$(SRCS:.c=.o)
 

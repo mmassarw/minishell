@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 14:58:28 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/13 01:02:49 by mmassarw         ###   ########.fr       */
+/*   Created: 2023/01/11 22:23:01 by mmassarw          #+#    #+#             */
+/*   Updated: 2023/01/11 22:27:00 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	ft_free_env(t_env *env_list)
+void	*ft_realloc(void *ptr, size_t size)
 {
-	t_env	*env_head;
+	void	*new_ptr;
 
-	env_head = env_list;
-	while (env_head)
+	if (ptr == NULL)
+		return (malloc(size));
+	if (size == 0)
 	{
-		env_list = env_head;
-		env_head = env_list->next;
-		free(env_list->key);
-		free(env_list->value);
-		free(env_list);
+		free(ptr);
+		return (NULL);
 	}
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_env	*env_list;
-
-	(void) argc;
-	(void) argv;
-	env_list = ft_parse_env((const char **)envp);
-	ft_free_env(env_list);
+	new_ptr = malloc(size);
+	if (new_ptr == NULL)
+		return (NULL);
+	ft_memcpy(new_ptr, ptr, size);
+	free(ptr);
+	return (new_ptr);
 }
