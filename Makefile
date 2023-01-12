@@ -6,7 +6,7 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/11 16:41:21 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/13 02:07:02 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ LIBFT	=	libft/libft.a
 CLNLIB	=	@make clean -C libft
 FCLNLIB	=	@make fclean -C libft
 
-SRCS	=	SRCS/main.c
+SRCS	=	SRCS/main.c \
+			SRCS/execution/execution.c \
+			SRCS/execution/temp_funs.c
 
 OBJS	=	$(SRCS:.c=.o)
 

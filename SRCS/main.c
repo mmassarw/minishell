@@ -6,17 +6,8 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:58:28 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/11 17:02:58 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/13 01:14:32 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	main(int ac, char **av, char **env)
-{
-	(void) ac;
-	(void) av;
-	(void) env;
-
-	// printf("hello world\n");
-}
