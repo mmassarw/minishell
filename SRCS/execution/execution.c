@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 01:05:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/13 02:09:13 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/13 22:18:38 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	parse_input(t_mini *mini)
 {
 	if (strncmp(mini->read_line, "pwd", 4) == 0)
 		print_pwd(mini);
-	else if (strncmp(mini->read_line, "exit", 5) == 0)
+	else if (strncmp(mini->read_line, "exit", 5) == 0 || mini->read_line[0] == 'q')
 		safe_exit(mini, 0);
 	else if (!mini->read_line[0])
 		return ;
