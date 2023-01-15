@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 15:50:43 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:53:51 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define RESET_FONT	"\033[0m"
 # define RED_FONT	"\033[31m"
 
+// eeror strings
+# define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
+
 // command flags
 # define BUILTIN 68
 # define PWD 923
@@ -48,6 +51,7 @@ int	g_exit_code;
 # define EXPORT_FAIL_CODE 1
 # define EXPORT_FLAG 654
 # define COMMAND_FAIL 127
+# define EXIT_FAIL 1
 
 // redirections enumiration
 enum e_rdr

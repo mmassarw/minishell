@@ -6,19 +6,85 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 01:05:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 15:14:34 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:55:19 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	safe_exit(t_mini *mini, int flag)
+int	arg_count(char **args)
 {
-	free (mini->read_line);
-	exit (flag);
+	int	i;
+
+	i = 0;
+	while (args[i] != NULL)
+		i++;
+	return (i);
 }
 
-// void	ft_export(t_mini *mini)
+int	check_exit_alpha(char **args)
+{
+	int	i;
+	int	d;
+
+	i = -1;
+	while (args[++i] != NULL)
+	{
+		d = -1;
+		while (args[i][++d] != '\0')
+		{
+			if (true == ft_isalpha(args[i][d]))
+			{
+				fd_printf(2, ALPHA_EXIT, args[i]);
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+void	exit_and_print(int code)
+{
+	printf("exit\n");
+	exit (code);
+}
+
+void	exit_success(char **args, t_mini *mini)
+{
+	free(mini->read_line);
+	ft_free_split(args);
+	ft_free_env(mini->l_env);
+	exit_and_print(0);
+}
+
+// safe exit exits with the code passed to it
+// if the code is greater than 255 it truncates it
+// VERY IMPORTANT needs to be modidfed and change the freeing
+// after merging with parsing as  ft_exit current frees
+// the readline which should not be the case
+// as parsing parses the readline
+void	ft_exit(char **args, t_mini *mini)
+{
+	int	code;
+
+	if (!args[1])
+		exit_success(args, mini);
+	else if (2 < arg_count(args))
+	{
+		fd_printf(2, "minishell: exit: too many arguments\n");
+		g_exit_code = EXIT_FAIL;
+		ft_free_split(args);
+		return ;
+	}
+	if (check_exit_alpha(&args[1]))
+		code = 255;
+	else
+		code = ft_atoi(args[1]) % 256;
+	free(mini->read_line);
+	ft_free_split(args);
+	ft_free_env(mini->l_env);
+	exit_and_print(code);
+}
 
 // parse_input expects clean input from read_line
 // some args are being free like the echo args as
@@ -30,9 +96,12 @@ void	parse_input(t_mini *mini)
 
 	if (ft_strncmp(mini->read_line, "pwd", 4) == 0)
 		print_pwd();
-	else if (ft_strncmp(mini->read_line, "exit", 5) == 0
+	else if (ft_strncmp(mini->read_line, "exit", 4) == 0
 		|| mini->read_line[0] == 'q')
-		safe_exit(mini, 0);
+	{
+		args = ft_split(mini->read_line, ' ');
+		ft_exit(args, mini);
+	}
 	else if (ft_strncmp(mini->read_line, "env", 4) == 0)
 		print_env(mini);
 	else if (ft_strncmp(mini->read_line, "echo", 4) == 0)
