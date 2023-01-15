@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/13 01:27:27 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/14 04:50:57 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ enum e_rdr
 typedef struct s_rdr
 {
 	char			*file;
-	enum e_rdr		e_rdr;
+	int				e_rdr;
 	struct s_rdr	*next;
 }	t_rdr;
 
@@ -64,5 +64,7 @@ typedef struct s_env
 }	t_env;
 
 t_env	*ft_parse_env(const char **envp);
+t_cmd	*ft_parse_token(char **token);
+
 
 #endif

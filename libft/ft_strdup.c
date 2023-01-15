@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:02:13 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/07 03:52:33 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 07:32:06 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strdup(const char *s)
 	char	*p;
 
 	i = 0;
-	p = (char *) malloc(ft_strlen(s) + 1);
+	p = (char *) ft_calloc(ft_strlen(s) + 1, sizeof(char));
 	if (!p)
 		return (NULL);
 	while (s[i])

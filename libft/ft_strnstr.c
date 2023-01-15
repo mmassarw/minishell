@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 06:27:54 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/07 04:56:18 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/14 16:11:16 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 
 	i = 0;
 	flag = 0;
-	if (*s2 == 0)
+	if (!s2)
 		return ((char *)s1);
 	while (i < n && s1[i])
 	{
