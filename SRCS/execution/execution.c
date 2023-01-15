@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 01:05:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 18:55:19 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:48:27 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_exit(char **args, t_mini *mini)
 		return ;
 	}
 	if (check_exit_alpha(&args[1]))
-		code = 255;
+		code = EXIT_ALPHA_CODE;
 	else
 		code = ft_atoi(args[1]) % 256;
 	free(mini->read_line);

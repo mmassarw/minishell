@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 18:53:51 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:47:57 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	g_exit_code;
 # define EXPORT_FLAG 654
 # define COMMAND_FAIL 127
 # define EXIT_FAIL 1
+# define EXIT_ALPHA_CODE 255
 
 // redirections enumiration
 enum e_rdr
