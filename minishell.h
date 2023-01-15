@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/14 04:50:57 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 08:14:23 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_env
 
 t_env	*ft_parse_env(const char **envp);
 t_cmd	*ft_parse_token(char **token);
+int		ft_check_rdr(char *string);
 
 
 #endif

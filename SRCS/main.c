@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:58:28 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 07:44:39 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 08:53:01 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ int	main(int argc, char **argv, char **envp)
 	// 	printf("%s\n", argv[i]);
 	argv++;
 	cmd_list = ft_parse_token(argv);
-	print_linked_list(cmd_list);
-	// free_structs(cmd_list);
+	// print_linked_list(cmd_list);
+	free_structs(cmd_list);
 }
