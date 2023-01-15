@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 01:05:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 19:48:27 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/16 02:02:27 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ void	exit_and_print(int code)
 	exit (code);
 }
 
-void	exit_success(char **args, t_mini *mini)
+void	exit_success(t_mini *mini)
 {
-	free(mini->read_line);
-	ft_free_split(args);
-	ft_free_env(mini->l_env);
+	ft_free_all(mini);
 	exit_and_print(0);
 }
 
@@ -68,7 +66,7 @@ void	ft_exit(char **args, t_mini *mini)
 	int	code;
 
 	if (!args[1])
-		exit_success(args, mini);
+		exit_success(mini);
 	else if (2 < arg_count(args))
 	{
 		fd_printf(2, "minishell: exit: too many arguments\n");
@@ -80,77 +78,45 @@ void	ft_exit(char **args, t_mini *mini)
 		code = EXIT_ALPHA_CODE;
 	else
 		code = ft_atoi(args[1]) % 256;
-	free(mini->read_line);
+	free(mini->l_cmd->arg[0]);
 	ft_free_split(args);
 	ft_free_env(mini->l_env);
 	exit_and_print(code);
 }
 
-// parse_input expects clean input from read_line
+// parse_input expects clean input from l_cmd->arg[0]
 // some args are being free like the echo args as
 // they're being split, after merging, the freeing should be removed
 // and replaced with a speacial freeing function
 void	parse_input(t_mini *mini)
 {
-	char	**args;
-
-	if (ft_strncmp(mini->read_line, "pwd", 4) == 0)
+	if (ft_strncmp(mini->l_cmd->arg[0], "pwd", 4) == 0)
 		print_pwd();
-	else if (ft_strncmp(mini->read_line, "exit", 4) == 0
-		|| mini->read_line[0] == 'q')
+	else if (ft_strncmp(mini->l_cmd->arg[0], "exit", 5) == 0
+		|| mini->l_cmd->arg[0][0] == 'q')
 	{
-		args = ft_split(mini->read_line, ' ');
-		ft_exit(args, mini);
+		ft_exit(mini->l_cmd->arg, mini);
 	}
-	else if (ft_strncmp(mini->read_line, "env", 4) == 0)
+	else if (ft_strncmp(mini->l_cmd->arg[0], "env", 4) == 0)
 		print_env(mini);
-	else if (ft_strncmp(mini->read_line, "echo", 4) == 0)
+	else if (ft_strncmp(mini->l_cmd->arg[0], "echo", 5) == 0)
 	{
-		args = ft_split(mini->read_line, ' ');
-		ft_echo(&args[1]);
-		ft_free_split(args);
+		mini->l_cmd->arg = ft_split(mini->l_cmd->arg[0], ' ');
+		ft_echo(&mini->l_cmd->arg[1]);
+		ft_free_split(mini->l_cmd->arg);
 	}
-	else if (ft_strncmp(mini->read_line, "export", 6) == 0)
+	else if (ft_strncmp(mini->l_cmd->arg[0], "export", 7) == 0)
 	{
-		args = ft_split(mini->read_line, ' ');
-		ft_export(&args[1], mini);
-		ft_free_split(args);
+		mini->l_cmd->arg = ft_split(mini->l_cmd->arg[0], ' ');
+		ft_export(&mini->l_cmd->arg[1], mini);
+		ft_free_split(mini->l_cmd->arg);
 	}
-	else if (!mini->read_line[0])
+	else if (!mini->l_cmd->arg[0][0])
 		return ;
 	else
 	{
 		g_exit_code = COMMAND_FAIL;
 		printf(RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
-			mini->read_line);
+			mini->l_cmd->arg[0]);
 	}
-}
-
-void	take_input(t_mini *mini)
-{
-	mini->read_line = NULL;
-	while (1)
-	{
-		mini->read_line = readline (BLUE_FONT"mminishell-3.2> " RESET_FONT);
-		if (mini->read_line == NULL)
-			exit(0);
-		parse_input(mini);
-		free(mini->read_line);
-	}
-}
-
-int	main(int ac, char **av, const char **env)
-{
-	t_mini	mini;
-	t_env	*l_env;
-
-	g_exit_code = 0;
-	(void) ac;
-	(void) av;
-	l_env = NULL;
-	mini.env = (char *)env;
-	l_env = ft_parse_env(env);
-	mini.l_env = l_env;
-	take_input(&mini);
-	ft_free_env(mini.l_env);
 }

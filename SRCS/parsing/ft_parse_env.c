@@ -6,11 +6,38 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 17:14:29 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/16 01:40:58 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	increase_shlvl(t_env *env, t_mini *mini)
+{
+	t_env	*tmp;
+	int		lvl;
+
+	lvl = 0;
+	tmp = env;
+	while (tmp != NULL)
+	{
+		if (ft_strncmp(tmp->key, "SHLVL", 5) == 0)
+		{
+			lvl = ft_atoi(tmp->value);
+			lvl++;
+			tmp->value = (char *) ft_free(tmp->value);
+			if (lvl > 999)
+				tmp->value = NULL;
+			else
+			{
+				tmp->value = ft_itoa(lvl);
+				if (!tmp->value)
+					ft_exit_shell(mini, 137);
+			}
+		}
+		tmp = tmp->next;
+	}
+}
 
 /**
  * @brief Parses through the enviroment <envp> and allocates the keys
@@ -19,29 +46,28 @@
  * @param envp 
  * @return The enviromental linked list
  */
-t_env	*ft_parse_env(const char **envp)
+void	ft_parse_env(t_mini *mini, const char **envp)
 {
 	t_env	*env_new;
-	t_env	*env_head;
 	t_env	*env_tail;
 
-	env_head = NULL;
 	env_tail = NULL;
 	while (*envp)
 	{
 		env_new = (t_env *) ft_calloc(1, sizeof(t_env));
 		if (!env_new)
-			exit(1);
+			ft_exit_shell(mini, 137);
 		env_new->key = ft_substr(*envp, 0, (ft_strchr(*envp, '=') - *envp));
 		env_new->value = ft_strdup(ft_strchr(*envp++, '=') + 1);
+		env_new->initialised = true;
 		if (!env_new->key || !env_new->value)
-			exit(1);
+			ft_exit_shell(mini, 137);
 		env_new->next = NULL;
-		if (env_head == NULL)
-			env_head = env_new;
+		if (mini->l_env == NULL)
+			mini->l_env = env_new;
 		else
 			env_tail->next = env_new;
 		env_tail = env_new;
 	}
-	return (env_head);
+	increase_shlvl(mini->l_env, mini);
 }

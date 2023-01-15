@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 20:11:57 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/16 01:59:13 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@
 # define BUILTIN 68
 # define PWD 923
 
-// global exit code
-int	g_exit_code;
-
 //builtin exit codes
 # define SUCCESS 0
 # define PWD_FAIL_CODE 2
@@ -68,6 +65,7 @@ enum e_rdr
 typedef struct s_rdr
 {
 	char			*file;
+	int				fd;
 	enum e_rdr		e_rdr;
 	struct s_rdr	*next;
 }	t_rdr;
@@ -77,6 +75,7 @@ typedef struct s_cmd
 {
 	char			**arg;
 	t_rdr			*rdr;
+	int				fd_pipe[2];
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -92,26 +91,25 @@ typedef struct s_env
 // struct with all the other structs in it
 typedef struct s_mini
 {
-	char	*read_line;
-	int		cmd_flag;
+	t_cmd	*l_cmd;
 	t_env	*l_env;
-	char	*env;
+	char	*rl;
+	char	**token;
+	int		cmd_flag;
 }	t_mini;
 
 // temporary functions, tbc if they'd be used or not
+
 int		random_between(int min, int max);
 
-// env parsing
-t_env	*ft_parse_env(const char **envp);
-void	ft_free_env(t_env *env_list);
-
 // builtins
-void	print_env(t_mini *mini);
+
 void	print_pwd(void);
 void	ft_echo(char **args);
 void	ft_export(char **args, t_mini *mini);
 
 // export
+
 void	ft_export(char **args, t_mini *mini);
 void	parse_new_export(char *arg, t_mini *mini);
 void	ft_modify_env(char *arg, t_mini *mini);
@@ -123,13 +121,34 @@ char	*set_env_value(char *arg, t_env *new);
 char	*set_env_key(char *arg);
 void	print_export(t_mini *mini);
 
-t_env	*ft_parse_env(const char **envp);
-t_cmd	*ft_parse_token(char **token);
+// parsing
+
 int		ft_check_rdr(char *string);
+void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, char **token, int *i);
+int		ft_count_till_pipe(char **token);
+void	ft_parse_env(t_mini *mini, const char **envp);
+void	ft_parse_token(t_mini *mini, char **token);
+
+// frees
+
 void	ft_free_cmd(t_cmd *s_cmd);
 void	ft_free_env(t_env *env_list);
-void	ft_populate_cmd(t_cmd *cmd, char **token, int *j, int *i);
-int		ft_count_till_pipe(char **token);
+void	ft_free_cycle(t_mini *mini);
+void	ft_free_all(t_mini *mini);
+
+// exit shell
+
+void	ft_exit_shell(t_mini *mini, int error);
+
+// utils
+
 void	ft_print_cmd(t_cmd *s_head);
+void	print_env(t_mini *mini);
+
+void	parse_input(t_mini *mini);
+
+// global exit code
+
+int	g_exit_code;
 
 #endif

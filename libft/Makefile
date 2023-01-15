@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/15 20:10:50 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/15 22:09:11 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ SRCS	=	ft_atoi.c \
 			ft_tolower.c \
 			ft_toupper.c \
 			get_next_line.c \
-			ft_free.c
+			ft_free.c \
 			fd_parse.c \
 			fd_printf.c \
 			fd_put_address.c \

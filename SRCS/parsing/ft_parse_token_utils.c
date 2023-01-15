@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:48:47 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 18:49:56 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/16 01:47:16 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ int	ft_check_rdr(char *string)
 		return (APPEND);
 	else
 		return (NONE);
+}
+
+/**
+ * @brief iterates through the rdr linked list to fetch the tail.
+ * 
+ * @param rdr_head 
+ * @return a pointer to the tail
+ */
+t_rdr	*ft_get_rdr_tail(t_rdr *rdr_head)
+{
+	t_rdr	*rdr_tail;
+
+	rdr_tail = rdr_head;
+	while (rdr_tail && rdr_tail->next)
+		rdr_tail = rdr_tail->next;
+	return (rdr_tail);
 }
 
 /**
@@ -73,40 +89,25 @@ int	ft_count_till_pipe(char **token)
  * @param i 
  * @return a pointer to the head of the rdr linked list
  */
-t_rdr	*ft_add_to_rdrlist(t_rdr *rdr_head, t_rdr *rdr_tail,
-							char **token, int *i)
+t_rdr	*ft_add_to_rdrlist(t_rdr *rdr_head, char **token, int *i, t_mini *mini)
 {
 	t_rdr	*rdr_new;
+	t_rdr	*rdr_tail;
 
+	rdr_tail = ft_get_rdr_tail(rdr_head);
 	rdr_new = (t_rdr *) ft_calloc(1, sizeof(t_rdr));
 	if (!rdr_new)
-		exit(1);
-	rdr_new->e_rdr = ft_check_rdr(token[(*i)++]);
-	rdr_new->file = ft_strdup(token[*i]);
+		ft_exit_shell(mini, 137);
+	rdr_new->e_rdr = ft_check_rdr(token[(i[0])++]);
+	rdr_new->file = ft_strdup(token[i[0]]);
 	if (!rdr_new->file)
-		exit(1);
+		ft_exit_shell(mini, 137);
 	rdr_new->next = NULL;
 	if (rdr_head == NULL)
 		rdr_head = rdr_new;
 	else
 		rdr_tail->next = rdr_new;
 	return (rdr_head);
-}
-
-/**
- * @brief iterates through the rdr linked list to fetch the tail.
- * 
- * @param rdr_head 
- * @return a pointer to the tail
- */
-t_rdr	*ft_get_rdr_tail(t_rdr *rdr_head)
-{
-	t_rdr	*rdr_tail;
-
-	rdr_tail = rdr_head;
-	while (rdr_tail && rdr_tail->next)
-		rdr_tail = rdr_tail->next;
-	return (rdr_tail);
 }
 
 /**
@@ -118,26 +119,20 @@ t_rdr	*ft_get_rdr_tail(t_rdr *rdr_head)
  * @param j counter for <cmd->arg>
  * @param i counter for <token>
  */
-void	ft_populate_cmd(t_cmd *cmd, char **token, int *j, int *i)
+void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, char **token, int i[0])
 {
-	t_rdr	*rdr_tail;
-
 	cmd->rdr = NULL;
-	rdr_tail = NULL;
-	while (token[*i] && ft_strncmp(token[*i], "|", 2))
+	while (token[i[0]] && ft_strncmp(token[i[0]], "|", 2))
 	{
-		if (ft_check_rdr(token[*i]))
-		{
-			cmd->rdr = ft_add_to_rdrlist(cmd->rdr, rdr_tail, token, i);
-			rdr_tail = ft_get_rdr_tail(cmd->rdr);
-		}
+		if (ft_check_rdr(token[i[0]]))
+			cmd->rdr = ft_add_to_rdrlist(cmd->rdr, token, i, mini);
 		else
 		{
-			cmd->arg[*j] = ft_strdup(token[*i]);
-			if (!cmd->arg[*j])
-				exit(1);
-			(*j)++;
+			cmd->arg[i[1]] = ft_strdup(token[i[0]]);
+			if (!cmd->arg[i[1]])
+				ft_exit_shell(mini, 137);
+			(i[1])++;
 		}
-		(*i)++;
+		(i[0])++;
 	}
 }
