@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:58:43 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 14:07:48 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 14:57:17 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ void	print_export(t_mini *mini)
 	}
 	while (env)
 	{
-		if (env->value)
-			fd_printf(1, "declare -x %s=\"%s\"\n", env->key, env->value);
+		if (env->initialised)
+		{
+			if (env->value == NULL)
+				fd_printf(1, "declare -x %s=\"\"\n", env->key, env->value);
+			else 
+				fd_printf(1, "declare -x %s=\"%s\"\n", env->key, env->value);
+		}
 		else
-			fd_printf(1, "declare -x %s=\"\"\n", env->key);
+			fd_printf(1, "declare -x %s\n", env->key);
 		env = env->next;
 	}
 	exit_code = SUCCESS;
@@ -74,7 +79,7 @@ int	check_export_args(char *arg)
 int	env_already_exist(char *arg, t_mini *mini)
 {
 	t_env	*temp;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	while (arg[i] != '\0' && arg[i] != '=')
@@ -82,7 +87,8 @@ int	env_already_exist(char *arg, t_mini *mini)
 	temp = mini->l_env;
 	while (temp)
 	{
-		if (0 == ft_strncmp(temp->key, arg, i))
+		if (0 == ft_strncmp(temp->key, arg, i) 
+				&& ft_strlen(temp->key) == i)
 			return (1);
 		temp = temp->next;
 	}
@@ -159,7 +165,7 @@ void	ft_modify_env(char *arg, t_mini *mini)
 {
 	t_env	*temp;
 	char	*new_key;
-	int		i;
+	size_t	i;
 
 	new_key = ft_strchr(arg, '=');
 	if (new_key == NULL)
@@ -170,7 +176,8 @@ void	ft_modify_env(char *arg, t_mini *mini)
 	temp = mini->l_env;
 	while (temp)
 	{
-		if (ft_strncmp(temp->key, arg, i) == 0)
+		if (0 == ft_strncmp(temp->key, arg, i) 
+				&& ft_strlen(temp->key) == i)
 			break ;
 		temp = temp->next;
 	}
