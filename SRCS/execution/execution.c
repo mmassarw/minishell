@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 01:05:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 06:54:01 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 07:02:12 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	take_input(t_mini *mini)
 	mini->read_line = NULL;
 	while (1)
 	{
-		mini->read_line = readline (BLUE_FONT"mminishell-3.2>" RESET_FONT);
+		mini->read_line = readline (BLUE_FONT"mminishell-3.2> " RESET_FONT);
 		if (mini->read_line == NULL)
 			exit(0);
 		parse_input(mini);

@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:58:43 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 06:55:33 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 07:01:20 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	env_already_exist(char *arg, t_mini *mini)
 	temp = mini->l_env;
 	while (temp)
 	{
-		if (ft_strncmp(arg, temp->key, i) == 0)
+		if (ft_strncmp(arg, temp->key, ft_strlen(temp->key)) == 0)
 			return (1);
 		temp = temp->next;
 	}
@@ -148,7 +148,7 @@ void	ft_modify_env(char *arg, t_mini *mini)
 	temp = mini->l_env;
 	while (temp)
 	{
-		if (ft_strncmp(arg, temp->key, i) == 0)
+		if (ft_strncmp(arg, temp->key, ft_strlen(temp->key)) == 0)
 			break ;
 		temp = temp->next;
 	}
