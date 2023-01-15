@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 06:21:12 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 15:15:42 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/16 00:46:32 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,18 @@ void	ft_echo(char **args)
 	int	flag;
 
 	flag = 0;
-	g_exit_code = SUCCESS;
 	if (!args[0])
 	{
 		fd_printf(1, "\n");
 		return ;
 	}
+	if (0 == ft_strncmp(args[0], "$?", 3))
+	{
+		printf("exit code is %d\n", g_exit_code);
+		g_exit_code = SUCCESS;
+		return ;
+	}
 	args = trim_echo_args(args, &flag);
 	print_echo(args, flag);
+	g_exit_code = SUCCESS;
 }

@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:58:43 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 15:40:56 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/16 00:29:30 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,21 +97,27 @@ void	ft_export(char **args, t_mini *mini)
 {
 	int		i;
 
-	i = 0;
+	i = -1;
+	if (!mini->l_env)
+	{
+		fd_printf(2, "export: permission denied\n");
+		return ;
+	}
 	if (!args[0])
 	{
 		print_export(mini);
 		return ;
 	}
-	while (args[i] != NULL)
+	while (args[++i] != NULL)
 	{
 		if (check_export_args(args[i]))
 			fd_printf(2, "minishell: export: `%s': not a valid identifier\n",
 				args[i]);
 		else
 			parse_new_export(args[i], mini);
-		i++;
 	}
 	if (g_exit_code == EXPORT_FLAG)
 		g_exit_code = EXPORT_FAIL_CODE;
+	else
+		g_exit_code = 0;
 }

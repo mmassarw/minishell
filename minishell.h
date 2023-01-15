@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 19:47:57 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/16 00:40:25 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 
 // eeror strings
 # define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
+# define UNSET_NO_ARG "unset: not enough arguments\n"
 
 // command flags
 # define BUILTIN 68
@@ -50,6 +51,8 @@ int	g_exit_code;
 # define ENV_FAIL_CODE 1
 # define EXPORT_FAIL_CODE 1
 # define EXPORT_FLAG 654
+# define UNSET_FLAG 456
+# define UNSET_FAIL_CODE 1
 # define COMMAND_FAIL 127
 # define EXIT_FAIL 1
 # define EXIT_ALPHA_CODE 255
@@ -122,5 +125,19 @@ void	add_to_env(char *arg, t_mini *mini);
 char	*set_env_value(char *arg, t_env *new);
 char	*set_env_key(char *arg);
 void	print_export(t_mini *mini);
+
+// unset
+int		check_valid_identifier_export(char *arg);
+int		check_unset_args(char *arg);
+void	free_single_env(t_env *node);
+void	delete_env_list(char *arg, t_mini *mini);
+void	ft_unset(char **args, t_mini *mini);
+
+// exit
+int		arg_count(char **args);
+int		check_exit_alpha(char **args);
+void	exit_and_print(int code);
+void	exit_success(char **args, t_mini *mini);
+void	ft_exit(char **args, t_mini *mini);
 
 #endif
