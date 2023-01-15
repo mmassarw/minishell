@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:32:13 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 18:33:08 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 20:12:29 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,18 @@ char	*get_next_line(int fd);
 //		=================		//
 
 int		ft_printf(const char *arg, ...);
+
+//		=================		//
+//		fd_printf	functions	//
+//		=================		//
+
+int		fd_putchar(int fd, char c);
+int		fd_putnbr(int fd, int nb);
+int		fd_putstr(int fd, char *str);
+int		fd_put_hex(int fd, unsigned int nb, char c);
+int		fd_putnbr_u(int fd, unsigned int nb);
+int		fd_put_address(int fd, unsigned long long nb);
+int		fd_parse(int fd, va_list ptr, char c);
+int		fd_printf(int fd, const char *str, ...);
 
 #endif
