@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/14 06:38:25 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 01:34:56 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,30 @@
  * @param envp 
  * @return The enviromental linked list
  */
+
+void	increase_shlvl(t_env *env)
+{
+	t_env	*tmp;
+	int		lvl;
+
+	lvl = 0;
+	tmp = env;
+	while (tmp != NULL)
+	{
+		if (ft_strncmp(tmp->key, "SHLVL", 5) == 0)
+		{
+			lvl = ft_atoi(tmp->value);
+			lvl++;
+			free (tmp->value);
+			if (lvl > 999)
+				tmp->value = NULL;
+			else
+				tmp->value = ft_itoa(lvl);
+		}
+		tmp = tmp->next;
+	}
+}
+
 t_env	*ft_parse_env(const char **envp)
 {
 	t_env	*env_new;
@@ -34,6 +58,7 @@ t_env	*ft_parse_env(const char **envp)
 		// 	error
 		env_new->key = ft_substr(*envp, 0, (ft_strchr(*envp, '=') - *envp));
 		env_new->value = ft_strdup(ft_strchr(*envp++, '=') + 1);
+		env_new->initialised = true;
 		// if (!env_new->key || !env_new->value)
 		// 	error
 		env_new->next = NULL;
@@ -43,6 +68,7 @@ t_env	*ft_parse_env(const char **envp)
 			env_tail->next = env_new;
 		env_tail = env_new;
 	}
+	increase_shlvl(env_head);
 	return (env_head);
 }
 

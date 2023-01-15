@@ -6,7 +6,7 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/13 02:07:02 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/14 23:36:40 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,11 @@ FCLNLIB	=	@make fclean -C libft
 
 SRCS	=	SRCS/main.c \
 			SRCS/execution/execution.c \
-			SRCS/execution/temp_funs.c
+			SRCS/execution/temp_funs.c \
+			SRCS/execution/ft_parse_env.c \
+			SRCS/execution/builtins.c \
+			SRCS/execution/ft_echo.c \
+			SRCS/execution/ft_export.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -46,12 +50,19 @@ fclean:
 			$(ECHO) "Removing minishell ......."
 			$(RM) $(NAME) $(OBJS)
 
-re:			fclean all
+re:			fclean all clean
 
 exec:		all
 			@./$(NAME)
 
 rexec:		re
 			@./$(NAME)
+
+leaks:
+			make re && make clean \
+			&& valgrind --leak-check=full \
+			--track-origins=yes \
+			--show-leak-kinds=all -s \
+			./minishell
 
 .PHONY: all clean fclean re

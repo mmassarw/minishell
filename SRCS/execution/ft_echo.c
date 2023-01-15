@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 06:21:12 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/14 06:34:40 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:00:25 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,14 @@ char	**trim_echo_args(char **args, int *flag)
 	return (&args[i]);
 }
 
+//	ft_echo receives the command args and not the command itself
+//	ex: echo -n hello world -> receives "-n" "hello" "world"
 void	ft_echo(char **args)
 {
 	int	flag;
 
 	flag = 0;
+	exit_code = SUCCESS;
 	if (!args[0])
 	{
 		fd_printf(1, "\n");

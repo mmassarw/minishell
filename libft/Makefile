@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
+#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/11 12:28:43 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/14 02:22:03 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,16 @@ SRCS	=	ft_atoi.c \
 			ft_substr.c \
 			ft_tolower.c \
 			ft_toupper.c \
-			get_next_line.c
+			get_next_line.c \
+			fd_parse.c \
+			fd_printf.c \
+			fd_put_address.c \
+			fd_put_hex.c \
+			fd_putchar.c \
+			fd_putnbr_u.c \
+			fd_putnbr.c \
+			fd_putstr.c
+			
 
 OBJS	=	$(SRCS:.c=.o)
 
