@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 06:21:12 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/14 19:00:25 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 15:15:42 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_echo(char **args)
 	int	flag;
 
 	flag = 0;
-	exit_code = SUCCESS;
+	g_exit_code = SUCCESS;
 	if (!args[0])
 	{
 		fd_printf(1, "\n");

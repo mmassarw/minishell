@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:10:26 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 06:52:23 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 15:15:17 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_env(t_mini *mini)
 	if (!env)
 	{
 		fd_printf(2, "env: permission denied\n");
-		exit_code = ENV_FAIL_CODE;
+		g_exit_code = ENV_FAIL_CODE;
 		return ;
 	}
 	while (env)
@@ -34,7 +34,7 @@ void	print_env(t_mini *mini)
 		}
 		env = env->next;
 	}
-	exit_code = SUCCESS;
+	g_exit_code = SUCCESS;
 }
 
 // prints the present working directory
@@ -47,11 +47,11 @@ void	print_pwd(void)
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		fd_printf(1, "%s\n", cwd);
-		exit_code = 0;
+		g_exit_code = 0;
 	}
 	else
 	{
 		fd_printf (2, "this error is coming from print_pwd function\n");
-		exit_code = PWD_FAIL_CODE;
+		g_exit_code = PWD_FAIL_CODE;
 	}
 }

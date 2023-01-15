@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 01:05:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/15 15:10:49 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 15:14:34 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	parse_input(t_mini *mini)
 		return ;
 	else
 	{
-		exit_code = COMMAND_FAIL;
+		g_exit_code = COMMAND_FAIL;
 		printf(RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
 			mini->read_line);
 	}
@@ -75,7 +75,7 @@ int	main(int ac, char **av, const char **env)
 	t_mini	mini;
 	t_env	*l_env;
 
-	exit_code = 0;
+	g_exit_code = 0;
 	(void) ac;
 	(void) av;
 	l_env = NULL;

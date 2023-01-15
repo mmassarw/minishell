@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 06:53:27 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/15 15:50:43 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define PWD 923
 
 // global exit code
-int	exit_code;
+int	g_exit_code;
 
 //builtin exit codes
 # define SUCCESS 0
@@ -93,10 +93,10 @@ typedef struct s_mini
 	char	*env;
 }	t_mini;
 
-//temporary functions, tbc if they'd be used or not
+// temporary functions, tbc if they'd be used or not
 int		random_between(int min, int max);
 
-//env parsing
+// env parsing
 t_env	*ft_parse_env(const char **envp);
 void	ft_free_env(t_env *env_list);
 
@@ -105,5 +105,17 @@ void	print_env(t_mini *mini);
 void	print_pwd(void);
 void	ft_echo(char **args);
 void	ft_export(char **args, t_mini *mini);
+
+// export
+void	ft_export(char **args, t_mini *mini);
+void	parse_new_export(char *arg, t_mini *mini);
+void	ft_modify_env(char *arg, t_mini *mini);
+int		env_already_exist(char *arg, t_mini *mini);
+int		check_export_args(char *arg);
+int		check_valid_identifier(char *arg);
+void	add_to_env(char *arg, t_mini *mini);
+char	*set_env_value(char *arg, t_env *new);
+char	*set_env_key(char *arg);
+void	print_export(t_mini *mini);
 
 #endif
