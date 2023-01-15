@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:00:42 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/10 15:14:02 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:08:38 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**ft_split_alloc(char const *s, char c, int *big)
 		while (s[i] && s[i] != c)
 			i++;
 	}
-	p = (char **) malloc((*big + 1) * (sizeof(char *)));
+	p = (char **) ft_calloc((*big + 1), (sizeof(char *)));
 	if (!p)
 		return (NULL);
 	p[*big] = 0;
@@ -63,7 +63,7 @@ char	**ft_split(char const *s, char c)
 			s++;
 		while (s[small] && s[small] != c)
 			small++;
-		p[i] = (char *) malloc((small + 1));
+		p[i] = (char *) ft_calloc((small + 1), sizeof(char));
 		small = 0;
 		while (*s && (*s != c))
 			p[i][small++] = *s++;

@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 07:35:56 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/07 04:56:15 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:12:27 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if (ft_strlen(s) < len)
 		l = ft_strlen(s);
-	p = (char *) malloc(l + 1);
+	p = (char *) ft_calloc(l + 1, sizeof(char));
 	if (!p)
 		return (NULL);
 	if (start > ft_strlen(s))

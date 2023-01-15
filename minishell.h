@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 08:14:23 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:57:51 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ typedef struct s_env
 t_env	*ft_parse_env(const char **envp);
 t_cmd	*ft_parse_token(char **token);
 int		ft_check_rdr(char *string);
-
+void	ft_free_cmd(t_cmd *s_cmd);
+void	ft_free_env(t_env *env_list);
+void	ft_populate_cmd(t_cmd *cmd, char **token, int *j, int *i);
+int		ft_count_till_pipe(char **token);
+void	ft_print_cmd(t_cmd *s_head);
 
 #endif

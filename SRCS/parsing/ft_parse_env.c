@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/13 01:28:36 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 17:14:29 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ t_env	*ft_parse_env(const char **envp)
 
 	env_head = NULL;
 	env_tail = NULL;
-	while(*envp)
+	while (*envp)
 	{
 		env_new = (t_env *) ft_calloc(1, sizeof(t_env));
-		// if (!env_new)
-		// 	error
+		if (!env_new)
+			exit(1);
 		env_new->key = ft_substr(*envp, 0, (ft_strchr(*envp, '=') - *envp));
 		env_new->value = ft_strdup(ft_strchr(*envp++, '=') + 1);
-		// if (!env_new->key || !env_new->value)
-		// 	error
+		if (!env_new->key || !env_new->value)
+			exit(1);
 		env_new->next = NULL;
 		if (env_head == NULL)
 			env_head = env_new;

@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 05:56:17 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/07 06:29:27 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:40:17 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@
  * 
  * @param split 
  */
-void	ft_free_split(char **split)
+void	*ft_free_split(char **split)
 {
 	int	i;
 
 	i = 0;
 	while (split[i])
-		free(split[i++]);
-	free (split);
+	{
+		split[i] = (char *) ft_free(split[i]);
+		i++;
+	}
+	split = (char **) ft_free(split);
+	return (NULL);
 }

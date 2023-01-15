@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:32:13 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/13 02:01:17 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:33:08 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_realloc(void *ptr, size_t size);
+void	*ft_free_split(char **split);
+void	*ft_free(void *ptr);
 
 //		=================		//
 //		str		functions		//
@@ -91,7 +93,7 @@ char	*ft_itoa(int n);
 //		=================		//
 
 char	**ft_split(char const *s, char c);
-void	ft_free_split(char **split);
+void	*ft_free_split(char **split);
 
 //		=================		//
 //		put		functions		//

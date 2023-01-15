@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:51:11 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/07 06:30:35 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:29:22 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_line(char *save)
 	}
 	len_save = ft_strlen(save);
 	len_o = ((unsigned long) ft_strchr(save, '\n') - (unsigned long) save + 1);
-	output = (char *) malloc((len_o + 1));
+	output = (char *) ft_calloc(len_o + 1, sizeof(char));
 	if (!output)
 		return (NULL);
 	ft_strlcpy(output, save, len_o + 1);
@@ -51,8 +51,8 @@ char	*ft_read(int fd, char *save)
 		save[end] = 0;
 		hold_save = ft_line(save);
 		hold_new = ft_strjoin(output, hold_save);
-		free (output);
-		free (hold_save);
+		output = (char *) ft_free(output);
+		hold_save = (char *) ft_free(hold_save);
 		output = hold_new;
 	}
 	return (output);
@@ -79,7 +79,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!output[0])
 	{
-		free (output);
+		ft_free(output);
 		return (NULL);
 	}
 	return (output);
