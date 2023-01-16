@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/17 01:50:12 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:09:54 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	add_shlvl(t_env *env)
 	temp->next = new;
 }
 
-void	increase_shlvl(t_mini *mini, t_env *env)
+void	increase_shlvl(t_env *env, t_mini *mini)
 {
 	t_env	*tmp;
 	int		lvl;
