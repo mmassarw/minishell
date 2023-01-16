@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 01:05:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/17 02:01:04 by mmassarw         ###   ########.fr       */
+/*   Created: 2023/01/16 00:37:39 by hakaddou          #+#    #+#             */
+/*   Updated: 2023/01/16 23:54:04 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,16 @@ int	check_exit_alpha(char **args)
 void	exit_and_print(int code)
 {
 	printf("exit\n");
+	printf("exit code is %d before exiting\n", g_exit_code);
 	exit (code);
 }
 
-void	exit_success(t_mini *mini)
+void	exit_success(char **args, t_mini *mini)
 {
-	ft_free_all(mini);
+	free(mini->read_line);
+	ft_free_split(args);
+	ft_free_env(mini->l_env);
+	g_exit_code = 0;
 	exit_and_print(0);
 }
 
@@ -61,12 +65,13 @@ void	exit_success(t_mini *mini)
 // after merging with parsing as  ft_exit current frees
 // the readline which should not be the case
 // as parsing parses the readline
+
 void	ft_exit(char **args, t_mini *mini)
 {
 	int	code;
 
 	if (!args[1])
-		exit_success(mini);
+		exit_success(args, mini);
 	else if (2 < arg_count(args))
 	{
 		fd_printf(2, "minishell: exit: too many arguments\n");
@@ -78,45 +83,9 @@ void	ft_exit(char **args, t_mini *mini)
 		code = EXIT_ALPHA_CODE;
 	else
 		code = ft_atoi(args[1]) % 256;
-	free(mini->l_cmd->arg[0]);
+	free(mini->read_line);
 	ft_free_split(args);
 	ft_free_env(mini->l_env);
+	g_exit_code = code;
 	exit_and_print(code);
-}
-
-// parse_input expects clean input from l_cmd->arg[0]
-// some args are being free like the echo args as
-// they're being split, after merging, the freeing should be removed
-// and replaced with a speacial freeing function
-void	parse_input(t_mini *mini)
-{
-	if (ft_strncmp(mini->l_cmd->arg[0], "pwd", 4) == 0)
-		print_pwd();
-	else if (ft_strncmp(mini->l_cmd->arg[0], "exit", 5) == 0
-		|| mini->l_cmd->arg[0][0] == 'q')
-	{
-		ft_exit(mini->l_cmd->arg, mini);
-	}
-	else if (ft_strncmp(mini->l_cmd->arg[0], "env", 4) == 0)
-		print_env(mini);
-	else if (ft_strncmp(mini->l_cmd->arg[0], "echo", 5) == 0)
-	{
-		mini->l_cmd->arg = ft_split(mini->l_cmd->arg[0], ' ');
-		ft_echo(&mini->l_cmd->arg[1]);
-		ft_free_split(mini->l_cmd->arg);
-	}
-	else if (ft_strncmp(mini->l_cmd->arg[0], "export", 7) == 0)
-	{
-		mini->l_cmd->arg = ft_split(mini->l_cmd->arg[0], ' ');
-		ft_export(&mini->l_cmd->arg[1], mini);
-		ft_free_split(mini->l_cmd->arg);
-	}
-	else if (!mini->l_cmd->arg[0][0])
-		return ;
-	else
-	{
-		g_exit_code = COMMAND_FAIL;
-		printf(RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
-			mini->l_cmd->arg[0]);
-	}
 }

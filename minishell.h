@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/16 01:59:13 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/17 01:51:56 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
 # include <errno.h>
@@ -36,6 +37,7 @@
 
 // eeror strings
 # define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
+# define UNSET_NO_ARG "unset: not enough arguments\n"
 
 // command flags
 # define BUILTIN 68
@@ -47,6 +49,8 @@
 # define ENV_FAIL_CODE 1
 # define EXPORT_FAIL_CODE 1
 # define EXPORT_FLAG 654
+# define UNSET_FLAG 456
+# define UNSET_FAIL_CODE 1
 # define COMMAND_FAIL 127
 # define EXIT_FAIL 1
 # define EXIT_ALPHA_CODE 255
@@ -107,6 +111,8 @@ int		random_between(int min, int max);
 void	print_pwd(void);
 void	ft_echo(char **args);
 void	ft_export(char **args, t_mini *mini);
+void	ft_unset(char **args, t_mini *mini);
+void	ft_exit(char **args, t_mini *mini);
 
 // export
 
@@ -150,5 +156,26 @@ void	parse_input(t_mini *mini);
 // global exit code
 
 int	g_exit_code;
+
+// unset
+void	ft_unset(char **args, t_mini *mini);
+int		check_valid_identifier_export(char *arg);
+int		check_unset_args(char *arg);
+void	free_single_env(t_env *node);
+void	delete_env_list(char *arg, t_mini *mini);
+
+// exit
+void	ft_exit(char **args, t_mini *mini);
+int		arg_count(char **args);
+int		check_exit_alpha(char **args);
+void	exit_and_print(int code);
+void	exit_success(char **args, t_mini *mini);
+
+// env **char conversion from linked list
+void	*perror_return(char *str, void *ret);
+int		return_env_size(t_env *env);
+char	*join_key_val(char *key, char *value);
+char	*join_key_eq(char *key, t_env *env);
+char	**convert_env(t_mini *mini);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/15 22:45:26 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/17 01:52:50 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ SRCS	=	SRCS/main.c \
 			SRCS/utils/ft_free_list.c \
 			SRCS/utils/ft_print_list.c \
 			SRCS/utils/temp_funs.c \
+			SRCS/execution/ft_unset.c \
+			SRCS/execution/ft_exit.c \
+			SRCS/execution/env_conv.c
 
 OBJS	=	$(SRCS:.c=.o)
 
