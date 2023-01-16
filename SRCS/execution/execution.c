@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 01:05:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/17 02:28:03 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:49:40mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,11 @@ void	parse_input(t_mini *mini)
 		print_env(mini);
 	else if (ft_strncmp(mini->l_cmd->arg[0], "echo", 5) == 0)
 	{
-		mini->l_cmd->arg = ft_split(mini->l_cmd->arg[0], ' ');
 		ft_echo(&mini->l_cmd->arg[1]);
-		ft_free_split(mini->l_cmd->arg);
 	}
 	else if (ft_strncmp(mini->l_cmd->arg[0], "export", 7) == 0)
 	{
-		mini->l_cmd->arg = ft_split(mini->l_cmd->arg[0], ' ');
 		ft_export(&mini->l_cmd->arg[1], mini);
-		ft_free_split(mini->l_cmd->arg);
 	}
 	else if (!mini->l_cmd->arg[0][0])
 		return ;
