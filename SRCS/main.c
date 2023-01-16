@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/16 17:30:25 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:52:44 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	take_input(t_mini *mini)
 		if (!mini->token)
 			ft_exit_shell(mini, 137);
 		ft_parse_token(mini, mini->token);
-		// ft_print_cmd(mini->l_cmd);
-		parse_input(mini);
+		ft_print_cmd(mini->l_cmd);
+		if (mini->l_cmd)
+			parse_input(mini);
 		ft_free_cycle(mini);
 	}
 }
