@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 00:37:39 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/17 02:26:06 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/17 03:05:01 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,12 @@ void	ft_exit(char **args, t_mini *mini)
 		return ;
 	}
 	if (check_exit_alpha(&args[1]))
+	{
 		code = EXIT_ALPHA_CODE;
+		return ;
+	}
 	else
 		code = ft_atoi(args[1]) % 256;
+	fd_printf(1,"exit\n");
 	ft_exit_shell(mini, code);
 }

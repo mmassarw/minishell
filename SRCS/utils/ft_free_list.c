@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/17 02:29:31 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/17 03:05:10 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,5 @@ void	ft_exit_shell(t_mini *s_mini, int error)
 {
 	g_exit_code = error;
 	ft_free_all(s_mini);
-	fd_printf(1, "exit\n");
 	exit(g_exit_code);
 }
