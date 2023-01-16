@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/16 23:49:26 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/17 01:35:14 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,12 @@ int		arg_count(char **args);
 int		check_exit_alpha(char **args);
 void	exit_and_print(int code);
 void	exit_success(char **args, t_mini *mini);
+
+// env **char conversion from linked list
+void	*perror_return(char *str, void *ret);
+int		return_env_size(t_env *env);
+char	*join_key_val(char *key, char *value);
+char	*join_key_eq(char *key, t_env *env);
+char	**convert_env(t_mini *mini);
 
 #endif

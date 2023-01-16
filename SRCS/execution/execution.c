@@ -6,91 +6,11 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 01:05:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/17 01:18:56 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/17 01:33:42 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-// prints the error message to STD ERROR
-// passed and returns NULL
-void	*perror_return(char *str)
-{
-	fd_printf(2, "%s", str);
-	return (NULL);
-}
-
-int	return_env_size(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (env)
-	{
-		env = env->next;
-		i++;
-	}
-	return (i);
-}
-
-char	*join_key_val(char *key, char *value)
-{
-	char	*str;
-
-	str = ft_strjoin(key, "=");
-	str = ft_strjoin(str, value);
-	return (str);
-}
-
-char	*join_key_eq(char *key, t_env *env)
-{
-	char	*str;
-
-	str = ft_strjoin(key, "=");
-	free(env->value);
-	env->value = NULL;
-	return (str);
-}
-
-char	**convert_env(t_mini *mini)
-{
-	t_env	*env;
-	char	**s_env;
-	int		i;
-
-	env = mini->l_env;
-	if (!env)
-		return (perror_return("conv_env_function fail\n"));
-	i = return_env_size(env);
-	s_env = ft_calloc(sizeof(char *), i + 1);
-	i = 0;
-	while (env != NULL)
-	{
-		if (env->initialised == true)
-		{
-			if (env->value == NULL)
-				s_env[i] = join_key_eq(env->key, env);
-			else
-				s_env[i] = join_key_val(env->key, env->value);
-			i++;
-		}
-		env = env->next;
-	}
-	s_env[i] = NULL;
-	return (s_env);
-}
-
-void	print_env_char(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i] != NULL)
-	{
-		printf("%s\n", args[i]);
-		i++;
-	}
-}
 
 // parse_input expects clean input from read_line
 // some args are being free like the echo args as
@@ -101,9 +21,7 @@ void	parse_input(t_mini *mini)
 	char	**args;
 	int		id;
 
-	if (ft_strncmp(mini->read_line, "print", 6) == 0)
-		print_env_char(convert_env(mini));
-	else if (ft_strncmp(mini->read_line, "pwd", 4) == 0)
+	if (ft_strncmp(mini->read_line, "pwd", 4) == 0)
 		print_pwd();
 	else if (ft_strncmp(mini->read_line, "exit", 4) == 0
 		|| mini->read_line[0] == 'q')

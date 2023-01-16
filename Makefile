@@ -6,7 +6,7 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/16 00:40:53 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/17 01:38:44 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRCS	=	SRCS/main.c \
 			SRCS/execution/ft_export.c \
 			SRCS/execution/export_utils.c \
 			SRCS/execution/ft_unset.c \
-			SRCS/execution/ft_exit.c
+			SRCS/execution/ft_exit.c \
+			SRCS/execution/env_conv.c
 
 OBJS	=	$(SRCS:.c=.o)
 
