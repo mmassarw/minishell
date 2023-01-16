@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 01:34:56 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/17 01:21:15 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,48 @@
  * @return The enviromental linked list
  */
 
+void	add_shlvl(t_env *env)
+{
+	t_env	*temp;
+	t_env	*new;
+
+	temp = env;
+	new = ft_calloc(sizeof(t_env), 1);
+	new->initialised = true;
+	new->key = ft_strdup("SHLVL");
+	new->value = ft_strdup("1");
+	new->next = NULL;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = new;
+}
+
 void	increase_shlvl(t_env *env)
 {
 	t_env	*tmp;
 	int		lvl;
+	bool	found;
 
+	found = false;
 	lvl = 0;
 	tmp = env;
 	while (tmp != NULL)
 	{
-		if (ft_strncmp(tmp->key, "SHLVL", 5) == 0)
+		if (ft_strncmp(tmp->key, "SHLVL", 6) == 0)
 		{
+			found = true;
 			lvl = ft_atoi(tmp->value);
 			lvl++;
 			free (tmp->value);
-			if (lvl > 999)
+			if (lvl > 999 || lvl < 0)
 				tmp->value = NULL;
 			else
 				tmp->value = ft_itoa(lvl);
 		}
 		tmp = tmp->next;
 	}
+	if (!found)
+		add_shlvl(env);
 }
 
 t_env	*ft_parse_env(const char **envp)

@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/16 00:40:25 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:49:26 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
 # include <errno.h>
@@ -113,6 +114,8 @@ void	print_env(t_mini *mini);
 void	print_pwd(void);
 void	ft_echo(char **args);
 void	ft_export(char **args, t_mini *mini);
+void	ft_unset(char **args, t_mini *mini);
+void	ft_exit(char **args, t_mini *mini);
 
 // export
 void	ft_export(char **args, t_mini *mini);
@@ -127,17 +130,17 @@ char	*set_env_key(char *arg);
 void	print_export(t_mini *mini);
 
 // unset
+void	ft_unset(char **args, t_mini *mini);
 int		check_valid_identifier_export(char *arg);
 int		check_unset_args(char *arg);
 void	free_single_env(t_env *node);
 void	delete_env_list(char *arg, t_mini *mini);
-void	ft_unset(char **args, t_mini *mini);
 
 // exit
+void	ft_exit(char **args, t_mini *mini);
 int		arg_count(char **args);
 int		check_exit_alpha(char **args);
 void	exit_and_print(int code);
 void	exit_success(char **args, t_mini *mini);
-void	ft_exit(char **args, t_mini *mini);
 
 #endif

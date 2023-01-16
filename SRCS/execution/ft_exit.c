@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 00:37:39 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/16 00:48:41 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:54:04 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	check_exit_alpha(char **args)
 void	exit_and_print(int code)
 {
 	printf("exit\n");
+	printf("exit code is %d before exiting\n", g_exit_code);
 	exit (code);
 }
 
@@ -54,6 +55,7 @@ void	exit_success(char **args, t_mini *mini)
 	free(mini->read_line);
 	ft_free_split(args);
 	ft_free_env(mini->l_env);
+	g_exit_code = 0;
 	exit_and_print(0);
 }
 
@@ -84,5 +86,6 @@ void	ft_exit(char **args, t_mini *mini)
 	free(mini->read_line);
 	ft_free_split(args);
 	ft_free_env(mini->l_env);
+	g_exit_code = code;
 	exit_and_print(code);
 }
