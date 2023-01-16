@@ -6,21 +6,26 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/16 02:08:29 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/16 17:44:41 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_free_cmd(t_cmd *s_cmd)
+/**
+ * @brief frees and sets the linked list <l_cmd> to NULL
+ * 
+ * @param l_cmd 
+ */
+void	ft_free_cmd(t_cmd *l_cmd)
 {
 	t_rdr	*current_rdr;
 	t_rdr	*next_rdr;
 	t_cmd	*next_cmd;
 
-	while (s_cmd != NULL)
+	while (l_cmd != NULL)
 	{
-		current_rdr = s_cmd->rdr;
+		current_rdr = l_cmd->rdr;
 		while (current_rdr != NULL)
 		{
 			current_rdr->file = (char *) ft_free(current_rdr->file);
@@ -28,45 +33,68 @@ void	ft_free_cmd(t_cmd *s_cmd)
 			current_rdr = (t_rdr *) ft_free(current_rdr);
 			current_rdr = next_rdr;
 		}
-		if (s_cmd->arg)
-			s_cmd->arg = (char **) ft_free_split(s_cmd->arg);
-		next_cmd = s_cmd->next;
-		s_cmd = (t_cmd *) ft_free(s_cmd);
-		s_cmd = next_cmd;
+		if (l_cmd->arg)
+			l_cmd->arg = (char **) ft_free_split(l_cmd->arg);
+		next_cmd = l_cmd->next;
+		l_cmd = (t_cmd *) ft_free(l_cmd);
+		l_cmd = next_cmd;
 	}
 }
 
-void	ft_free_env(t_env *env_list)
+/**
+ * @brief frees and sets the linked list <l_env> to NULL
+ * 
+ * @param l_env 
+ */
+void	ft_free_env(t_env *l_env)
 {
 	t_env	*env_head;
 
-	env_head = env_list;
+	env_head = l_env;
 	while (env_head)
 	{
-		env_list = env_head;
-		env_head = env_list->next;
-		env_list->key = (char *) ft_free(env_list->key);
-		env_list->value = (char *) ft_free(env_list->value);
-		env_list = (t_env *) ft_free(env_list);
+		l_env = env_head;
+		env_head = l_env->next;
+		l_env->key = (char *) ft_free(l_env->key);
+		l_env->value = (char *) ft_free(l_env->value);
+		l_env = (t_env *) ft_free(l_env);
 	}
 }
 
-void	ft_free_cycle(t_mini *mini)
+/**
+ * @brief frees the elemnts that need to be replaced
+ * and sets those elements struct <s_mini> to NULL.
+ * 
+ * @param s_mini 
+ */
+void	ft_free_cycle(t_mini *s_mini)
 {
-	ft_free_cmd(mini->l_cmd);
-	mini->rl = (char *) ft_free(mini->rl);
-	mini->token = (char **) ft_free_split(mini->token);
+	ft_free_cmd(s_mini->l_cmd);
+	s_mini->rl = (char *) ft_free(s_mini->rl);
+	s_mini->token = (char **) ft_free_split(s_mini->token);
 }
 
-void	ft_free_all(t_mini *mini)
+/**
+ * @brief frees and sets the struct <s_mini> to NULL
+ * 
+ * @param s_mini 
+ */
+void	ft_free_all(t_mini *s_mini)
 {
-	ft_free_cycle(mini);
-	ft_free_env(mini->l_env);
+	ft_free_cycle(s_mini);
+	ft_free_env(s_mini->l_env);
 }
 
-void	ft_exit_shell(t_mini *mini, int error)
+/**
+ * @brief frees the struct <s_mini>
+ * and exits the program with the exit code <error>
+ * 
+ * @param s_mini 
+ * @param error 
+ */
+void	ft_exit_shell(t_mini *s_mini, int error)
 {
 	g_exit_code = error;
-	ft_free_all(mini);
+	ft_free_all(s_mini);
 	exit(g_exit_code);
 }

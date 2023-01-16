@@ -6,12 +6,18 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/16 01:40:58 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/16 17:31:49 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+/**
+ * @brief incriments shell lvl <SHLVL>
+ * 
+ * @param env 
+ * @param mini 
+ */
 void	increase_shlvl(t_env *env, t_mini *mini)
 {
 	t_env	*tmp;
