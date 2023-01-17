@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/17 01:51:56 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/18 00:00:03 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,15 @@
 # define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
 # define UNSET_NO_ARG "unset: not enough arguments\n"
 
+// PATHS
+# define NORM_PATH "/Users/hakaddou/Desktop/minishell/minishell"
+# define VALG_PATH "/home/vscode/src/minishell"
+
 // command flags
 # define BUILTIN 68
 # define PWD 923
+# define VALUE 432
+# define KEY 645
 
 //builtin exit codes
 # define SUCCESS 0
@@ -54,6 +60,7 @@
 # define COMMAND_FAIL 127
 # define EXIT_FAIL 1
 # define EXIT_ALPHA_CODE 255
+# define CD_FAIL 1
 
 // redirections enumiration
 enum e_rdr
@@ -144,7 +151,7 @@ void	ft_free_all(t_mini *mini);
 
 // exit shell
 
-void	ft_exit_shell(t_mini *mini, int error);
+void	ft_exit_shell(t_mini *m, int er, char *p_er, int fd);
 
 // utils
 

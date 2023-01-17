@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/17 19:29:01 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/17 23:34:58 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_free_env(t_env *l_env)
 void	ft_free_cycle(t_mini *s_mini)
 {
 	ft_free_cmd(s_mini->l_cmd);
+	s_mini->l_cmd = NULL;
 	s_mini->rl = (char *) ft_free(s_mini->rl);
 	s_mini->token = (char **) ft_free_split(s_mini->token);
 }
@@ -92,9 +93,11 @@ void	ft_free_all(t_mini *s_mini)
  * @param s_mini 
  * @param error 
  */
-void	ft_exit_shell(t_mini *s_mini, int error)
+void	ft_exit_shell(t_mini *s_mini, int error, char *p_err, int fd)
 {
 	g_exit_code = error;
 	ft_free_all(s_mini);
+	if (p_err)
+		fd_printf(fd, "%s", p_err);
 	exit(g_exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/17 19:37:48 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/18 00:41:29 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	take_input(t_mini *mini)
 	{
 		mini->rl = readline (BLUE_FONT"mminishell-3.2> " RESET_FONT);
 		if (mini->rl == NULL)
-			ft_exit_shell(mini, 0);
+			ft_exit_shell(mini, 0, "exit\n", 1);
 		if (mini->rl[0] != '\0')
 			add_history(mini->rl);
 		mini->token = ft_split(mini->rl, ' ');
 		if (!mini->token)
-			ft_exit_shell(mini, 137);
+			ft_exit_shell(mini, 137, "no token\n", 2);
 		ft_parse_token(mini, mini->token);
-		// ft_print_cmd(mini->l_cmd);
 		if (mini->l_cmd)
 			parse_input(mini);
 		ft_free_cycle(mini);
 	}
 }
+		// ft_print_cmd(mini->l_cmd);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -38,7 +38,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void) argc;
 	(void) argv;
-	g_exit_code = 0;
 	ft_bzero(&mini, sizeof(t_mini));
 	ft_parse_env(&mini, (const char **)envp);
 	take_input(&mini);
