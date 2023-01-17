@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
+#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/17 01:52:50 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/17 12:53:25 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ fclean:
 			$(ECHO) "Removing minishell ......."
 			$(RM) $(NAME) $(OBJS)
 
-re:			fclean all
+re:			fclean all clean
 
 exec:		all
 			@./$(NAME)

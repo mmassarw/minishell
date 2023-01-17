@@ -22,19 +22,15 @@ void	parse_input(t_mini *mini)
 		print_pwd();
 	else if (ft_strncmp(mini->l_cmd->arg[0], "exit", 5) == 0
 		|| mini->l_cmd->arg[0][0] == 'q')
-	{
 		ft_exit(mini->l_cmd->arg, mini);
-	}
 	else if (ft_strncmp(mini->l_cmd->arg[0], "env", 4) == 0)
 		print_env(mini);
 	else if (ft_strncmp(mini->l_cmd->arg[0], "echo", 5) == 0)
-	{
 		ft_echo(&mini->l_cmd->arg[1]);
-	}
 	else if (ft_strncmp(mini->l_cmd->arg[0], "export", 7) == 0)
-	{
 		ft_export(&mini->l_cmd->arg[1], mini);
-	}
+	else if (ft_strncmp(mini->l_cmd->arg[0], "unset", 5) == 0)
+		ft_unset(&mini->l_cmd->arg[1], mini);
 	else if (!mini->l_cmd->arg[0][0])
 		return ;
 	else
