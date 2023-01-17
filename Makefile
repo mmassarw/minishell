@@ -6,7 +6,7 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/17 12:53:25 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/17 19:33:13 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ rexec:		re
 leaks:
 			make re && make clean \
 			&& valgrind --leak-check=full \
+			--suppressions=.rl.supp \
 			--track-origins=yes \
 			--show-leak-kinds=all -s \
 			./minishell
