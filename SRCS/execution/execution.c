@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/18 00:42:28 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/19 01:38:22 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,31 +86,129 @@ void	ft_cd(char **args, t_mini *mini)
 	}
 }
 
-void	parse_input(t_mini *mini)
+int	builtin_check(t_mini *mini)
 {
-	if (ft_strncmp(mini->l_cmd->arg[0], "pwd", 4) == 0)
+	if (!mini->l_cmd->arg[0][0])
+	{
+		fd_printf(2, "minishell: : command not found\n");
+		g_exit_code = COMMAND_FAIL;
+		return (0);
+	}
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "pwd", 4))
 		print_pwd();
-	else if (ft_strncmp(mini->l_cmd->arg[0], "cd", 3) == 0)
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "cd", 3))
 		ft_cd(&mini->l_cmd->arg[1], mini);
-	else if (ft_strncmp(mini->l_cmd->arg[0], "exit", 5) == 0
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "exit", 5)
 		|| mini->l_cmd->arg[0][0] == 'q')
 		ft_exit(mini->l_cmd->arg, mini);
-	else if (ft_strncmp(mini->l_cmd->arg[0], "env", 4) == 0)
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "env", 4))
 		print_env(mini);
-	else if (ft_strncmp(mini->l_cmd->arg[0], "echo", 5) == 0)
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "echo", 5))
 		ft_echo(&mini->l_cmd->arg[1]);
-	else if (ft_strncmp(mini->l_cmd->arg[0], "export", 7) == 0)
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "export", 7))
 		ft_export(&mini->l_cmd->arg[1], mini);
-	else if (ft_strncmp(mini->l_cmd->arg[0], "unset", 5) == 0)
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "unset", 5))
 		ft_unset(&mini->l_cmd->arg[1], mini);
-	else if (ft_strncmp(mini->l_cmd->arg[0], "./", 2) == 0)
-		execute_ve_cmd(mini);
-	else if (!mini->l_cmd->arg[0][0])
+	else
+		return (1);
+	return (0);
+}
+
+// pipex functions
+char	*split_and_join(char *av_cmd, char *splitted)
+{
+	char	*str;
+	char	*path;
+
+	str = ft_strjoin("/", av_cmd);
+	path = ft_strjoin(splitted, str);
+	free(str);
+	return (path);
+}
+
+int	word_count(char const *s, char c)
+{
+	int	i;
+	int	cnt;
+	int	done;
+
+	i = 0;
+	cnt = 0;
+	done = 1;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c && !done)
+			done = 1;
+		else if (s[i] != c && done)
+		{
+			++cnt;
+			done = 0;
+		}
+		++i;
+	}
+	return (cnt);
+}
+
+char	*get_path(char *cmd, char *env)
+{
+	int		i;
+	char	*str;
+	char	**splitted;
+
+	if (access(cmd, X_OK) == 0)
+		return (ft_strdup(cmd));
+	splitted = ft_split(env, ':');
+	i = -1;
+	while (++i < word_count(env, ':'))
+	{
+		str = split_and_join(cmd, splitted[i]);
+		if (access(str, X_OK) == 0)
+			break ;
+		free(splitted[i]);
+		splitted[i] = NULL;
+		free(str);
+		str = NULL;
+	}
+	while (splitted[i] != NULL)
+	{
+		free(splitted[i]);
+		splitted[i++] = NULL;
+	}
+	free(splitted);
+		splitted = NULL;
+	return (str);
+}
+
+// pipex functions up
+
+void	parse_input(t_mini *mini)
+{
+	if (builtin_check(mini) == 0)
 		return ;
+	if (!mini->l_cmd->arg[0][0])
+	return ;
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "./", 2))
+		execute_ve_cmd(mini);
 	else
 	{
-		g_exit_code = COMMAND_FAIL;
-		printf(RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
-			mini->l_cmd->arg[0]);
+		char *cmd_path =  get_path(mini->l_cmd->arg[0], find_str_env("PATH", mini, VALUE));
+		if (cmd_path)
+		{
+			// fd_printf(1, "cmd path is %s\n", cmd_path);
+			int	id;
+			id = fork();
+			if (id == 0)
+				execve(cmd_path, mini->l_cmd->arg, convert_env(mini));
+			else
+				wait (NULL);
+			free (cmd_path);
+		}
+		else
+		{
+			g_exit_code = COMMAND_FAIL;
+			printf(RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
+				mini->l_cmd->arg[0]);
+		}
+			
 	}
 }

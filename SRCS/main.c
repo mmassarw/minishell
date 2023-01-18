@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/18 00:41:29 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/19 01:27:46 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	take_input(t_mini *mini)
 		if (!mini->token)
 			ft_exit_shell(mini, 137, "no token\n", 2);
 		ft_parse_token(mini, mini->token);
+		// ft_print_cmd(mini->l_cmd);
 		if (mini->l_cmd)
 			parse_input(mini);
 		ft_free_cycle(mini);
 	}
 }
-		// ft_print_cmd(mini->l_cmd);
 
 int	main(int argc, char **argv, char **envp)
 {

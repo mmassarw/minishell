@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:57:41 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/16 17:45:34 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/19 00:45:21 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_print_cmd(t_cmd *s_head)
 	current = s_head;
 	while (current != NULL)
 	{
-		printf(">>>>>>>> %d <<<<<<<<<\n", list++);
+		printf(">>>>>>>> %d <<<<<<<<<\n", ++list);
 		printf("Command: ");
 		ft_print_split(current->arg);
 		printf("\nRedirections: ");
