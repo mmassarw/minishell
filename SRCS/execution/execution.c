@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/19 01:38:22 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/19 04:16:44 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,22 +183,43 @@ char	*get_path(char *cmd, char *env)
 
 void	parse_input(t_mini *mini)
 {
+	char	**envc;
+	int		id;
 	if (builtin_check(mini) == 0)
 		return ;
 	if (!mini->l_cmd->arg[0][0])
 	return ;
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "./", 2))
-		execute_ve_cmd(mini);
-	else
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "./", 2) && mini->l_cmd->arg[0][2] != '\0')
 	{
+		id = fork();
+		if (id == 0)
+		{
+			envc = convert_env(mini);
+			if (execve(mini->l_cmd->arg[0], mini->l_cmd->arg, convert_env(mini)) == -1)
+				ft_free_split(envc);
+		}
+		else
+			wait(NULL);
+	}
+	else if (!ft_strchr(mini->l_cmd->arg[0], '.'))
+	{
+		if (find_str_env("PATH", mini, KEY) == NULL)
+		{
+			g_exit_code = COMMAND_FAIL;
+			printf(RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
+				mini->l_cmd->arg[0]);
+			return ;
+		}
 		char *cmd_path =  get_path(mini->l_cmd->arg[0], find_str_env("PATH", mini, VALUE));
 		if (cmd_path)
 		{
-			// fd_printf(1, "cmd path is %s\n", cmd_path);
-			int	id;
 			id = fork();
 			if (id == 0)
-				execve(cmd_path, mini->l_cmd->arg, convert_env(mini));
+			{
+				envc = convert_env(mini);
+				if (execve(cmd_path, mini->l_cmd->arg, convert_env(mini)) == -1)
+					ft_free_split(envc);
+			}
 			else
 				wait (NULL);
 			free (cmd_path);
