@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/18 00:00:03 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/20 23:52:18 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void	ft_echo(char **args);
 void	ft_export(char **args, t_mini *mini);
 void	ft_unset(char **args, t_mini *mini);
 void	ft_exit(char **args, t_mini *mini);
+int		builtin_check(t_mini *mini);
 
 // export
 
@@ -141,6 +142,7 @@ void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, char **token, int *i);
 int		ft_count_till_pipe(char **token);
 void	ft_parse_env(t_mini *mini, const char **envp);
 void	ft_parse_token(t_mini *mini, char **token);
+void	set_env_underscore(char *cmd, t_mini *mini);
 
 // frees
 
@@ -178,11 +180,21 @@ int		check_exit_alpha(char **args);
 void	exit_and_print(int code);
 void	exit_success(char **args, t_mini *mini);
 
+// chdir (cd)
+void	ft_cd(char **args, t_mini *mini);
+void	go_to_home(t_mini *mini);
+char	*find_str_env(char *arg, t_mini *mini, int flag);
+
 // env **char conversion from linked list
 void	*perror_return(char *str, void *ret);
 int		return_env_size(t_env *env);
 char	*join_key_val(char *key, char *value);
 char	*join_key_eq(char *key, t_env *env);
 char	**convert_env(t_mini *mini);
+
+// get path srcs
+char	*split_and_join(char *av_cmd, char *splitted);
+int		word_count(char const *s, char c);
+char	*get_path(char *cmd, char *env);
 
 #endif

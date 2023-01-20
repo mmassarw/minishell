@@ -6,7 +6,7 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/17 19:33:13 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/20 19:13:03 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ SRCS	=	SRCS/main.c \
 			SRCS/utils/temp_funs.c \
 			SRCS/execution/ft_unset.c \
 			SRCS/execution/ft_exit.c \
-			SRCS/execution/env_conv.c
+			SRCS/execution/env_conv.c \
+			SRCS/execution/ft_cd.c \
+			SRCS/execution/get_path_srcs.c
 
 OBJS	=	$(SRCS:.c=.o)
 
