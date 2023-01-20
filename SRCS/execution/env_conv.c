@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:32:26 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/20 16:29:29 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/20 23:59:53 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**convert_env(t_mini *mini)
 
 	env = mini->l_env;
 	if (!env)
-		return (perror_return("conv_env_function fail\n", NULL));
+		return (NULL);
 	i = return_env_size(env);
 	s_env = ft_calloc(sizeof(char *), i + 1);
 	i = 0;

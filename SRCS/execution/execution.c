@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/20 23:51:43 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 00:20:12 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	execute_pathed_cmd(t_mini *mini)
 
 void	parse_input(t_mini *mini)
 {
-	if (builtin_check(mini) == 0)
+	if (!builtin_check(mini))
 		return ;
 	if (!mini->l_cmd->arg[0][0])
 		return ;
