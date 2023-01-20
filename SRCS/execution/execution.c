@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/19 04:16:44 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:48:27 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,6 @@ char	*get_path(char *cmd, char *env)
 	char	*str;
 	char	**splitted;
 
-	if (access(cmd, X_OK) == 0)
-		return (ft_strdup(cmd));
 	splitted = ft_split(env, ':');
 	i = -1;
 	while (++i < word_count(env, ':'))
@@ -181,6 +179,23 @@ char	*get_path(char *cmd, char *env)
 
 // pipex functions up
 
+void set_env_underscore(char *cmd, t_mini *mini)
+{
+	t_env	*tmp;
+
+	tmp = mini->l_env;
+	while (tmp)
+	{
+		if (ft_strncmp("_=", tmp->key, 2) && ft_strlen(tmp->key) == 1)
+			break ;
+		tmp = tmp->next;
+	}
+	if (tmp == NULL)
+		return ;
+	free (tmp->value);
+	tmp->value = ft_strdup(cmd);
+}
+
 void	parse_input(t_mini *mini)
 {
 	char	**envc;
@@ -189,36 +204,54 @@ void	parse_input(t_mini *mini)
 		return ;
 	if (!mini->l_cmd->arg[0][0])
 	return ;
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "./", 2) && mini->l_cmd->arg[0][2] != '\0')
+	else if (!ft_strncmp(mini->l_cmd->arg[0], "./", 2)
+			&& access(mini->l_cmd->arg[0], X_OK) == SUCCESS)
 	{
+		if (mini->l_cmd->arg[0][2] == '\0')
+		{
+			fd_printf(2, "bash: ./: is a directory\n");
+			return ;
+		}
+		set_env_underscore(mini->l_cmd->arg[0] + 2, mini);
 		id = fork();
 		if (id == 0)
 		{
 			envc = convert_env(mini);
-			if (execve(mini->l_cmd->arg[0], mini->l_cmd->arg, convert_env(mini)) == -1)
+			if (execve(mini->l_cmd->arg[0], mini->l_cmd->arg, envc) == -1)
+			{
+				fd_printf(2, "minishell: %s\n", strerror(errno));
 				ft_free_split(envc);
+				g_exit_code = errno;
+				exit (errno);
+			}
 		}
 		else
 			wait(NULL);
 	}
-	else if (!ft_strchr(mini->l_cmd->arg[0], '.'))
+	else
 	{
 		if (find_str_env("PATH", mini, KEY) == NULL)
 		{
 			g_exit_code = COMMAND_FAIL;
-			printf(RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
+			fd_printf(2, RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
 				mini->l_cmd->arg[0]);
 			return ;
 		}
 		char *cmd_path =  get_path(mini->l_cmd->arg[0], find_str_env("PATH", mini, VALUE));
 		if (cmd_path)
 		{
+			set_env_underscore(mini->l_cmd->arg[0], mini);
 			id = fork();
 			if (id == 0)
 			{
 				envc = convert_env(mini);
-				if (execve(cmd_path, mini->l_cmd->arg, convert_env(mini)) == -1)
+				if (execve(cmd_path, mini->l_cmd->arg, envc) == -1)
+				{
+					fd_printf(2, "minishell: %s\n", strerror(errno));
 					ft_free_split(envc);
+					g_exit_code = errno;
+					exit (errno);
+				}
 			}
 			else
 				wait (NULL);
@@ -227,7 +260,7 @@ void	parse_input(t_mini *mini)
 		else
 		{
 			g_exit_code = COMMAND_FAIL;
-			printf(RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
+			fd_printf(2, RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
 				mini->l_cmd->arg[0]);
 		}
 			

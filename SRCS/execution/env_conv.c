@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:32:26 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/17 01:39:39 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/20 16:29:29 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ int	return_env_size(t_env *env)
 char	*join_key_val(char *key, char *value)
 {
 	char	*str;
+	char	*tmp;
 
 	str = ft_strjoin(key, "=");
+	tmp = str;
 	str = ft_strjoin(str, value);
+	free(tmp);
 	return (str);
 }
 
