@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/21 08:13:56 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 22:32:29 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,10 @@
 # define BLUE 1
 # define WHITE 2
 # define YELLOW 3
-# define MAGENTA 4
-# define PINK 5
-# define GREEN 6
-# define CYAN 7
-# define GREY 8
-# define PURPLE 9
-# define BROWN 10
-# define DARK_BLUE 11
-# define DARK_CYAN 12
-# define LIGHT_BLUE 13
-# define LIGHT_CYAN 14
-# define LIGHT_GRAY 15
-# define LIGHT_GREEN 16
-# define LIGHT_YELLOW 17
+# define GREEN 4
+# define GREY 5
+# define PURPLE 6
+# define DARK_CYAN 7
 
 // redirections enumiration
 enum e_rdr

@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 07:09:55 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/21 11:16:36 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 22:37:01 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char	*clrd_line(char *str, char *path)
 	char	*s_clr;
 
 	ft_bzero(str_cpy, sizeof(str_cpy));
-	if (ft_strncmp(path, "hakaddou", 9) == 0 || ft_strncmp(path, "root", 5) == 0)
+	if (ft_strncmp(path, "hakaddou", 9) == 0
+		|| ft_strncmp(path, "root", 5) == 0)
 		s_clr = ft_strjoin(str, "~  ");
 	else
 		s_clr = ft_strjoin(str, path);
@@ -37,24 +38,8 @@ char	*read_line_colored2(int random, char *path)
 		return (clrd_line("\033[1;92m➜\033[1;90m  ", path));
 	else if (random == PURPLE)
 		return (clrd_line("\033[1;92m➜\033[1;35m  ", path));
-	else if (random == BROWN)
-		return (clrd_line("\033[1;92m➜\033[1;33m  ", path));
-	else if (random == DARK_BLUE)
-		return (clrd_line("\033[1;92m➜\033[1;34m  ", path));
 	else if (random == DARK_CYAN)
 		return (clrd_line("\033[1;92m➜\033[1;36m  ", path));
-	else if (random == LIGHT_BLUE)
-		return (clrd_line("\033[1;92m➜\033[1;94m  ", path));
-	else if (random == LIGHT_CYAN)
-		return (clrd_line("\033[1;92m➜\033[1;96m  ", path));
-	else if (random == LIGHT_GRAY)
-		return (clrd_line("\033[1;92m➜\033[1;37m  ", path));
-	else if (random == LIGHT_GREEN)
-		return (clrd_line("\033[1;92m➜\033[1;92m  ", path));
-	else if (random == PINK)
-		return (clrd_line("\033[1;92m➜\033[1;95m  ", path));
-	else if (random == LIGHT_YELLOW)
-		return (clrd_line("\033[1;92m➜\033[1;93m  ", path));
 	else
 		return (clrd_line("\033[1;92m➜\033[1;94m  ", path));
 }
@@ -79,12 +64,8 @@ char	*read_line_colored(int random)
 		return (clrd_line("\033[1;92m➜\033[1;37m  ", path));
 	else if (random == YELLOW)
 		return (clrd_line("\033[1;92m➜\033[1;33m  ", path));
-	else if (random == MAGENTA)
-		return (clrd_line("\033[1;92m➜\033[1;35m  ", path));
 	else if (random == GREEN)
 		return (clrd_line("\033[1;92m➜\033[1;32m  ", path));
-	else if (random == CYAN)
-		return (clrd_line("\033[1;92m➜\033[1;36m  ", path));
 	else
 		return (read_line_colored2(random, path));
 }

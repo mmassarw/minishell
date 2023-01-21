@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/21 06:41:51 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 22:50:51 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	execute_in_dir(t_mini *mini, t_cmd *cmd)
 		g_exit_code = 126;
 		return ;
 	}
-	set_env_underscore(cmd->arg[0] + 2, mini);
 	id = fork();
 	if (id == 0)
 	{
@@ -44,7 +43,9 @@ void	execute_in_dir(t_mini *mini, t_cmd *cmd)
 	else
 	{
 		wait(NULL);
-		g_exit_code = SUCCESS;
+		if (errno == SUCCESS)
+			set_env_underscore(cmd->arg[0] + 2, mini);
+		g_exit_code = errno;
 	}
 }
 
@@ -55,7 +56,7 @@ void	command_failed_message(t_cmd *cmd, int code)
 		cmd->arg[0]);
 }
 
-void	execute_command_fork(t_mini *mini,t_cmd *cmd, char *cmd_path)
+void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path)
 {
 	int		id;
 	char	**envc;
