@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:10:26 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/21 04:45:48 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 09:10:36 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	print_pwd(void)
 	}
 	else
 	{
-		fd_printf (2, "this error is coming from print_pwd function\n");
+		fd_printf (2, "minishell: pwd: %s\n", strerror(errno));
 		g_exit_code = PWD_FAIL_CODE;
 	}
 }

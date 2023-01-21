@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:07:10 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/21 08:31:28 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 08:46:59 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ void	go_to_home(t_mini *mini)
 	if (i)
 	{
 		fd_printf(2, "minishell: cd: %s: %s\n", strerror(errno));
+		g_exit_code = CD_FAIL;
 		return ;
 	}
+	else
+		g_exit_code = SUCCESS;
 }
 
 void	ft_cd(char **args, t_mini *mini)
@@ -68,4 +71,6 @@ void	ft_cd(char **args, t_mini *mini)
 		g_exit_code = CD_FAIL;
 		return ;
 	}
+	else
+		g_exit_code = SUCCESS;
 }

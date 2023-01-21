@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 07:09:55 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/21 08:40:09 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 09:14:12 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ char	*read_line_colored(int random)
 
 	path = getcwd(cwd, sizeof(cwd));
 	if (!path)
-		return (readline("\033[1;92m➜\033[1;35m  \033[0m"));
+		return (readline("\033[1;31m➜\033[1;35m  \033[0m"));
 	path = ft_strrchr(getcwd(cwd, sizeof(cwd)), '/') + 1;
 	if (!path)
-		return (readline("\033[1;92m➜\033[1;35m  \033[0m"));
+		return (readline("\033[1;31m➜\033[1;35m  \033[0m"));
 	if (g_exit_code != SUCCESS)
 		return (clrd_line("\033[1;31m➜\033[1;31m  ", path));
 	if (random == BLUE)
