@@ -6,7 +6,7 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/21 07:11:31 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/21 10:21:56 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ leaks:
 			--suppressions=.rl.supp \
 			--track-origins=yes \
 			--show-leak-kinds=all -s \
+			--track-fds=yes \
 			./minishell
 
 .PHONY: all clean fclean re
