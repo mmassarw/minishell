@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/21 00:20:12 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 06:41:51 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,23 @@
 // they're being split, after merging, the freeing should be removed
 // and replaced with a speacial freeing function
 
-void	execute_in_dir(t_mini *mini)
+void	execute_in_dir(t_mini *mini, t_cmd *cmd)
 {
 	int		id;
 	char	**envc;
 
-	if (mini->l_cmd->arg[0][2] == '\0')
+	if (cmd->arg[0][2] == '\0')
 	{
 		fd_printf(2, "bash: ./: is a directory\n");
+		g_exit_code = 126;
 		return ;
 	}
-	set_env_underscore(mini->l_cmd->arg[0] + 2, mini);
+	set_env_underscore(cmd->arg[0] + 2, mini);
 	id = fork();
 	if (id == 0)
 	{
 		envc = convert_env(mini);
-		if (execve(mini->l_cmd->arg[0], mini->l_cmd->arg, envc) == -1)
+		if (execve(cmd->arg[0], cmd->arg, envc) == -1)
 		{
 			fd_printf(2, "minishell: %s\n", strerror(errno));
 			ft_free_split(envc);
@@ -41,27 +42,30 @@ void	execute_in_dir(t_mini *mini)
 		}
 	}
 	else
+	{
 		wait(NULL);
+		g_exit_code = SUCCESS;
+	}
 }
 
-void	command_failed_message(t_mini *mini, int code)
+void	command_failed_message(t_cmd *cmd, int code)
 {
 	g_exit_code = code;
 	fd_printf(2, RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
-		mini->l_cmd->arg[0]);
+		cmd->arg[0]);
 }
 
-void	execute_command_fork(t_mini *mini, char *cmd_path)
+void	execute_command_fork(t_mini *mini,t_cmd *cmd, char *cmd_path)
 {
 	int		id;
 	char	**envc;
 
-	set_env_underscore(mini->l_cmd->arg[0], mini);
+	set_env_underscore(cmd->arg[0], mini);
 	id = fork();
 	if (id == 0)
 	{
 		envc = convert_env(mini);
-		if (execve(cmd_path, mini->l_cmd->arg, envc) == -1)
+		if (execve(cmd_path, cmd->arg, envc) == -1)
 		{
 			fd_printf(2, "minishell: %s\n", strerror(errno));
 			ft_free_split(envc);
@@ -70,35 +74,48 @@ void	execute_command_fork(t_mini *mini, char *cmd_path)
 		}
 	}
 	else
+	{
+		g_exit_code = SUCCESS;
 		wait (NULL);
+	}
 	free (cmd_path);
 }
 
-void	execute_pathed_cmd(t_mini *mini)
+void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd)
 {
 	char	*cmd_path;
 
 	if (find_str_env("PATH", mini, KEY) == NULL)
 	{
-		command_failed_message(mini, COMMAND_FAIL);
+		command_failed_message(cmd, COMMAND_FAIL);
 		return ;
 	}
-	cmd_path = get_path(mini->l_cmd->arg[0], find_str_env("PATH", mini, VALUE));
+	cmd_path = get_path(cmd->arg[0], find_str_env("PATH", mini, VALUE));
 	if (cmd_path)
-		execute_command_fork(mini, cmd_path);
+		execute_command_fork(mini, cmd, cmd_path);
 	else
-		command_failed_message(mini, COMMAND_FAIL);
+		command_failed_message(cmd, COMMAND_FAIL);
 }
 
 void	parse_input(t_mini *mini)
 {
-	if (!builtin_check(mini))
-		return ;
-	if (!mini->l_cmd->arg[0][0])
-		return ;
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "./", 2)
-		&& !access(mini->l_cmd->arg[0], X_OK))
-		execute_in_dir(mini);
-	else
-		execute_pathed_cmd(mini);
+	t_cmd	*cmd;
+
+	cmd = mini->l_cmd;
+	while (cmd)
+	{
+		if (!cmd->arg[0][0])
+			continue ;
+		if (builtin_check(mini, cmd) == 0)
+		{
+			cmd = cmd->next;
+			continue ;
+		}
+		else if (!ft_strncmp(cmd->arg[0], "./", 2)
+			&& !access(cmd->arg[0], X_OK))
+			execute_in_dir(mini, cmd);
+		else
+			execute_pathed_cmd(mini, cmd);
+		cmd = cmd->next;
+	}
 }

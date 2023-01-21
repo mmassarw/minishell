@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:07:10 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/20 19:09:46 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 08:31:28 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_cd(char **args, t_mini *mini)
 	if (i)
 	{
 		fd_printf(2, "minishell: cd: %s: %s\n", args[0], strerror(errno));
+		g_exit_code = CD_FAIL;
 		return ;
 	}
 }

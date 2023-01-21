@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:57:41 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/19 00:45:21 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 02:35:01 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ void	ft_print_cmd(t_cmd *s_head)
 	current = s_head;
 	while (current != NULL)
 	{
-		printf(">>>>>>>> %d <<<<<<<<<\n", ++list);
-		printf("Command: ");
-		ft_print_split(current->arg);
+		printf("\n>>>>>>>> cmd %d <<<<<<<<<\n", ++list);
+		printf("Command: %s, args: ", current->arg[0]);
+		ft_print_split(current->arg + 1);
 		printf("\nRedirections: ");
 		rdr = current->rdr;
 		while (rdr != NULL)
 		{
-			printf("%i %s ", rdr->e_rdr, rdr->file);
+			printf("%i %s, ", rdr->e_rdr, rdr->file);
 			rdr = rdr->next;
 		}
-		printf("\n\n");
+		printf("\n");
 		current = current->next;
 	}
 }

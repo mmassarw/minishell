@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/20 23:52:18 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 08:13:56 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define BLUE_FONT	"\033[1;36m"
 # define RESET_FONT	"\033[0m"
 # define RED_FONT	"\033[31m"
-
+# define RF	"\033[0m"
 // eeror strings
 # define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
 # define UNSET_NO_ARG "unset: not enough arguments\n"
@@ -61,6 +61,25 @@
 # define EXIT_FAIL 1
 # define EXIT_ALPHA_CODE 255
 # define CD_FAIL 1
+
+// color pallete
+# define BLUE 1
+# define WHITE 2
+# define YELLOW 3
+# define MAGENTA 4
+# define PINK 5
+# define GREEN 6
+# define CYAN 7
+# define GREY 8
+# define PURPLE 9
+# define BROWN 10
+# define DARK_BLUE 11
+# define DARK_CYAN 12
+# define LIGHT_BLUE 13
+# define LIGHT_CYAN 14
+# define LIGHT_GRAY 15
+# define LIGHT_GREEN 16
+# define LIGHT_YELLOW 17
 
 // redirections enumiration
 enum e_rdr
@@ -120,7 +139,7 @@ void	ft_echo(char **args);
 void	ft_export(char **args, t_mini *mini);
 void	ft_unset(char **args, t_mini *mini);
 void	ft_exit(char **args, t_mini *mini);
-int		builtin_check(t_mini *mini);
+int		builtin_check(t_mini *mini, t_cmd *cmd);
 
 // export
 
@@ -196,5 +215,9 @@ char	**convert_env(t_mini *mini);
 char	*split_and_join(char *av_cmd, char *splitted);
 int		word_count(char const *s, char c);
 char	*get_path(char *cmd, char *env);
+
+// design and colors functions
+char	*read_line_colored(int random);
+char	*read_line_colored2(int random, char *path);
 
 #endif

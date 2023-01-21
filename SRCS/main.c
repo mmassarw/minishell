@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/21 00:23:59 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 07:09:27 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	take_input(t_mini *mini)
 {
 	while (1)
 	{
-		mini->rl = readline (BLUE_FONT"mminishell-3.2> " RESET_FONT);
+		mini->rl = read_line_colored(random_between(1, 17));
 		if (mini->rl == NULL)
 			ft_exit_shell(mini, 0, "exit\n", 1);
 		if (mini->rl[0] != '\0')

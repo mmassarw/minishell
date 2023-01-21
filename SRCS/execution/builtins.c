@@ -6,35 +6,35 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:10:26 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/20 23:52:00 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/21 04:45:48 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	builtin_check(t_mini *mini)
+int	builtin_check(t_mini *mini, t_cmd *cmd)
 {
-	if (!mini->l_cmd->arg[0][0])
+	if (!cmd->arg[0][0])
 	{
 		fd_printf(2, "minishell: : command not found\n");
 		g_exit_code = COMMAND_FAIL;
 		return (0);
 	}
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "pwd", 4))
+	else if (!ft_strncmp(cmd->arg[0], "pwd", 4))
 		print_pwd();
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "cd", 3))
-		ft_cd(&mini->l_cmd->arg[1], mini);
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "exit", 5)
-		|| mini->l_cmd->arg[0][0] == 'q')
-		ft_exit(mini->l_cmd->arg, mini);
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "env", 4))
+	else if (!ft_strncmp(cmd->arg[0], "cd", 3))
+		ft_cd(&cmd->arg[1], mini);
+	else if (!ft_strncmp(cmd->arg[0], "exit", 5)
+		|| cmd->arg[0][0] == 'q')
+		ft_exit(cmd->arg, mini);
+	else if (!ft_strncmp(cmd->arg[0], "env", 4))
 		print_env(mini);
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "echo", 5))
-		ft_echo(&mini->l_cmd->arg[1]);
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "export", 7))
-		ft_export(&mini->l_cmd->arg[1], mini);
-	else if (!ft_strncmp(mini->l_cmd->arg[0], "unset", 5))
-		ft_unset(&mini->l_cmd->arg[1], mini);
+	else if (!ft_strncmp(cmd->arg[0], "echo", 5))
+		ft_echo(&cmd->arg[1]);
+	else if (!ft_strncmp(cmd->arg[0], "export", 7))
+		ft_export(&cmd->arg[1], mini);
+	else if (!ft_strncmp(cmd->arg[0], "unset", 5))
+		ft_unset(&cmd->arg[1], mini);
 	else
 		return (1);
 	return (0);
