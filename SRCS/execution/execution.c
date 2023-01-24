@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/21 22:50:51 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/22 21:08:25 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,40 @@ void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd)
 		command_failed_message(cmd, COMMAND_FAIL);
 }
 
+int	ft_redirect(t_mini *mini, t_cmd *cmd)
+{
+	t_rdr	*rdr;
+	// int		r_fd;
+	
+	rdr = cmd->rdr;
+	if (rdr == NULL)
+		return (0);
+	while (rdr != NULL)
+	{
+		rdr->og_fd = dup(STDOUT_FILENO);
+		rdr->fd = open(rdr->file, O_RDWR | O_TRUNC | O_CREAT, 0644);
+		if (rdr->fd == -1 || rdr->og_fd == -1)
+		{
+			fd_printf(2, "minishell: %s: %s\n", rdr->file, strerror(errno));
+			return (1);
+		}
+		rdr->dup2_fd = dup2(rdr->fd, STDOUT_FILENO);
+		rdr = rdr->next;
+	}
+	mini++;
+	return (0);
+}
+
+void	close_rdr_back(t_cmd *cmd)
+{
+	if (!cmd || !cmd->rdr)
+		return ;
+	close(cmd->rdr->fd);
+	close(cmd->rdr->dup2_fd);
+	dup2(cmd->rdr->og_fd, STDOUT_FILENO);
+	close(cmd->rdr->og_fd);
+}
+
 void	parse_input(t_mini *mini)
 {
 	t_cmd	*cmd;
@@ -107,8 +141,11 @@ void	parse_input(t_mini *mini)
 	{
 		if (!cmd->arg[0][0])
 			continue ;
+		if (ft_redirect(mini, cmd) != 0)
+			return ;
 		if (builtin_check(mini, cmd) == 0)
 		{
+			close_rdr_back(cmd);
 			cmd = cmd->next;
 			continue ;
 		}
@@ -117,6 +154,7 @@ void	parse_input(t_mini *mini)
 			execute_in_dir(mini, cmd);
 		else
 			execute_pathed_cmd(mini, cmd);
+		close_rdr_back(cmd);
 		cmd = cmd->next;
 	}
 }

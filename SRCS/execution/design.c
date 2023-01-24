@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 07:09:55 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/21 22:37:01 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:47:36 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ char	*clrd_line(char *str, char *path)
 
 char	*read_line_colored2(int random, char *path)
 {
-	if (random == GREY)
-		return (clrd_line("\033[1;92m➜\033[1;90m  ", path));
-	else if (random == PURPLE)
+	if (random == PURPLE)
 		return (clrd_line("\033[1;92m➜\033[1;35m  ", path));
 	else if (random == DARK_CYAN)
 		return (clrd_line("\033[1;92m➜\033[1;36m  ", path));

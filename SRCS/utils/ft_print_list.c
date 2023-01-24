@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:57:41 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/21 02:35:01 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/22 12:22:38 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,24 @@ void	ft_print_split(char **split)
 {
 	while (*split)
 		printf("%s ", *split++);
+}
+
+void	print_rdr(t_rdr	*rdr)
+{
+	while (rdr != NULL)
+	{
+		if (rdr->e_rdr == 0)
+			printf("NONE to file: %s, ", rdr->file);
+		else if (rdr->e_rdr == 1)
+			printf("INPUT from file: %s, ", rdr->file);
+		else if (rdr->e_rdr == 2)
+			printf("OUTPUT to file: %s, ", rdr->file);
+		else if (rdr->e_rdr == 3)
+			printf("HEREDOC with file: %s, ", rdr->file);
+		else if (rdr->e_rdr == 4)
+			printf("APPEND to file: %s, ", rdr->file);	
+		rdr = rdr->next;
+	}
 }
 
 /**
@@ -38,17 +56,14 @@ void	ft_print_cmd(t_cmd *s_head)
 	current = s_head;
 	while (current != NULL)
 	{
-		printf("\n>>>>>>>> cmd %d <<<<<<<<<\n", ++list);
-		printf("Command: %s, args: ", current->arg[0]);
+		printf("\n------------ cmd %d -------------\n", ++list);
+		printf("| Command: %s, args: ", current->arg[0]);
 		ft_print_split(current->arg + 1);
-		printf("\nRedirections: ");
+		printf("\n| Redirections: ");
 		rdr = current->rdr;
-		while (rdr != NULL)
-		{
-			printf("%i %s, ", rdr->e_rdr, rdr->file);
-			rdr = rdr->next;
-		}
-		printf("\n");
+		print_rdr(rdr);
+		printf("\n------------ cmd %d -------------\n", list);
+		printf("\n\n");
 		current = current->next;
 	}
 }

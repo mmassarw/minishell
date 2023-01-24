@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/21 22:32:29 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:51:47 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,8 @@
 # define WHITE 2
 # define YELLOW 3
 # define GREEN 4
-# define GREY 5
-# define PURPLE 6
-# define DARK_CYAN 7
+# define PURPLE 5
+# define DARK_CYAN 6
 
 // redirections enumiration
 enum e_rdr
@@ -86,6 +85,8 @@ typedef struct s_rdr
 {
 	char			*file;
 	int				fd;
+	int				og_fd;
+	int				dup2_fd;
 	enum e_rdr		e_rdr;
 	struct s_rdr	*next;
 }	t_rdr;

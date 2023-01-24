@@ -6,14 +6,14 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/21 10:21:56 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/22 16:56:46 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
 CC		=	@gcc
-CFLAGS	=	-g -Wall -Wextra -Werror # -fsanitize=address
+CFLAGS	=	-g3 -Wall -Wextra -Werror # -fsanitize=address
 RLFLAGS =	-L/usr/local/lib -I/usr/local/include -lreadline
 
 RM		=	@rm -f
@@ -71,6 +71,7 @@ rexec:		re
 
 leaks:
 			make re && make clean \
+			&& clear \
 			&& valgrind --leak-check=full \
 			--suppressions=.rl.supp \
 			--track-origins=yes \

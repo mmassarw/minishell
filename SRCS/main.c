@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/21 22:32:41 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/22 19:02:42 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	take_input(t_mini *mini)
 {
 	while (1)
 	{
-		mini->rl = read_line_colored(random_between(1, 7));
+		mini->rl = read_line_colored(random_between(1, 6));
 		if (mini->rl == NULL)
 			ft_exit_shell(mini, 0, "exit\n", 1);
 		if (mini->rl[0] != '\0')
