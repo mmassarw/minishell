@@ -6,14 +6,14 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/22 16:56:46 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/24 20:26:27 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
 CC		=	@gcc
-CFLAGS	=	-g3 -Wall -Wextra -Werror # -fsanitize=address
+CFLAGS	=	-g3 -Wall -Wextra -Werror #-fsanitize=address
 RLFLAGS =	-L/usr/local/lib -I/usr/local/include -lreadline
 
 RM		=	@rm -f

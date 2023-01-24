@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/22 18:51:47 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/25 00:23:11 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@
 # define EXIT_FAIL 1
 # define EXIT_ALPHA_CODE 255
 # define CD_FAIL 1
+# define EXIST 0
 
 // color pallete
 # define BLUE 1
