@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/25 00:23:11 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/26 00:35:34 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@
 // redirections enumiration
 enum e_rdr
 {
-	NONE = 0,
-	INPUT = 1,
-	OUTPUT = 2,
-	HEREDOC = 3,
-	APPEND = 4,
+	NONE,
+	INPUT,
+	OUTPUT,
+	HEREDOC,
+	APPEND,
 };
 
 // redirections linked list
@@ -91,6 +91,27 @@ typedef struct s_rdr
 	enum e_rdr		e_rdr;
 	struct s_rdr	*next;
 }	t_rdr;
+
+// token enumiration
+enum e_tokentype
+{
+	SPACES,
+	SINGLE,
+	DOUBLE,
+	WORD,
+	VARIABLE,
+	REDIRECTION,
+	PIPE,
+};
+
+// token structure
+typedef struct s_token
+{
+	char				*content;
+	enum e_tokentype	type;
+	struct s_token		next;
+	struct s_token		prev;
+}	t_token;
 
 // command linked list
 typedef struct s_cmd
