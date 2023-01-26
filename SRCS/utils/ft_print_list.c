@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:57:41 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/22 12:22:38 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:31:15 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_rdr(t_rdr	*rdr)
 		else if (rdr->e_rdr == 3)
 			printf("HEREDOC with file: %s, ", rdr->file);
 		else if (rdr->e_rdr == 4)
-			printf("APPEND to file: %s, ", rdr->file);	
+			printf("APPEND to file: %s, ", rdr->file);
 		rdr = rdr->next;
 	}
 }

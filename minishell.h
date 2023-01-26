@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/26 18:18:25 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:04:56 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,5 +229,19 @@ char	*get_path(char *cmd, char *env);
 // design and colors functions
 char	*read_line_colored(int random);
 char	*read_line_colored2(int random, char *path);
+
+// redirections
+int		error_set_print_close(t_mini *mini, t_cmd *cmd, int error);
+int		ft_dup2_output(t_rdr *rdr);
+int		ft_dup2_input(t_rdr *rdr);
+int		ft_dup2_append(t_rdr *rdr);
+int		parse_dups(t_rdr *trdr);
+int		parse_redirect(t_mini *mini, t_cmd *cmd);
+int		file_no_exist(t_mini *mini, t_rdr *trdr);
+int		ft_return_reirect_code(t_rdr *rdr);
+int		check_file_rights(t_mini *mini, t_rdr *trdr);
+int		ft_redirect(t_mini *mini, t_cmd *cmd);
+void	ft_close_rdr_backv2(t_rdr *ordr, t_rdr *irdr);
+void	close_rdr_back(t_cmd *cmd);
 
 #endif
