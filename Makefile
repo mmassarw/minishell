@@ -6,7 +6,7 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/24 20:26:27 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/26 19:27:08 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,10 @@ SRCS	=	SRCS/main.c \
 			SRCS/execution/env_conv.c \
 			SRCS/execution/ft_cd.c \
 			SRCS/execution/get_path_srcs.c \
-			SRCS/execution/design.c
+			SRCS/execution/design.c \
+			SRCS/execution/redirections.c \
+			SRCS/execution/dups.c \
+			SRCS/execution/redirections_srcs.c
 
 OBJS	=	$(SRCS:.c=.o)
 

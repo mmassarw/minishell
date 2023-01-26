@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/20 23:50:17 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:16:58 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	increase_shlvl(t_env *env)
 	}
 	if (!found)
 		add_shlvl(env);
-	else
-		fd_printf(1, "SHLVL increased to %d\n", lvl);
+	// else
+	// 	fd_printf(1, "SHLVL increased to %d\n", lvl);
 }
 
 /**
