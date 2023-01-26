@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/26 00:35:34 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:18:25 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@
 // eeror strings
 # define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
 # define UNSET_NO_ARG "unset: not enough arguments\n"
-
-// PATHS
-# define NORM_PATH "/Users/hakaddou/Desktop/minishell/minishell"
-# define VALG_PATH "/home/vscode/src/minishell"
 
 // command flags
 # define BUILTIN 68
@@ -137,6 +133,7 @@ typedef struct s_mini
 	t_cmd	*l_cmd;
 	t_env	*l_env;
 	char	*rl;
+	t_token	*l_token;
 	char	**token;
 	int		cmd_flag;
 }	t_mini;

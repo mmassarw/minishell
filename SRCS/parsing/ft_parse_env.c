@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/20 23:50:17 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:56:31 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,12 @@ void	ft_parse_env(t_mini *mini, const char **envp)
 	{
 		env_new = (t_env *) ft_calloc(1, sizeof(t_env));
 		if (!env_new)
-			ft_exit_shell(mini, 137, "malloc fail\n", 2);
+			ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
 		env_new->key = ft_substr(*envp, 0, (ft_strchr(*envp, '=') - *envp));
 		env_new->value = ft_strdup(ft_strchr(*envp++, '=') + 1);
 		env_new->initialised = true;
 		if (!env_new->key || !env_new->value)
-			ft_exit_shell(mini, 137, "malloc fail\n", 2);
+			ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
 		env_new->next = NULL;
 		if (mini->l_env == NULL)
 			mini->l_env = env_new;

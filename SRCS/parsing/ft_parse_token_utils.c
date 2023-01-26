@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_token_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:48:47 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/18 00:44:49 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:57:02 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ t_rdr	*ft_add_to_rdrlist(t_rdr *rdr_head, char **token, int *i, t_mini *mini)
 	rdr_tail = ft_get_rdr_tail(rdr_head);
 	rdr_new = (t_rdr *) ft_calloc(1, sizeof(t_rdr));
 	if (!rdr_new)
-		ft_exit_shell(mini, 137, "malloc fail\n", 2);
+		ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
 	rdr_new->e_rdr = ft_check_rdr(token[(i[0])++]);
 	rdr_new->file = ft_strdup(token[i[0]]);
 	if (!rdr_new->file)
-		ft_exit_shell(mini, 137, "malloc fail\n", 2);
+		ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
 	rdr_new->next = NULL;
 	if (rdr_head == NULL)
 		rdr_head = rdr_new;
@@ -130,7 +130,7 @@ void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, char **token, int i[0])
 		{
 			cmd->arg[i[1]] = ft_strdup(token[i[0]]);
 			if (!cmd->arg[i[1]])
-				ft_exit_shell(mini, 137, "malloc fail\n", 2);
+				ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
 			(i[1])++;
 		}
 		(i[0])++;
