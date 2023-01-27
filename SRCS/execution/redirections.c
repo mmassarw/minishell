@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:52 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/26 19:21:58 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/27 09:52:59 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	file_no_exist(t_mini *mini, t_rdr *trdr)
 	return (0);
 }
 
-int	ft_return_reirect_code(t_rdr *rdr)
+int	ft_return_redirect_code(t_rdr *rdr)
 {
 	if (rdr->e_rdr == INPUT)
 	{
@@ -105,7 +105,7 @@ int	check_file_rights(t_mini *mini, t_rdr *trdr)
 		}
 	}
 	else
-		return (ft_return_reirect_code(rdr));
+		return (ft_return_redirect_code(rdr));
 	return (0);
 }
 

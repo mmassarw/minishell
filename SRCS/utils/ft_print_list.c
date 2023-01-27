@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:57:41 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/26 19:31:15 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:07:50 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 void	ft_print_split(char **split)
 {
 	while (*split)
-		printf("%s ", *split++);
+		printf("%s¶ ", *split++);
 }
 
 void	print_rdr(t_rdr	*rdr)
@@ -57,8 +57,13 @@ void	ft_print_cmd(t_cmd *s_head)
 	while (current != NULL)
 	{
 		printf("\n------------ cmd %d -------------\n", ++list);
-		printf("| Command: %s, args: ", current->arg[0]);
-		ft_print_split(current->arg + 1);
+		if (current->arg[0])
+		{
+			printf("| Command: %s, args: ", current->arg[0]);
+			ft_print_split(current->arg + 1);
+		}
+		else
+			printf("| Command: (null)");
 		printf("\n| Redirections: ");
 		rdr = current->rdr;
 		print_rdr(rdr);

@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_free_list.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/17 23:34:58 by hakaddou         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_free_list.c									 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: mmassarw <mmassarw@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2023/01/15 18:43:27 by mmassarw		  #+#	#+#			 */
+/*   Updated: 2023/01/27 07:08:59 by mmassarw		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../minishell.h"
@@ -61,6 +61,21 @@ void	ft_free_env(t_env *l_env)
 	}
 }
 
+void	ft_free_ltoken(t_token *list)
+{
+	t_token	*current;
+	t_token	*next;
+
+	current = list;
+	while (current != NULL)
+	{
+		next = current->next;
+		current->content = (char *) ft_free(current->content);
+		current = (t_token *) ft_free(current);
+		current = next;
+	}
+}
+
 /**
  * @brief frees the elemnts that need to be replaced
  * and sets those elements struct <s_mini> to NULL.
@@ -71,6 +86,8 @@ void	ft_free_cycle(t_mini *s_mini)
 {
 	ft_free_cmd(s_mini->l_cmd);
 	s_mini->l_cmd = NULL;
+	ft_free_ltoken(s_mini->l_token);
+	s_mini->l_token = NULL;
 	s_mini->rl = (char *) ft_free(s_mini->rl);
 	s_mini->token = (char **) ft_free_split(s_mini->token);
 }

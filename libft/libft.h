@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:32:13 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 20:12:29 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:43:42 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	*ft_free(void *ptr);
 
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strcpy(char *dst, const char *src);
 size_t	ft_strlcat(char *dst, const char *src, size_t n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);

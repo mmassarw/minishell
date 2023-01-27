@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/26 22:04:56 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:18:03 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ enum e_tokentype
 	SPACES,
 	SINGLE,
 	DOUBLE,
-	WORD,
 	VARIABLE,
 	REDIRECTION,
 	PIPE,
+	WORD,
 };
 
 // token structure
@@ -105,8 +105,8 @@ typedef struct s_token
 {
 	char				*content;
 	enum e_tokentype	type;
-	struct s_token		next;
-	struct s_token		prev;
+	struct s_token		*next;
+	struct s_token		*prev;
 }	t_token;
 
 // command linked list
@@ -156,7 +156,7 @@ int		builtin_check(t_mini *mini, t_cmd *cmd);
 void	ft_export(char **args, t_mini *mini);
 void	parse_new_export(char *arg, t_mini *mini);
 void	ft_modify_env(char *arg, t_mini *mini);
-int		env_already_exist(char *arg, t_mini *mini);
+t_env	*env_already_exist(char *arg, t_mini *mini);
 int		check_export_args(char *arg);
 int		check_valid_identifier(char *arg);
 void	add_to_env(char *arg, t_mini *mini);
@@ -166,6 +166,7 @@ void	print_export(t_mini *mini);
 
 // parsing
 
+void	ft_tokenize(t_mini *mini);
 int		ft_check_rdr(char *string);
 void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, char **token, int *i);
 int		ft_count_till_pipe(char **token);
@@ -176,6 +177,7 @@ void	set_env_underscore(char *cmd, t_mini *mini);
 // frees
 
 void	ft_free_cmd(t_cmd *s_cmd);
+void	ft_free_ltoken(t_token *list);
 void	ft_free_env(t_env *env_list);
 void	ft_free_cycle(t_mini *mini);
 void	ft_free_all(t_mini *mini);
@@ -188,7 +190,7 @@ void	ft_exit_shell(t_mini *m, int er, char *p_er, int fd);
 
 void	ft_print_cmd(t_cmd *s_head);
 void	print_env(t_mini *mini);
-
+void	ft_print_split(char **split);
 void	parse_input(t_mini *mini);
 
 // global exit code
@@ -238,7 +240,7 @@ int		ft_dup2_append(t_rdr *rdr);
 int		parse_dups(t_rdr *trdr);
 int		parse_redirect(t_mini *mini, t_cmd *cmd);
 int		file_no_exist(t_mini *mini, t_rdr *trdr);
-int		ft_return_reirect_code(t_rdr *rdr);
+int		ft_return_redirect_code(t_rdr *rdr);
 int		check_file_rights(t_mini *mini, t_rdr *trdr);
 int		ft_redirect(t_mini *mini, t_cmd *cmd);
 void	ft_close_rdr_backv2(t_rdr *ordr, t_rdr *irdr);

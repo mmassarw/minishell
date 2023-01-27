@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/15 22:09:11 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/27 18:42:09 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS	=	ft_atoi.c \
 			ft_strjoin.c \
 			ft_strlcat.c \
 			ft_strlcpy.c \
+			ft_strcpy.c \
 			ft_strlen.c \
 			ft_strmapi.c \
 			ft_strncmp.c \

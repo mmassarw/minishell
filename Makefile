@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
+#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/26 19:27:08 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/27 08:26:49 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
 CC		=	@gcc
-CFLAGS	=	-g3 -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS	=	-g3 -Wall -Wextra -Werror -fsanitize=address
 RLFLAGS =	-L/usr/local/lib -I/usr/local/include -lreadline
 
 RM		=	@rm -f
@@ -33,6 +33,7 @@ SRCS	=	SRCS/main.c \
 			SRCS/parsing/ft_parse_env.c \
 			SRCS/parsing/ft_parse_token.c \
 			SRCS/parsing/ft_parse_token_utils.c \
+			SRCS/parsing/ft_tokenizer.c \
 			SRCS/utils/ft_free_list.c \
 			SRCS/utils/ft_print_list.c \
 			SRCS/utils/temp_funs.c \
