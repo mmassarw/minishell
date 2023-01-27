@@ -291,7 +291,7 @@ char	**convert_linked_list(t_token *head)
 				result[i] = (char *) ft_calloc(ft_strlen(current->content) + 1, 1);
 				ft_strcpy(result[i], current->content);
 				i++;
-				result = (char **) ft_realloc(result, sizeof(char *) * (i + 1));
+				result = (char **) ft_realloc(result, sizeof(char *) * (i + 1), sizeof(char *) * (i));
 			}
 		}
 		current = current->next;

@@ -6,14 +6,14 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/27 18:42:09 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/27 21:24:22 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libft.a
 
 CC		=	@gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-g3 -Wall -Wextra -Werror
 
 RM		=	@rm -f
 
