@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/27 19:13:49 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/27 22:29:10 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	take_input(t_mini *mini)
 		ft_tokenize(mini);
 		if (mini->token)
 			ft_parse_token(mini, mini->token);
-		ft_print_cmd(mini->l_cmd);
+		// ft_print_cmd(mini->l_cmd);
 		if (mini->l_cmd)
 			parse_input(mini);
 		ft_free_cycle(mini);
