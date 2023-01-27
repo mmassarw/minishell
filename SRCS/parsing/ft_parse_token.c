@@ -28,7 +28,7 @@ int	ft_init_arg_n_rdr(t_mini *mini, t_cmd *cmd, char **token)
 	i[1] = 0;
 	cmd->arg = (char **) ft_calloc(ft_count_till_pipe(token), sizeof(char *));
 	if (!cmd->arg)
-		ft_exit_shell(mini, 137, "malloc fail\n", 2);
+		ft_exit_shell(mini, 137, "malloc fail", 2);
 	ft_populate_cmd(mini, cmd, token, i);
 	return (i[0]);
 }
@@ -50,7 +50,7 @@ void	ft_parse_token(t_mini *mini, char **token)
 	{
 		cmd_new = (t_cmd *) ft_calloc(1, sizeof(t_cmd));
 		if (!cmd_new)
-			ft_exit_shell(mini, 137, "malloc fail\n", 2);
+			ft_exit_shell(mini, 137, "malloc fail", 2);
 		token += ft_init_arg_n_rdr(mini, cmd_new, token);
 		cmd_new->next = NULL;
 		if (mini->l_cmd == NULL)

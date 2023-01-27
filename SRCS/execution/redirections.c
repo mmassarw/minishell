@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:52 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/27 09:52:59 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/27 22:50:04 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ int	file_no_exist(t_mini *mini, t_rdr *trdr)
 		rdr->fd = -1;
 	}
 	else if (rdr->e_rdr == INPUT)
+	{
+		// g_exit_code = 1;
 		return (1);
+	}
 	else if (rdr->e_rdr == HEREDOC)
 		return (fd_printf(2, "heredoc here to be handeled\n"));
 	return (0);
@@ -127,7 +130,8 @@ int	ft_redirect(t_mini *mini, t_cmd *cmd)
 		rdr = rdr->next;
 	}
 	if (flag != 0)
-		return (error_set_print_close(mini, cmd, 1));
+		g_exit_code = error_set_print_close(mini, cmd, 1);
 	else
-		return (parse_redirect(mini, cmd));
+		g_exit_code = parse_redirect(mini, cmd);
+	return (g_exit_code);
 }

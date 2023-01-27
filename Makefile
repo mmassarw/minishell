@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/27 20:48:20 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/27 22:49:57 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS	=	SRCS/main.c \
 			SRCS/execution/design.c \
 			SRCS/execution/redirections.c \
 			SRCS/execution/dups.c \
-			SRCS/execution/redirections_srcs.c
+			SRCS/execution/redirections_srcs.c \
+			SRCS/execution/check_exec_dir.c
 
 OBJS	=	$(SRCS:.c=.o)
 

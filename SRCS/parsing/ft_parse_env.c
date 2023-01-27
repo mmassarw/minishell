@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/26 22:04:56 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/27 22:50:02 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	increase_shlvl(t_env *env)
 	}
 	if (!found)
 		add_shlvl(env);
-	// else
-	// 	fd_printf(1, "SHLVL increased to %d\n", lvl);
+	else
+		fd_printf(1, "SHLVL increased to %d\n", lvl);
 }
 
 /**
@@ -108,7 +108,7 @@ char	**add_basic_env(t_mini *mini)
 	free(pwd);
 	envp = ft_split(full_env, ' ');
 	if (!envp)
-		ft_exit_shell(mini, 1, "add_basic_env\n", 2);
+		ft_exit_shell(mini, 1, "add_basic_env", 2);
 	free(full_env);
 	return (envp);
 }
