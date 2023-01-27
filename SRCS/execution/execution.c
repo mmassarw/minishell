@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/27 03:59:17 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/27 22:03:28 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	execute_in_dir(t_mini *mini, t_cmd *cmd)
 void	command_failed_message(t_cmd *cmd, int code)
 {
 	g_exit_code = code;
-	fd_printf(2, RED_FONT "minishell:  command not found "RESET_FONT "%s\n",
-		cmd->arg[0]);
+	fd_printf(2, "minishell: %s: command not found\n", cmd->arg[0]);
 }
 
 void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path)
@@ -73,7 +72,8 @@ void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd)
 {
 	char	*cmd_path;
 
-	if (ft_strchr(cmd->arg[0], '.') && ft_strchr(cmd->arg[0], '/'))
+	if ((ft_strchr(cmd->arg[0], '.') && ft_strchr(cmd->arg[0], '/'))
+		|| (ft_strchr(cmd->arg[0], '/')))
 	{
 		if (!file_exists(cmd->arg[0]))
 		{
