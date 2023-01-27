@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/26 19:18:46 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/27 04:02:33 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stddef.h>
 
 //	colors
 # define BLUE_FONT	"\033[1;36m"
@@ -225,5 +226,10 @@ int		check_file_rights(t_mini *mini, t_rdr *trdr);
 int		ft_redirect(t_mini *mini, t_cmd *cmd);
 void	ft_close_rdr_backv2(t_rdr *ordr, t_rdr *irdr);
 void	close_rdr_back(t_cmd *cmd);
+
+// directory check and direct execution (ex: ./minishell)
+int		is_directory(const char *path);
+int		file_exists(const char *pathname);
+int		dot_dir_check(t_cmd *cmd);
 
 #endif

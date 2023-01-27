@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/26 18:41:09 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/27 03:21:29 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	take_input(t_mini *mini)
 	{
 		mini->rl = read_line_colored(random_between(1, 6));
 		if (mini->rl == NULL)
-			ft_exit_shell(mini, 0, "exit\n", 1);
+			ft_exit_shell(mini, 0, "exit", 1);
 		if (mini->rl[0] != '\0')
 			add_history(mini->rl);
 		mini->token = ft_split(mini->rl, ' ');
 		if (!mini->token)
-			ft_exit_shell(mini, 137, "no token\n", 2);
+			ft_exit_shell(mini, 137, "no token", 2);
 		ft_parse_token(mini, mini->token);
 		// ft_print_cmd(mini->l_cmd);
 		if (mini->l_cmd)

@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:27:45 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/26 18:16:58 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/27 03:23:16 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	increase_shlvl(t_env *env)
 	}
 	if (!found)
 		add_shlvl(env);
-	// else
-	// 	fd_printf(1, "SHLVL increased to %d\n", lvl);
+	else
+		fd_printf(1, "SHLVL increased to %d\n", lvl);
 }
 
 /**
@@ -108,7 +108,7 @@ char	**add_basic_env(t_mini *mini)
 	free(pwd);
 	envp = ft_split(full_env, ' ');
 	if (!envp)
-		ft_exit_shell(mini, 1, "add_basic_env\n", 2);
+		ft_exit_shell(mini, 1, "add_basic_env", 2);
 	free(full_env);
 	return (envp);
 }
@@ -125,12 +125,12 @@ void	ft_parse_env(t_mini *mini, const char **envp)
 	{
 		env_new = (t_env *) ft_calloc(1, sizeof(t_env));
 		if (!env_new)
-			ft_exit_shell(mini, 137, "malloc fail\n", 2);
+			ft_exit_shell(mini, 137, "malloc fail", 2);
 		env_new->key = ft_substr(*envp, 0, (ft_strchr(*envp, '=') - *envp));
 		env_new->value = ft_strdup(ft_strchr(*envp++, '=') + 1);
 		env_new->initialised = true;
 		if (!env_new->key || !env_new->value)
-			ft_exit_shell(mini, 137, "malloc fail\n", 2);
+			ft_exit_shell(mini, 137, "malloc fail", 2);
 		env_new->next = NULL;
 		if (mini->l_env == NULL)
 			mini->l_env = env_new;

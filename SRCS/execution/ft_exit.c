@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 00:37:39 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/22 12:00:38 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/27 03:22:25 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_exit(char **args, t_mini *mini)
 	int	code;
 
 	if (!args[1])
-		ft_exit_shell(mini, SUCCESS, "exit\n", 1);
+		ft_exit_shell(mini, SUCCESS, "exit", 1);
 	else if (2 < arg_count(args))
 	{
 		fd_printf(2, "minishell: exit: too many arguments\n");
@@ -66,5 +66,5 @@ void	ft_exit(char **args, t_mini *mini)
 		code = EXIT_ALPHA_CODE;
 	else
 		code = ft_atoi(args[1]) % 256;
-	ft_exit_shell(mini, code, "exit\n", 1);
+	ft_exit_shell(mini, code, "exit", 1);
 }
