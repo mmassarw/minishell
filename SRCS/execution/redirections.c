@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:52 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/27 22:50:04 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/28 18:44:57 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ int	file_no_exist(t_mini *mini, t_rdr *trdr)
 		rdr->fd = -1;
 	}
 	else if (rdr->e_rdr == INPUT)
-	{
-		// g_exit_code = 1;
 		return (1);
-	}
 	else if (rdr->e_rdr == HEREDOC)
 		return (fd_printf(2, "heredoc here to be handeled\n"));
 	return (0);

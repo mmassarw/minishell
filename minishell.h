@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/27 22:49:59 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/28 18:47:58 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,11 @@ void	exit_success(char **args, t_mini *mini);
 
 // chdir (cd)
 void	ft_cd(char **args, t_mini *mini);
-void	go_to_home(t_mini *mini);
+void	go_to_home(t_mini *mini, char *old_pwd);
+void	go_to_old_pwd(t_mini *mini, char *old_pwd);
+void	set_env_pwd(t_mini *mini);
+void	set_old_pwd(t_mini *mini, char *old_pwd);
+void	cd_return_success(t_mini *mini, char *old_pwd);
 char	*find_str_env(char *arg, t_mini *mini, int flag);
 
 // env **char conversion from linked list
@@ -251,5 +255,11 @@ void	close_rdr_back(t_cmd *cmd);
 int		is_directory(const char *path);
 int		file_exists(const char *pathname);
 int		dot_dir_check(t_cmd *cmd);
+
+// execution utils
+int		is_slash_exec(t_mini *mini, t_cmd *cmd);
+void	execute_in_dir(t_mini *mini, t_cmd *cmd);
+void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path);
+void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd);
 
 #endif
