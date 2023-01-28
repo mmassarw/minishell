@@ -6,18 +6,38 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/27 22:03:28 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:19:10 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd);
+
+int	is_slash_exec(t_mini *mini, t_cmd *cmd)
+{
+	if (access (cmd->arg[0], X_OK) == 0 
+		&& ft_strlen(cmd->arg[0]) > 2
+		&& ft_strchr(cmd->arg[0], '.')
+		&& ft_strchr(cmd->arg[0], '/'))
+		return (0);
+	else if (access (cmd->arg[0], X_OK) == 0 
+		&& ft_strlen(cmd->arg[0]) > 2
+		&& !ft_strchr(cmd->arg[0], '.')
+		&& !ft_strchr(cmd->arg[0], '/'))
+	{
+		execute_pathed_cmd(mini, cmd);
+		return (1);
+	}
+	return (0);
+}
 
 void	execute_in_dir(t_mini *mini, t_cmd *cmd)
 {
 	int		id;
 	char	**envc;
 
-	if (dot_dir_check(cmd))
+	if (dot_dir_check(cmd) || is_slash_exec(mini, cmd))
 		return ;
 	id = fork();
 	if (id == 0)
@@ -77,9 +97,8 @@ void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd)
 	{
 		if (!file_exists(cmd->arg[0]))
 		{
-			fd_printf(2, "execute_pathed_cmd: minishell:");
-			fd_printf(2, "%s: No such file or directory\n", cmd->arg[0]);
-			g_exit_code = 127;
+			fd_printf(2, "minishell: %s: No such file or directory\n", cmd->arg[0]);
+			g_exit_code = COMMAND_FAIL;
 			return ;
 		}
 	}

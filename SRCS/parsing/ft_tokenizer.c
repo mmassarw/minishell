@@ -151,7 +151,7 @@ bool	ft_evalops(t_token *head)
 	if (current->type == SPACES)
 		current = current->next;
 	if (!current || (current->type != SINGLE && current->type != DOUBLE \
-	&& current->type != WORD && current->type == VARIABLE))
+	&& current->type != WORD && current->type != VARIABLE))
 		return (false);
 	return (true);
 }
@@ -196,10 +196,13 @@ void	ft_expandvar(t_mini *mini)
 		{
 			l_env = env_already_exist(current->content + 1, mini);
 			current->content[0] = '\0';
-			if (l_env && l_env->initialised)
+			if ((l_env && l_env->initialised) || *(current->content + 1) == '?')
 			{
 				current->content = (char *) ft_free(current->content);
-				current->content = ft_strdup(l_env->value);
+				if (l_env)
+					current->content = ft_strdup(l_env->value);
+				else
+					current->content = ft_itoa(g_exit_code);
 			}
 			current->type = WORD;
 		}
