@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:52 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/29 16:39:29 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:47:50 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	parse_redirect(t_mini *mini, t_cmd *cmd)
 	rdr = cmd->rdr;
 	while (rdr)
 	{
-		if (rdr->fd > 2)
-			close(rdr->fd);
+		rdr->fd = ft_close(rdr->fd, 3, cmd);
 		if (rdr->e_rdr == OUTPUT || rdr->e_rdr == APPEND)
 			ordr = rdr;
 		if (rdr->e_rdr == INPUT || rdr->e_rdr == HEREDOC)

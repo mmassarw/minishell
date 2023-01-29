@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:32:13 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/27 22:19:06 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:40:36 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,8 @@ int		fd_putnbr_u(int fd, unsigned int nb);
 int		fd_put_address(int fd, unsigned long long nb);
 int		fd_parse(int fd, va_list ptr, char c);
 int		fd_printf(int fd, const char *str, ...);
+char	*gl_strjoin(char *s1, char *s2);
+char	*gl_strchr(const char *s, int c);
+int		gl_strlen(char *str);
 
 #endif

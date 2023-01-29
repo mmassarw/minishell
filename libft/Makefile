@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
+#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/27 21:24:22 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/01/29 19:39:37 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,11 @@ SRCS	=	ft_atoi.c \
 			fd_putchar.c \
 			fd_putnbr_u.c \
 			fd_putnbr.c \
-			fd_putstr.c
+			fd_putstr.c \
+			gl_strchr.c \
+			gl_strlen.c \
+			gl_strjoin.c
+			
 			
 
 OBJS	=	$(SRCS:.c=.o)

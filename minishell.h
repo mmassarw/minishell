@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/29 16:54:56 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:32:49 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,12 @@ void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path);
 void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd);
 
 // heredoc
+void	handle_heredoc(t_mini *mini);
+void	take_heredoc_input(t_rdr *rdr);
 int		ft_pipe_heredoc(t_rdr *rdr, t_mini *mini, t_cmd *cmd);
+
+// fd handlers
 void	close_all_fds(t_mini *mini);
+int		ft_close(int fd, int limit, t_cmd *cmd);
 
 #endif

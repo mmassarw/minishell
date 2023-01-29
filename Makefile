@@ -6,7 +6,7 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/01/29 14:10:19 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/01/29 19:34:48 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,9 @@ SRCS	=	SRCS/main.c \
 			SRCS/execution/dups.c \
 			SRCS/execution/redirections_srcs.c \
 			SRCS/execution/check_exec_dir.c \
-			SRCS/execution/execution_utils.c
+			SRCS/execution/execution_utils.c \
+			SRCS/execution/heredoc.c \
+			SRCS/execution/fd_handler.c
 
 OBJS	=	$(SRCS:.c=.o)
 
