@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/28 18:47:58 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:54:56 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ typedef struct s_rdr
 	int				fd;
 	int				og_fd;
 	int				dup2_fd;
+	int				fork_id;
+	int				ret;
+	int				fdpipe[2];
 	enum e_rdr		e_rdr;
 	struct s_rdr	*next;
 }	t_rdr;
@@ -242,7 +245,7 @@ int		error_set_print_close(t_mini *mini, t_cmd *cmd, int error);
 int		ft_dup2_output(t_rdr *rdr);
 int		ft_dup2_input(t_rdr *rdr);
 int		ft_dup2_append(t_rdr *rdr);
-int		parse_dups(t_rdr *trdr);
+int		parse_dups(t_rdr *trdr, t_mini *mini, t_cmd *cmd);
 int		parse_redirect(t_mini *mini, t_cmd *cmd);
 int		file_no_exist(t_mini *mini, t_rdr *trdr);
 int		ft_return_redirect_code(t_rdr *rdr);
@@ -261,5 +264,9 @@ int		is_slash_exec(t_mini *mini, t_cmd *cmd);
 void	execute_in_dir(t_mini *mini, t_cmd *cmd);
 void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path);
 void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd);
+
+// heredoc
+int		ft_pipe_heredoc(t_rdr *rdr, t_mini *mini, t_cmd *cmd);
+void	close_all_fds(t_mini *mini);
 
 #endif

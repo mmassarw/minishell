@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:52 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/28 18:44:57 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:39:29 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	parse_redirect(t_mini *mini, t_cmd *cmd)
 		rdr = rdr->next;
 	}
 	if (ordr)
-		if (parse_dups(ordr) != 0)
+		if (parse_dups(ordr, mini, cmd) != 0)
 			return (1);
 	if (irdr)
-		if (parse_dups(irdr) != 0)
+		if (parse_dups(irdr, mini, cmd) != 0)
 			return (1);
 	mini++;
 	return (0);
@@ -64,8 +64,6 @@ int	file_no_exist(t_mini *mini, t_rdr *trdr)
 	}
 	else if (rdr->e_rdr == INPUT)
 		return (1);
-	else if (rdr->e_rdr == HEREDOC)
-		return (fd_printf(2, "heredoc here to be handeled\n"));
 	return (0);
 }
 
@@ -120,9 +118,9 @@ int	ft_redirect(t_mini *mini, t_cmd *cmd)
 		return (0);
 	while (rdr != NULL && flag == 0)
 	{
-		if (access(rdr->file, F_OK) != EXIST)
+		if (rdr->e_rdr != HEREDOC && access(rdr->file, F_OK) != EXIST)
 			flag = file_no_exist(mini, rdr);
-		else if (check_file_rights(mini, rdr))
+		else if (rdr->e_rdr != HEREDOC && check_file_rights(mini, rdr))
 			flag = 1;
 		rdr = rdr->next;
 	}

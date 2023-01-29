@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:47 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/27 21:06:58 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:03:39 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,63 @@ void	ft_close_rdr_backv2(t_rdr *ordr, t_rdr *irdr)
 {
 	if (ordr)
 	{
-		close(ordr->dup2_fd);
+		if (ordr->dup2_fd >= 0)
+		{
+			close(ordr->dup2_fd);
+			ordr->dup2_fd = -2;
+		}
 		dup2(ordr->og_fd, STDOUT_FILENO);
-		close(ordr->og_fd);
-		close(ordr->fd);
+		if (ordr->og_fd >= 0)
+		{
+			close(ordr->og_fd);
+			ordr->og_fd = -2;
+		}
+		if (ordr->fd  >= 0)
+		{
+			close(ordr->fd);
+			ordr->fd = -2;
+		}
 	}
 	if (irdr)
 	{
-		close(irdr->dup2_fd);
-		dup2(irdr->og_fd, STDIN_FILENO);
-		close(irdr->og_fd);
-		close(irdr->fd);
+		if (irdr->e_rdr == HEREDOC)
+		{
+			if (irdr->dup2_fd >= 0)
+			{
+				close (irdr->dup2_fd);
+				irdr->dup2_fd = -2;
+			}
+			if (irdr->fdpipe[0] >= 0)
+			{
+				close (irdr->fdpipe[0]);
+				irdr->fdpipe[0] = -2;
+			}
+			dup2(irdr->og_fd, STDIN_FILENO);
+			if (irdr->og_fd >= 0)
+			{
+				close (irdr->og_fd);
+				irdr->og_fd = -2;
+			}
+		}
+		else
+		{
+			if (irdr->dup2_fd >= 0)
+			{
+				close(irdr->dup2_fd);
+				irdr->dup2_fd = -2;
+			}
+			dup2(irdr->og_fd, STDIN_FILENO);
+			if (irdr->og_fd >= 0)
+			{
+				close(irdr->og_fd);
+				irdr->og_fd = -2;
+			}
+			if (irdr->fd)
+			{
+				close(irdr->fd);
+				irdr->fd = -2;
+			}
+		}
 	}
 }
 

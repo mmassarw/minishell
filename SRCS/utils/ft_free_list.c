@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/27 22:50:00 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:55:55 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	ft_free_all(t_mini *s_mini)
 void	ft_exit_shell(t_mini *s_mini, int error, char *p_err, int fd)
 {
 	g_exit_code = error;
+	close_all_fds(s_mini);
 	ft_free_all(s_mini);
 	if (p_err)
 		fd_printf(fd, "%s\n", p_err);
