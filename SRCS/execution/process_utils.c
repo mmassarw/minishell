@@ -1,58 +1,72 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   process_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/30 07:54:20 by hakaddou         ###   ########.fr       */
+/*   Created: 2023/01/30 07:53:21 by hakaddou          #+#    #+#             */
+/*   Updated: 2023/01/30 07:54:55 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	exec_children_cmds(t_mini *mini, t_cmd *cmd)
+int	is_parent_compatible(t_cmd *cmd)
 {
+	if (cmd && !cmd->next && is_parent_exec(cmd))
+		return (1);
+	return (0);
+}
+
+int	is_parent_exec(t_cmd *cmd)
+{
+	if (!cmd->arg[0])
+		return (1);
+	if (!ft_strncmp(cmd->arg[0], "cd", 3)
+		|| !ft_strncmp(cmd->arg[0], "exit", 5)
+		|| cmd->arg[0][0] == 'q'
+		|| !ft_strncmp(cmd->arg[0], "export", 7)
+		|| !ft_strncmp(cmd->arg[0], "unset", 6))
+		return (1);
+	return (0);
+}
+
+void	execute_in_parent(t_mini *mini)
+{
+	t_cmd	*cmd;
+
+	cmd = mini->l_cmd;
 	if (ft_redirect(mini, cmd) != 0)
-		ft_exit_shell(mini, g_exit_code, NULL, 1);
+		return ;
 	if (cmd->arg[0] && builtin_check(mini, cmd) == 0)
 	{
 		close_rdr_back(cmd);
-		ft_exit_shell(mini, g_exit_code, NULL, 1);
+		return ;
 	}
 	else if (cmd->arg[0] && access(cmd->arg[0], X_OK) == 0)
 		execute_in_dir(mini, cmd);
 	else if (cmd->arg[0])
 		execute_pathed_cmd(mini, cmd);
 	close_rdr_back(cmd);
-	ft_exit_shell(mini, g_exit_code, NULL, 2);
 }
 
-void	execute_in_child(t_mini *mini)
+void	wait_for_children(t_mini *mini)
 {
+	int		status;
 	t_cmd	*cmd;
 
+	status = 0;
 	cmd = mini->l_cmd;
 	while (cmd)
 	{
-		cmd->fork_id = fork();
-		if (cmd->fork_id == 0)
-			exec_children_cmds(mini, cmd);
-		else
-			cmd = cmd->next;
+		if (cmd->fork_id != 0)
+			wait(&status);
+		if (WIFEXITED(status))
+		{
+			g_exit_code = WEXITSTATUS(status);
+			printf("Child exited with status %d\n", g_exit_code);
+		}
+		cmd = cmd->next;
 	}
-	wait_for_children(mini);
-}
-
-void	parse_input(t_mini *mini)
-{
-	t_cmd	*cmd;
-
-	cmd = mini->l_cmd;
-	handle_heredoc(mini);
-	if (is_parent_compatible(cmd))
-		execute_in_parent(mini);
-	else
-		execute_in_child(mini);
 }

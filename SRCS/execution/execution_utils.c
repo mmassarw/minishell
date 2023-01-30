@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:39:56 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/28 18:42:45 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/30 07:38:43 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ int	is_slash_exec(t_mini *mini, t_cmd *cmd)
 
 void	execute_in_dir(t_mini *mini, t_cmd *cmd)
 {
-	int		id;
 	char	**envc;
+	int		status;
 
+	status = 0;
 	if (dot_dir_check(cmd) || is_slash_exec(mini, cmd))
 		return ;
-	id = fork();
-	if (id == 0)
+	cmd->fork_id = fork();
+	if (cmd->fork_id == 0)
 	{
 		envc = convert_env(mini);
 		if (execve(cmd->arg[0], cmd->arg, envc) == -1)
@@ -48,11 +49,12 @@ void	execute_in_dir(t_mini *mini, t_cmd *cmd)
 		}
 	}
 	else
+		waitpid(cmd->fork_id, &status, WEXITSTATUS(status));
+	if (WIFEXITED(status))
 	{
-		wait(NULL);
-		if (errno == SUCCESS)
+		g_exit_code = WEXITSTATUS(status);
+		if (g_exit_code == SUCCESS)
 			set_env_underscore(cmd->arg[0] + 2, mini);
-		g_exit_code = errno;
 	}
 }
 
@@ -64,12 +66,13 @@ void	command_failed_message(t_cmd *cmd, int code)
 
 void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path)
 {
-	int		id;
+	int		status;
 	char	**envc;
 
+	status = 0;
 	set_env_underscore(cmd->arg[0], mini);
-	id = fork();
-	if (id == 0)
+	cmd->fork_id = fork();
+	if (cmd->fork_id == 0)
 	{
 		envc = convert_env(mini);
 		if (execve(cmd_path, cmd->arg, envc) == -1)
@@ -79,10 +82,9 @@ void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path)
 		}
 	}
 	else
-	{
-		g_exit_code = SUCCESS;
-		wait (NULL);
-	}
+		waitpid(cmd->fork_id, &status, WEXITSTATUS(status));
+	if (WIFEXITED(status))
+		g_exit_code = WEXITSTATUS(status);
 	free (cmd_path);
 }
 

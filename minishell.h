@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/29 19:32:49 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/30 07:55:33 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_rdr
 	int				fd;
 	int				og_fd;
 	int				dup2_fd;
-	int				fork_id;
+	pid_t			fork_id;
 	int				ret;
 	int				fdpipe[2];
 	enum e_rdr		e_rdr;
@@ -120,6 +120,8 @@ typedef struct s_cmd
 	t_rdr			*rdr;
 	int				fd_pipe[2];
 	struct s_cmd	*next;
+	pid_t			fork_id;
+	
 }	t_cmd;
 
 // enviromental linked list
@@ -273,5 +275,11 @@ int		ft_pipe_heredoc(t_rdr *rdr, t_mini *mini, t_cmd *cmd);
 // fd handlers
 void	close_all_fds(t_mini *mini);
 int		ft_close(int fd, int limit, t_cmd *cmd);
+
+// children and process unstifle_historyint
+int		is_parent_compatible(t_cmd *cmd);
+int		is_parent_exec(t_cmd *cmd);
+void	execute_in_parent(t_mini *mini);
+void	wait_for_children(t_mini *mini);
 
 #endif
