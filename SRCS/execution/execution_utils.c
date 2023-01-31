@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:39:56 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/30 07:38:43 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/31 21:53:55 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,14 @@ int	is_slash_exec(t_mini *mini, t_cmd *cmd)
 void	execute_in_dir(t_mini *mini, t_cmd *cmd)
 {
 	char	**envc;
-	int		status;
 
-	status = 0;
 	if (dot_dir_check(cmd) || is_slash_exec(mini, cmd))
 		return ;
-	cmd->fork_id = fork();
-	if (cmd->fork_id == 0)
+	envc = convert_env(mini);
+	if (execve(cmd->arg[0], cmd->arg, envc) == -1)
 	{
-		envc = convert_env(mini);
-		if (execve(cmd->arg[0], cmd->arg, envc) == -1)
-		{
-			ft_free_split(envc);
-			ft_exit_shell(mini, errno, strerror(errno), 2);
-		}
-	}
-	else
-		waitpid(cmd->fork_id, &status, WEXITSTATUS(status));
-	if (WIFEXITED(status))
-	{
-		g_exit_code = WEXITSTATUS(status);
-		if (g_exit_code == SUCCESS)
-			set_env_underscore(cmd->arg[0] + 2, mini);
+		ft_free_split(envc);
+		ft_exit_shell(mini, errno, strerror(errno), 2);
 	}
 }
 
@@ -66,25 +52,15 @@ void	command_failed_message(t_cmd *cmd, int code)
 
 void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path)
 {
-	int		status;
 	char	**envc;
 
-	status = 0;
 	set_env_underscore(cmd->arg[0], mini);
-	cmd->fork_id = fork();
-	if (cmd->fork_id == 0)
-	{
 		envc = convert_env(mini);
-		if (execve(cmd_path, cmd->arg, envc) == -1)
-		{
-			ft_free_split(envc);
-			ft_exit_shell(mini, errno, strerror(errno), 2);
-		}
+	if (execve(cmd_path, cmd->arg, envc) == -1)
+	{
+		ft_free_split(envc);
+		ft_exit_shell(mini, errno, strerror(errno), 2);
 	}
-	else
-		waitpid(cmd->fork_id, &status, WEXITSTATUS(status));
-	if (WIFEXITED(status))
-		g_exit_code = WEXITSTATUS(status);
 	free (cmd_path);
 }
 
