@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 07:53:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/01 00:33:49 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/01 02:11:35 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,9 @@ void	execute_in_parent(t_mini *mini)
 	if (cmd->arg[0] && builtin_check(mini, cmd) == 0)
 	{
 		close_rdr_back(cmd);
+		set_env_underscore(mini->l_cmd->arg[0], mini);
 		return ;
 	}
-	else if (cmd->arg[0] && access(cmd->arg[0], X_OK) == 0)
-		execute_in_dir(mini, cmd);
-	else if (cmd->arg[0])
-		execute_pathed_cmd(mini, cmd);
 	close_rdr_back(cmd);
 }
 
@@ -71,4 +68,7 @@ void	wait_for_children(t_mini *mini)
 		}
 		cmd = cmd->next;
 	}
+	if (mini->l_cmd && mini->l_cmd->fork_id != 0 && mini->l_cmd->arg
+		&& mini->l_cmd->arg[0] && !mini->l_cmd->next)
+		set_env_underscore(mini->l_cmd->arg[0], mini);
 }

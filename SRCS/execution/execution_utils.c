@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:39:56 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/31 21:53:55 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/01 01:40:57 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path)
 {
 	char	**envc;
 
-	set_env_underscore(cmd->arg[0], mini);
-		envc = convert_env(mini);
+	envc = convert_env(mini);
 	if (execve(cmd_path, cmd->arg, envc) == -1)
 	{
 		ft_free_split(envc);
