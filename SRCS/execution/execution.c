@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/31 21:07:35 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:39:22 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,20 @@ void	exec_children_cmds(t_mini *mini, t_cmd *cmd)
 	ft_exit_shell(mini, g_exit_code, NULL, 2);
 }
 
+int	ft_fork(t_cmd *cmd, t_mini *mini)
+{
+	cmd->fork_id = fork();
+	if (cmd->fork_id == -1)
+	{
+		fd_printf(2, "minishell: fork: %s\n", strerror(errno));
+		wait_for_children(mini);
+		g_exit_code = 1;
+		return (-1);
+	}
+	mini++;
+	return (cmd->fork_id);
+}
+
 void	execute_in_child(t_mini *mini)
 {
 	t_cmd	*cmd;
@@ -36,11 +50,11 @@ void	execute_in_child(t_mini *mini)
 	cmd = mini->l_cmd;
 	while (cmd)
 	{
-		cmd->fork_id = fork();
+		if (ft_fork(cmd, mini) == -1)
+			return ;
 		if (cmd->fork_id == 0)
 			exec_children_cmds(mini, cmd);
-		else
-			cmd = cmd->next;
+		cmd = cmd->next;
 	}
 	wait_for_children(mini);
 }

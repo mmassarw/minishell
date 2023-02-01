@@ -1,3 +1,0 @@
-PWD=/Users/hakaddou/Desktop/minishell
-SHLVL=1
-_=/usr/bin/env
