@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/01 20:39:22 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:50:04 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ int	ft_fork(t_cmd *cmd, t_mini *mini)
 	if (cmd->fork_id == -1)
 	{
 		fd_printf(2, "minishell: fork: %s\n", strerror(errno));
-		wait_for_children(mini);
 		g_exit_code = 1;
+		wait_for_children(mini);
 		return (-1);
 	}
-	mini++;
 	return (cmd->fork_id);
 }
 

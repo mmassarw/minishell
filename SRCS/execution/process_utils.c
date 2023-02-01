@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 07:53:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/01 20:41:01 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:57:39 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	wait_for_children(t_mini *mini)
 			if (WIFEXITED(status))
 			{
 				g_exit_code = WEXITSTATUS(status);
-				fd_printf(2, "Child %d exited with status %d\n", i++, g_exit_code);
+				fd_printf(2, "Child %d exit status: %d\n", i++, g_exit_code);
 			}
 		}
 		cmd = cmd->next;
