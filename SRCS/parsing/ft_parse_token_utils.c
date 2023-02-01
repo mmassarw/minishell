@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_token_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:48:47 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/27 22:50:01 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:05:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ t_rdr	*ft_add_to_rdrlist(t_rdr *rdr_head, char **token, int *i, t_mini *mini)
 
 	rdr_tail = ft_get_rdr_tail(rdr_head);
 	rdr_new = (t_rdr *) ft_calloc(1, sizeof(t_rdr));
+	rdr_new->fd = -2;
+	rdr_new->og_fd = -2;
+	rdr_new->dup2_fd = -2;
+	rdr_new->fdpipe[0] = -2;
+	rdr_new->fdpipe[1] = -2;
 	if (!rdr_new)
 		ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
 	rdr_new->e_rdr = ft_check_rdr(token[(i[0])++]);
