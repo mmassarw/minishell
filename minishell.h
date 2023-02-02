@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/01/27 22:50:50 by mmassarw         ###   ########.fr       */
-=======
-/*   Updated: 2023/01/30 07:55:33 by hakaddou         ###   ########.fr       */
->>>>>>> origin/main
+/*   Updated: 2023/02/02 17:23:10 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +144,9 @@ typedef struct s_mini
 	int		cmd_flag;
 }	t_mini;
 
+// global exit code
+int	g_exit_code;
+
 // temporary functions, tbc if they'd be used or not
 
 int		random_between(int min, int max);
@@ -202,12 +201,10 @@ void	ft_print_cmd(t_cmd *s_head);
 void	print_env(t_mini *mini);
 void	ft_print_split(char **split);
 void	parse_input(t_mini *mini);
-
-// global exit code
-
-int	g_exit_code;
+bool	ft_syntaxerr(char *errmsg, int num);
 
 // unset
+
 void	ft_unset(char **args, t_mini *mini);
 int		check_valid_identifier_export(char *arg);
 int		check_unset_args(char *arg);
@@ -215,6 +212,7 @@ void	free_single_env(t_env *node);
 void	delete_env_list(char *arg, t_mini *mini);
 
 // exit
+
 void	ft_exit(char **args, t_mini *mini);
 int		arg_count(char **args);
 int		check_exit_alpha(char **args);
@@ -222,6 +220,7 @@ void	exit_and_print(int code);
 void	exit_success(char **args, t_mini *mini);
 
 // chdir (cd)
+
 void	ft_cd(char **args, t_mini *mini);
 void	go_to_home(t_mini *mini, char *old_pwd);
 void	go_to_old_pwd(t_mini *mini, char *old_pwd);
@@ -231,6 +230,7 @@ void	cd_return_success(t_mini *mini, char *old_pwd);
 char	*find_str_env(char *arg, t_mini *mini, int flag);
 
 // env **char conversion from linked list
+
 void	*perror_return(char *str, void *ret);
 int		return_env_size(t_env *env);
 char	*join_key_val(char *key, char *value);
@@ -238,15 +238,18 @@ char	*join_key_eq(char *key, t_env *env);
 char	**convert_env(t_mini *mini);
 
 // get path srcs
+
 char	*split_and_join(char *av_cmd, char *splitted);
 int		word_count(char const *s, char c);
 char	*get_path(char *cmd, char *env);
 
 // design and colors functions
+
 char	*read_line_colored(int random);
 char	*read_line_colored2(int random, char *path);
 
 // redirections
+
 int		error_set_print_close(t_mini *mini, t_cmd *cmd, int error);
 int		ft_dup2_output(t_rdr *rdr);
 int		ft_dup2_input(t_rdr *rdr);
@@ -261,26 +264,31 @@ void	ft_close_rdr_backv2(t_rdr *ordr, t_rdr *irdr);
 void	close_rdr_back(t_cmd *cmd);
 
 // directory check and direct execution (ex: ./minishell)
+
 int		is_directory(const char *path);
 int		file_exists(const char *pathname);
 int		dot_dir_check(t_cmd *cmd);
 
 // execution utils
+
 int		is_slash_exec(t_mini *mini, t_cmd *cmd);
 void	execute_in_dir(t_mini *mini, t_cmd *cmd);
 void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path);
 void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd);
 
 // heredoc
+
 void	handle_heredoc(t_mini *mini);
 void	take_heredoc_input(t_rdr *rdr);
 int		ft_pipe_heredoc(t_rdr *rdr, t_mini *mini, t_cmd *cmd);
 
 // fd handlers
+
 void	close_all_fds(t_mini *mini);
 int		ft_close(int fd, int limit, t_cmd *cmd);
 
 // children and process unstifle_historyint
+
 int		is_parent_compatible(t_cmd *cmd);
 int		is_parent_exec(t_cmd *cmd);
 void	execute_in_parent(t_mini *mini);

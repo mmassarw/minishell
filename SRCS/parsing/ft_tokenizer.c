@@ -150,7 +150,7 @@ bool	ft_evalvar(char *name, t_mini *mini)
 	word_count = 0;
 	env = env_already_exist(name, mini);
 	if (!env || !env->initialised)
-		return (false);
+		return (ft_syntaxerr("ambiguous redirect", 1));
 	if (env && env->initialised)
 	{
 		split = ft_split(env->value, ' ');
@@ -159,7 +159,7 @@ bool	ft_evalvar(char *name, t_mini *mini)
 		ft_free_split(split);
 	}
 	if (word_count != 1)
-		return (false);
+		return (ft_syntaxerr("ambiguous redirect", 1));
 	else
 		return (true);
 }
@@ -170,20 +170,27 @@ bool	ft_evalrdr(t_token *head, t_mini *mini)
 
 	current = head->next;
 	if (!current)
-		return (false);
+		return (ft_syntaxerr("syntax error near unexpected token", 258));
 	if (current->type == SPACES)
 		current = current->next;
 	if (!current || current->type == PIPE || current->type == REDIRECTION)
-		return (false);
-	while (current && current->type != SPACE && current->type != PIPE \
+		return (ft_syntaxerr("syntax error near unexpected token", 258));
+	while (current && current->type != SPACES && current->type != PIPE \
 	&& current->type != REDIRECTION)
 	{
 		if (current->type == VARIABLE)
 			if (!ft_evalvar(current->content, mini))
-				return(false);
+				return (false);
 		current = current->next;
 	}
 	return (true);
+}
+
+bool	ft_syntaxerr(char *errmsg, int num)
+{
+	fd_printf(2, "minishell: %s\n", errmsg);
+	g_exit_code = num;
+	return (false);
 }
 
 bool	ft_evalops(t_token *head, t_mini *mini)
@@ -195,11 +202,11 @@ bool	ft_evalops(t_token *head, t_mini *mini)
 	{
 		current = head->next;
 		if (!current)
-			return (false);
+			return (ft_syntaxerr("syntax error near unexpected token", 1));
 		if (current->type == SPACES)
 			current = current->next;
 		if (!current || current->type == PIPE)
-			return (false);
+			return (ft_syntaxerr("syntax error near unexpected token", 1));
 		return (true);
 	}
 	else
@@ -215,20 +222,11 @@ bool	ft_evaltokens(t_mini *mini)
 	{
 		if (current->type == PIPE || current->type == REDIRECTION)
 			if (!ft_evalops(current, mini))
-				{
-					fd_printf(2, "minishell: syntax error \
-near unexpected token\n");
-					g_exit_code = 258;
-					return (false);
-				}
+				return (false);
 		if (current->type == SINGLE || current->type == DOUBLE)
 			if (!ft_strchr(current->content + 1, *current->content))
-				{
-					fd_printf(2, "minishell: syntax error \
-from open quotes\n");
-					g_exit_code = 258;
-					return (false);
-				}
+				return (ft_syntaxerr("syntax error near unexpected token",\
+				258));
 		current = current->next;
 	}
 	return (true);
@@ -284,6 +282,7 @@ char	*ft_str_expand(char *quote, t_mini *mini)
 
 	i = 1;
 	type = VARIABLE;
+	temp = NULL;
 	start = ft_strchr(quote, '$');
 	if (start)
 	{
@@ -296,7 +295,7 @@ char	*ft_str_expand(char *quote, t_mini *mini)
 		start = ft_strjoin(quote, temp);
 		if (!start)
 			ft_exit_shell(mini, 137, "Page allocation failure", 2);
-		free(temp);
+		temp = (char *) ft_free(temp);
 		free(quote);
 		quote = start;
 	}
