@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/01 18:13:46 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:58:23 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,10 @@ typedef struct s_cmd
 {
 	char			**arg;
 	t_rdr			*rdr;
+	int				o_fd;
+	int				i_fd;
+	int				odup2_fd;
+	int				idup2_fd;
 	int				fd_pipe[2];
 	struct s_cmd	*next;
 	pid_t			fork_id;
