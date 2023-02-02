@@ -27,6 +27,8 @@ int	ft_init_arg_n_rdr(t_mini *mini, t_cmd *cmd, char **token)
 	i[0] = 0;
 	i[1] = 0;
 	cmd->arg = (char **) ft_calloc(ft_count_till_pipe(token), sizeof(char *));
+	cmd->fd_pipe[0] = -2;
+	cmd->fd_pipe[1] = -2;
 	if (!cmd->arg)
 		ft_exit_shell(mini, 137, "malloc fail", 2);
 	ft_populate_cmd(mini, cmd, token, i);

@@ -141,7 +141,30 @@ void	pop_middle_node(t_token **list, t_token *node)
 	ft_free_ltoken(node);
 }
 
-bool	ft_evalops(t_token *head)
+bool	ft_evalvar(char *name, t_mini *mini)
+{
+	char	**split;
+	size_t	word_count;
+	t_env	*env;
+
+	word_count = 0;
+	env = env_already_exist(name, mini);
+	if (!env || !env->initialised)
+		return (false);
+	if (env && env->initialised)
+	{
+		split = ft_split(env->value, ' ');
+		while (split[word_count])
+			word_count++;
+		ft_free_split(split);
+	}
+	if (word_count != 1)
+		return (false);
+	else
+		return (true);
+}
+
+bool	ft_evalrdr(t_token *head, t_mini *mini)
 {
 	t_token	*current;
 
@@ -150,10 +173,37 @@ bool	ft_evalops(t_token *head)
 		return (false);
 	if (current->type == SPACES)
 		current = current->next;
-	if (!current || (current->type != SINGLE && current->type != DOUBLE \
-	&& current->type != WORD && current->type == VARIABLE))
+	if (!current || current->type == PIPE || current->type == REDIRECTION)
 		return (false);
+	while (current && current->type != SPACE && current->type != PIPE \
+	&& current->type != REDIRECTION)
+	{
+		if (current->type == VARIABLE)
+			if (!ft_evalvar(current->content, mini))
+				return(false);
+		current = current->next;
+	}
 	return (true);
+}
+
+bool	ft_evalops(t_token *head, t_mini *mini)
+{
+	t_token	*current;
+
+	current = head;
+	if (current->type == PIPE)
+	{
+		current = head->next;
+		if (!current)
+			return (false);
+		if (current->type == SPACES)
+			current = current->next;
+		if (!current || current->type == PIPE)
+			return (false);
+		return (true);
+	}
+	else
+		return (ft_evalrdr(current, mini));
 }
 
 bool	ft_evaltokens(t_mini *mini)
@@ -163,8 +213,8 @@ bool	ft_evaltokens(t_mini *mini)
 	current = mini->l_token;
 	while(current)
 	{
-		if (current->type == REDIRECTION || current->type == PIPE)
-			if (!ft_evalops(current))
+		if (current->type == PIPE || current->type == REDIRECTION)
+			if (!ft_evalops(current, mini))
 				{
 					fd_printf(2, "minishell: syntax error \
 near unexpected token\n");
@@ -174,7 +224,7 @@ near unexpected token\n");
 		if (current->type == SINGLE || current->type == DOUBLE)
 			if (!ft_strchr(current->content + 1, *current->content))
 				{
-					fd_printf(2, "minishell: syntax error\
+					fd_printf(2, "minishell: syntax error \
 from open quotes\n");
 					g_exit_code = 258;
 					return (false);
@@ -196,10 +246,13 @@ void	ft_expandvar(t_mini *mini)
 		{
 			l_env = env_already_exist(current->content + 1, mini);
 			current->content[0] = '\0';
-			if (l_env && l_env->initialised)
+			if ((l_env && l_env->initialised) || *(current->content + 1) == '?')
 			{
 				current->content = (char *) ft_free(current->content);
-				current->content = ft_strdup(l_env->value);
+				if (l_env)
+					current->content = ft_strdup(l_env->value);
+				else
+					current->content = ft_itoa(g_exit_code);
 			}
 			current->type = WORD;
 		}
@@ -210,10 +263,12 @@ void	ft_expandvar(t_mini *mini)
 char	*ft_addmidstr(char *start, t_env *match, size_t i, t_mini *mini)
 {
 	char	*result;
+
 	if (match && match->initialised)
 		result = ft_strjoin(match->value, start + i);
 	else
-		result = ft_strdup(ft_memmove(start, start + i, ft_strlen(start + i)));
+		result = ft_strdup(ft_memmove(start, start + i,\
+		ft_strlen(start + i) + 1));
 	if (!result)
 		ft_exit_shell(mini, 137, "Page allocation failure", 2);
 	return (result);
@@ -225,6 +280,7 @@ char	*ft_str_expand(char *quote, t_mini *mini)
 	char				*temp;
 	enum e_tokentype	type;
 	size_t				i;
+	char				*hold;
 
 	i = 1;
 	type = VARIABLE;
@@ -232,13 +288,15 @@ char	*ft_str_expand(char *quote, t_mini *mini)
 	if (start)
 	{
 		ft_eovchr(&i, start + 1, &type);
+		hold = ft_substr(start + 1, 0, i - 1);
 		if (type == VARIABLE)
-			temp = ft_addmidstr(start, env_already_exist(start + 1, mini),\
-			i, mini);
+			temp = ft_addmidstr(start, env_already_exist(hold, mini), i, mini);
+		hold = (char *) ft_free(hold);
 		*start = '\0';
 		start = ft_strjoin(quote, temp);
 		if (!start)
 			ft_exit_shell(mini, 137, "Page allocation failure", 2);
+		free(temp);
 		free(quote);
 		quote = start;
 	}
@@ -303,13 +361,12 @@ char	**convert_linked_list(t_token *head)
 void	ft_tokenize(t_mini *mini)
 {
 	ft_tokenlist(mini);
-	// print_linked_list_by_type(mini->l_token);
+	print_linked_list_by_type(mini->l_token);
 	if (!ft_evaltokens(mini))
 		return ;
 	ft_expandvar(mini); // split by space and add nodes in the middle
 	ft_collapsequotes(mini);
 	mini->token = convert_linked_list(mini->l_token);
-	// printf("\n\n");
+	printf("\n\n");
 	// print_linked_list_by_type(mini->l_token);
-	// ft_print_split(mini->token);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:58:43 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/27 16:36:14 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:05:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,9 @@ void	ft_modify_env(char *arg, t_mini *mini)
 void	parse_new_export(char *arg, t_mini *mini)
 {
 	if (!env_already_exist(arg, mini))
-	{
-		fd_printf(1, "%s added\n", arg);
 		add_to_env(arg, mini);
-	}
 	else
-	{
 		ft_modify_env(arg, mini);
-		fd_printf(1, "%s modified\n", arg);
-	}
 }
 
 // if there are no arguemnts passed then it only prints

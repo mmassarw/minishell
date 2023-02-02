@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:10:26 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/21 09:10:36 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/30 01:45:49 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	builtin_check(t_mini *mini, t_cmd *cmd)
 		ft_echo(&cmd->arg[1]);
 	else if (!ft_strncmp(cmd->arg[0], "export", 7))
 		ft_export(&cmd->arg[1], mini);
-	else if (!ft_strncmp(cmd->arg[0], "unset", 5))
+	else if (!ft_strncmp(cmd->arg[0], "unset", 6))
 		ft_unset(&cmd->arg[1], mini);
 	else
 		return (1);

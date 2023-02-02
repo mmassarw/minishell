@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:52 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/27 22:50:04 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:47:50 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	parse_redirect(t_mini *mini, t_cmd *cmd)
 	rdr = cmd->rdr;
 	while (rdr)
 	{
-		if (rdr->fd > 2)
-			close(rdr->fd);
+		rdr->fd = ft_close(rdr->fd, 3, cmd);
 		if (rdr->e_rdr == OUTPUT || rdr->e_rdr == APPEND)
 			ordr = rdr;
 		if (rdr->e_rdr == INPUT || rdr->e_rdr == HEREDOC)
@@ -32,10 +31,10 @@ int	parse_redirect(t_mini *mini, t_cmd *cmd)
 		rdr = rdr->next;
 	}
 	if (ordr)
-		if (parse_dups(ordr) != 0)
+		if (parse_dups(ordr, mini, cmd) != 0)
 			return (1);
 	if (irdr)
-		if (parse_dups(irdr) != 0)
+		if (parse_dups(irdr, mini, cmd) != 0)
 			return (1);
 	mini++;
 	return (0);
@@ -63,12 +62,7 @@ int	file_no_exist(t_mini *mini, t_rdr *trdr)
 		rdr->fd = -1;
 	}
 	else if (rdr->e_rdr == INPUT)
-	{
-		// g_exit_code = 1;
 		return (1);
-	}
-	else if (rdr->e_rdr == HEREDOC)
-		return (fd_printf(2, "heredoc here to be handeled\n"));
 	return (0);
 }
 
@@ -123,9 +117,9 @@ int	ft_redirect(t_mini *mini, t_cmd *cmd)
 		return (0);
 	while (rdr != NULL && flag == 0)
 	{
-		if (access(rdr->file, F_OK) != EXIST)
+		if (rdr->e_rdr != HEREDOC && access(rdr->file, F_OK) != EXIST)
 			flag = file_no_exist(mini, rdr);
-		else if (check_file_rights(mini, rdr))
+		else if (rdr->e_rdr != HEREDOC && check_file_rights(mini, rdr))
 			flag = 1;
 		rdr = rdr->next;
 	}

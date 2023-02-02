@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/01/27 22:50:50 by mmassarw         ###   ########.fr       */
+=======
+/*   Updated: 2023/01/30 07:55:33 by hakaddou         ###   ########.fr       */
+>>>>>>> origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +89,9 @@ typedef struct s_rdr
 	int				fd;
 	int				og_fd;
 	int				dup2_fd;
+	pid_t			fork_id;
+	int				ret;
+	int				fdpipe[2];
 	enum e_rdr		e_rdr;
 	struct s_rdr	*next;
 }	t_rdr;
@@ -117,6 +124,8 @@ typedef struct s_cmd
 	t_rdr			*rdr;
 	int				fd_pipe[2];
 	struct s_cmd	*next;
+	pid_t			fork_id;
+	
 }	t_cmd;
 
 // enviromental linked list
@@ -214,7 +223,11 @@ void	exit_success(char **args, t_mini *mini);
 
 // chdir (cd)
 void	ft_cd(char **args, t_mini *mini);
-void	go_to_home(t_mini *mini);
+void	go_to_home(t_mini *mini, char *old_pwd);
+void	go_to_old_pwd(t_mini *mini, char *old_pwd);
+void	set_env_pwd(t_mini *mini);
+void	set_old_pwd(t_mini *mini, char *old_pwd);
+void	cd_return_success(t_mini *mini, char *old_pwd);
 char	*find_str_env(char *arg, t_mini *mini, int flag);
 
 // env **char conversion from linked list
@@ -238,7 +251,7 @@ int		error_set_print_close(t_mini *mini, t_cmd *cmd, int error);
 int		ft_dup2_output(t_rdr *rdr);
 int		ft_dup2_input(t_rdr *rdr);
 int		ft_dup2_append(t_rdr *rdr);
-int		parse_dups(t_rdr *trdr);
+int		parse_dups(t_rdr *trdr, t_mini *mini, t_cmd *cmd);
 int		parse_redirect(t_mini *mini, t_cmd *cmd);
 int		file_no_exist(t_mini *mini, t_rdr *trdr);
 int		ft_return_redirect_code(t_rdr *rdr);
@@ -251,5 +264,26 @@ void	close_rdr_back(t_cmd *cmd);
 int		is_directory(const char *path);
 int		file_exists(const char *pathname);
 int		dot_dir_check(t_cmd *cmd);
+
+// execution utils
+int		is_slash_exec(t_mini *mini, t_cmd *cmd);
+void	execute_in_dir(t_mini *mini, t_cmd *cmd);
+void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path);
+void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd);
+
+// heredoc
+void	handle_heredoc(t_mini *mini);
+void	take_heredoc_input(t_rdr *rdr);
+int		ft_pipe_heredoc(t_rdr *rdr, t_mini *mini, t_cmd *cmd);
+
+// fd handlers
+void	close_all_fds(t_mini *mini);
+int		ft_close(int fd, int limit, t_cmd *cmd);
+
+// children and process unstifle_historyint
+int		is_parent_compatible(t_cmd *cmd);
+int		is_parent_exec(t_cmd *cmd);
+void	execute_in_parent(t_mini *mini);
+void	wait_for_children(t_mini *mini);
 
 #endif

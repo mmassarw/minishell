@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:23:29 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/26 19:23:58 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:16:56 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_dup2_append(t_rdr *rdr)
 	return (0);
 }
 
-int	parse_dups(t_rdr *trdr)
+int	parse_dups(t_rdr *trdr, t_mini *mini, t_cmd *cmd)
 {
 	t_rdr	*rdr;
 	int		flag;
@@ -64,5 +64,7 @@ int	parse_dups(t_rdr *trdr)
 		flag = ft_dup2_input(rdr);
 	else if (rdr->e_rdr == APPEND)
 		flag = ft_dup2_append(rdr);
+	else if (rdr->e_rdr == HEREDOC)
+		flag = ft_pipe_heredoc(rdr, mini, cmd);
 	return (flag);
 }

@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:47 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/27 21:06:58 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:03:26 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,27 @@ void	ft_close_rdr_backv2(t_rdr *ordr, t_rdr *irdr)
 {
 	if (ordr)
 	{
-		close(ordr->dup2_fd);
+		ordr->dup2_fd = ft_close(ordr->dup2_fd, 3, NULL);
 		dup2(ordr->og_fd, STDOUT_FILENO);
-		close(ordr->og_fd);
-		close(ordr->fd);
+		ordr->og_fd = ft_close(ordr->og_fd, 3, NULL);
+		ordr->fd = ft_close(ordr->fd, 3, NULL);
 	}
 	if (irdr)
 	{
-		close(irdr->dup2_fd);
-		dup2(irdr->og_fd, STDIN_FILENO);
-		close(irdr->og_fd);
-		close(irdr->fd);
+		if (irdr->e_rdr == HEREDOC)
+		{
+			irdr->dup2_fd = ft_close (irdr->dup2_fd, 3, NULL);
+			irdr->fdpipe[0] = ft_close (irdr->fdpipe[0], 3, NULL);
+			dup2(irdr->og_fd, STDIN_FILENO);
+			irdr->og_fd = ft_close (irdr->og_fd, 3, NULL);
+		}
+		else
+		{
+			irdr->dup2_fd = ft_close(irdr->dup2_fd, 3, NULL);
+			dup2(irdr->og_fd, STDIN_FILENO);
+			irdr->og_fd = ft_close(irdr->og_fd, 3, NULL);
+			irdr->fd = ft_close(irdr->fd, 3, NULL);
+		}
 	}
 }
 
