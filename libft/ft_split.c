@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:00:42 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/15 18:08:38 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:29:55 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	**ft_split_alloc(char const *s, char c, int *big)
 	char	**p;
 
 	i = 0;
+	p = NULL;
 	if (!s)
 		return (0);
 	while (s[i])

@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/01 15:52:56 by codespace        ###   ########.fr        #
+#    Updated: 2023/02/03 05:44:09 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libft.a
 
 CC		=	@gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-g3 -Wall -Wextra -Werror
 
 RM		=	@rm -f
 

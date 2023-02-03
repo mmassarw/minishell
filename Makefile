@@ -6,9 +6,10 @@
 #    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/03 14:18:57 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/02/03 14:29:08 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME	=	minishell
 
@@ -37,6 +38,7 @@ SRCS	=	SRCS/main.c \
 			SRCS/utils/ft_free_list.c \
 			SRCS/utils/ft_print_list.c \
 			SRCS/utils/temp_funs.c \
+			SRCS/utils/ft_mani_list.c \
 			SRCS/execution/ft_unset.c \
 			SRCS/execution/ft_exit.c \
 			SRCS/execution/env_conv.c \
@@ -51,7 +53,7 @@ SRCS	=	SRCS/main.c \
 			SRCS/execution/execution_utils.c \
 			SRCS/execution/heredoc.c \
 			SRCS/execution/fd_handler.c \
-			SRCS/execution/process_utils.c
+			SRCS/execution/process_utils.c \
 
 OBJS	=	$(SRCS:.c=.o)
 

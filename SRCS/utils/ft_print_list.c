@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:57:41 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/01/27 19:07:50 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:28:32 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,42 @@ void	ft_print_cmd(t_cmd *s_head)
 		printf("\n\n");
 		current = current->next;
 	}
+}
+
+void print_linked_list_by_type(t_token *head) {
+	 t_token *current = head;
+	 char single[10000] = "";
+	 char doubleq[10000] = "";
+	 char variable[10000] = "";
+	 char redirection[10000] = "";
+	 char pipe[10000] = "";
+	 char word[10000] = "";
+	 while (current != NULL) {
+		 if (current->type == SINGLE) {
+			 strcat(single, current->content);
+			 strcat(single, " ");
+		 } else if (current->type == DOUBLE) {
+			 strcat(doubleq, current->content);
+			 strcat(doubleq, " ");
+		 } else if (current->type == VARIABLE) {
+			 strcat(variable, current->content);
+			 strcat(variable, " ");
+		 } else if (current->type == REDIRECTION) {
+			 strcat(redirection, current->content);
+			 strcat(redirection, " ");
+		 } else if (current->type == PIPE) {
+			 strcat(pipe, current->content);
+			 strcat(pipe, " ");
+		 } else if (current->type == WORD) {
+			 strcat(word, current->content);
+			 strcat(word, " ");
+		 }
+		 current = current->next;
+	 }
+	 if(strlen(single)) printf("[SINGLE] %s\n", single);
+	 if(strlen(doubleq)) printf("[DOUBLE] %s\n", doubleq);
+	 if(strlen(variable)) printf("[VARIABLE] %s\n", variable);
+	 if(strlen(redirection)) printf("[REDIRECTION] %s\n", redirection);
+	 if(strlen(pipe)) printf("[PIPE] %s\n", pipe);
+	 if(strlen(word)) printf("[WORD] %s\n", word);
 }

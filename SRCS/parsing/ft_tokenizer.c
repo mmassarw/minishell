@@ -88,59 +88,6 @@ void	ft_tokenlist(t_mini *mini)
 	}
 }
 
-void print_linked_list_by_type(t_token *head) {
-	 t_token *current = head;
-	 char single[10000] = "";
-	 char doubleq[10000] = "";
-	 char variable[10000] = "";
-	 char redirection[10000] = "";
-	 char pipe[10000] = "";
-	 char word[10000] = "";
-	 while (current != NULL) {
-		 if (current->type == SINGLE) {
-			 strcat(single, current->content);
-			 strcat(single, " ");
-		 } else if (current->type == DOUBLE) {
-			 strcat(doubleq, current->content);
-			 strcat(doubleq, " ");
-		 } else if (current->type == VARIABLE) {
-			 strcat(variable, current->content);
-			 strcat(variable, " ");
-		 } else if (current->type == REDIRECTION) {
-			 strcat(redirection, current->content);
-			 strcat(redirection, " ");
-		 } else if (current->type == PIPE) {
-			 strcat(pipe, current->content);
-			 strcat(pipe, " ");
-		 } else if (current->type == WORD) {
-			 strcat(word, current->content);
-			 strcat(word, " ");
-		 }
-		 current = current->next;
-	 }
-	 if(strlen(single)) printf("[SINGLE] %s\n", single);
-	 if(strlen(doubleq)) printf("[DOUBLE] %s\n", doubleq);
-	 if(strlen(variable)) printf("[VARIABLE] %s\n", variable);
-	 if(strlen(redirection)) printf("[REDIRECTION] %s\n", redirection);
-	 if(strlen(pipe)) printf("[PIPE] %s\n", pipe);
-	 if(strlen(word)) printf("[WORD] %s\n", word);
-}
-
-void	pop_middle_node(t_token **list, t_token *node)
-{
-	if (*list == NULL || node == NULL)
-		return ;
-	if (node->prev != NULL)
-		node->prev->next = node->next;
-	if (node->next != NULL)
-		node->next->prev = node->prev;
-	if (*list == node)
-		*list = node->next;
-	node->prev = NULL;
-	node->next = NULL;
-	ft_free_ltoken(node);
-}
-
 bool	ft_evalvar(char *name, t_mini *mini)
 {
 	char	**split;
@@ -200,6 +147,8 @@ bool	ft_evalops(t_token *head, t_mini *mini)
 	current = head;
 	if (current->type == PIPE)
 	{
+		if (!current->prev)
+			return (ft_syntaxerr("syntax error near unexpected token", 1));
 		current = head->next;
 		if (!current)
 			return (ft_syntaxerr("syntax error near unexpected token", 1));
@@ -232,6 +181,51 @@ bool	ft_evaltokens(t_mini *mini)
 	return (true);
 }
 
+void	ft_init_splitvar(t_mini *mini, t_token **current, char **split)
+{
+	t_token	*tmp;
+	size_t	i;
+
+	i = 1;
+	while(split[i])
+	{
+		tmp = (t_token *) ft_calloc(1, sizeof(t_token));
+		if (!tmp)
+			ft_exit_shell(mini, 137, "Page allocation failure", 2);
+		tmp->type = SPACES;
+		add_node_middle((*current), tmp);
+		(*current) = (*current)->next;
+		tmp = (t_token *) ft_calloc(1, sizeof(t_token));
+		if (!tmp)
+			ft_exit_shell(mini, 137, "Page allocation failure", 2);
+		tmp->content = ft_strdup(split[i++]);
+		if (!tmp->content)
+		{
+			tmp = (t_token *) ft_free(tmp);
+			ft_exit_shell(mini, 137, "Page allocation failure", 2);
+		}
+		tmp->type = WORD;
+		add_node_middle((*current), tmp);
+		(*current) = (*current)->next;
+	}
+}
+
+void	ft_splitvar(t_mini *mini, t_token **current)
+{
+	char	**split;
+
+	split = ft_split((*current)->content, ' ');
+	if (!split)
+		ft_exit_shell(mini, 137, "Page allocation failure", 2);
+	if (*split)
+	{
+		(*current)->content = (char *) ft_free((*current)->content);
+		(*current)->content = ft_strdup(*split);
+		ft_init_splitvar(mini, current, split);
+	}
+	split = (char **) ft_free_split(split);
+}
+
 void	ft_expandvar(t_mini *mini)
 {
 	t_token	*current;
@@ -252,7 +246,7 @@ void	ft_expandvar(t_mini *mini)
 				else
 					current->content = ft_itoa(g_exit_code);
 			}
-			current->type = WORD;
+			ft_splitvar(mini, &current);
 		}
 		current = current->next;
 	}
@@ -272,32 +266,43 @@ char	*ft_addmidstr(char *start, t_env *match, size_t i, t_mini *mini)
 	return (result);
 }
 
-char	*ft_str_expand(char *quote, t_mini *mini)
+char	*ft_str_expand(char *start, char *quote, t_mini *mini, size_t i)
 {
-	char				*start;
 	char				*temp;
-	enum e_tokentype	type;
-	size_t				i;
 	char				*hold;
 
-	i = 1;
-	type = VARIABLE;
 	temp = NULL;
+	hold = ft_substr(start + 1, 0, i - 1);
+	temp = ft_addmidstr(start, env_already_exist(hold, mini), i, mini);
+	hold = (char *) ft_free(hold);
+	*start = '\0';
+	start = ft_strjoin(quote, temp);
+	temp = (char *) ft_free(temp);
+	quote = (char *) ft_free(quote);
+	quote = start;
+	return (quote);
+	
+}
+
+char	*ft_check_var(char *quote, t_mini *mini)
+{
+	char				*start;
+	enum e_tokentype	type;
+	size_t				i;
+
 	start = ft_strchr(quote, '$');
-	if (start)
+	while (start)
 	{
+		i = 1;
+		type = VARIABLE;
 		ft_eovchr(&i, start + 1, &type);
-		hold = ft_substr(start + 1, 0, i - 1);
 		if (type == VARIABLE)
-			temp = ft_addmidstr(start, env_already_exist(hold, mini), i, mini);
-		hold = (char *) ft_free(hold);
-		*start = '\0';
-		start = ft_strjoin(quote, temp);
-		if (!start)
-			ft_exit_shell(mini, 137, "Page allocation failure", 2);
-		temp = (char *) ft_free(temp);
-		free(quote);
-		quote = start;
+		{
+			quote = ft_str_expand(start, quote, mini, i);
+			start = ft_strchr(quote, '$');
+		}
+		else
+			start = ft_strchr(start + 1, '$');
 	}
 	return (quote);
 }
@@ -315,8 +320,7 @@ void	ft_collapsequotes(t_mini *mini)
 			(ft_strlen(current->content) - 2));
 			current->content[ft_strlen(current->content) - 2] = '\0';
 			if (current->type == DOUBLE)
-				while (ft_strchr(current->content, '$'))
-					current->content = ft_str_expand(current->content, mini);
+				current->content = ft_check_var(current->content, mini);
 			current->type = WORD;
 		}
 		current = current->next;
@@ -363,7 +367,7 @@ void	ft_tokenize(t_mini *mini)
 	// print_linked_list_by_type(mini->l_token);
 	if (!ft_evaltokens(mini))
 		return ;
-	ft_expandvar(mini); // split by space and add nodes in the middle
+	ft_expandvar(mini);
 	ft_collapsequotes(mini);
 	mini->token = convert_linked_list(mini->l_token);
 	// printf("\n\n");
