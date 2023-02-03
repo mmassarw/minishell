@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/02 22:55:33 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 01:38:51 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,23 @@ void	take_input(t_mini *mini)
 	}
 }
 
+void	print_wlcm_msg(t_mini *mini)
+{
+	char *user;
+
+	user = find_str_env("USER", mini, VALUE);
+	if (!user)
+	{
+		fd_printf(1, WLCM_MSG, ft_atoi(find_str_env("SHLVL", mini, VALUE))
+			, "unkown 🕵");
+	}
+	else
+	{
+		fd_printf(1, WLCM_MSG, ft_atoi(find_str_env("SHLVL", mini, VALUE))
+			, user);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_mini	mini;
@@ -40,5 +57,6 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	ft_bzero(&mini, sizeof(t_mini));
 	ft_parse_env(&mini, (const char **)envp);
+	print_wlcm_msg(&mini);
 	take_input(&mini);
 }

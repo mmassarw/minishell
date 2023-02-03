@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/03 14:18:39 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 01:38:45 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # include <readline/history.h>
 # include <stddef.h>
 
-#define malloc(x) NULL
-
 //	colors
 # define BLUE_FONT	"\033[1;36m"
 # define RESET_FONT	"\033[0m"
@@ -41,6 +39,18 @@
 // eeror strings
 # define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
 # define UNSET_NO_ARG "unset: not enough arguments\n"
+
+# define WLCM_MSG "\033[1;37m\n██████████████████████████████████████████████████████████████\
+\n█                                                            █\n█ The default interactive shell \
+is now minishell.            █\n█ If you like this shell, please give us \
+a follow on         █\n█\033[1;4;34m https://github.com/hadi14250\033[0m\
+ \033[1;37m&\033[0m \033[1;4;34mhttps://github.com/mmassarw\033[0m\033[1;37m █\n█\
+                                                            █\n\
+█ About your shell 👇                                        █\n\
+█ • 🐚 shell level: %d                                        █\n\
+█ • 👤 User: %s                                        █\n█\
+                                                            █\n\
+██████████████████████████████████████████████████████████████\n\n\n\033[0m"
 
 // command flags
 # define BUILTIN 68
@@ -278,12 +288,6 @@ int		is_directory(const char *path);
 int		file_exists(const char *pathname);
 int		dot_dir_check(t_cmd *cmd);
 
-// execution utils
-
-int		is_slash_exec(t_mini *mini, t_cmd *cmd);
-void	execute_in_dir(t_mini *mini, t_cmd *cmd);
-void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path);
-void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd);
 
 // heredoc
 
@@ -304,5 +308,26 @@ void	execute_in_parent(t_mini *mini);
 void	wait_for_children(t_mini *mini);
 
 void	ft_exit_ushell(t_mini *s_mini, int error, char *p_err, int fd, t_cmd *cmd);
+
+// piping and execution
+
+int		is_slash_exec(t_mini *mini, t_cmd *cmd);
+void	execute_in_dir(t_mini *mini, t_cmd *cmd);
+void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path);
+void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd);
+void	execute_in_child(t_mini *mini);
+void	exec_children_cmds(t_mini *mini, t_cmd *cmd);
+int		ft_fork(t_cmd *cmd, t_mini *mini);
+void	dup_pipe_output(t_mini *mini, t_cmd *cmd);
+void	dup_pipe_input(t_mini *mini, t_cmd *cmd, t_cmd *prevcmd);
+void	close_pipe(t_cmd *prevcmd);
+int		ft_pipe(int fdpipe[2], t_mini *mini);
+
+// env utils
+
+void	set_env_underscore(char *cmd, t_mini *mini);
+void	add_shlvl(t_env *env, t_mini *mini);
+void	increase_shlvl(t_env *env, t_mini *mini);
+char	**add_basic_env(t_mini *mini);
 
 #endif

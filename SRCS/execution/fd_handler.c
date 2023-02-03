@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:30:42 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/03 13:41:11 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/03 21:50:41 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	close_all_fds(t_mini *mini)
 				rdr = rdr->next;
 			}
 		}
+		ft_close(cmd->fd_pipe[0], 0, NULL);
 		cmd = cmd->next;
 	}
 }

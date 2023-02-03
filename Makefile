@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
+#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/03 14:18:20 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/02/03 22:36:53 by hakaddou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME	=	minishell
 
@@ -53,6 +54,8 @@ SRCS	=	SRCS/main.c \
 			SRCS/execution/heredoc.c \
 			SRCS/execution/fd_handler.c \
 			SRCS/execution/process_utils.c \
+			SRCS/execution/pipe_utils.c \
+			SRCS/execution/env_utils.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -88,7 +91,7 @@ leaks:
 			--track-origins=yes \
 			--show-leak-kinds=all -s \
 			--track-fds=yes \
-			--trace-children=yes \
 			./minishell
 
+# --log-file="valg_errors.log"\
 .PHONY: all clean fclean re
