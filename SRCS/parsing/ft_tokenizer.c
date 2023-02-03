@@ -372,4 +372,4 @@ void	ft_tokenize(t_mini *mini)
 	mini->token = convert_linked_list(mini->l_token);
 	// printf("\n\n");
 	// print_linked_list_by_type(mini->l_token);
-}
+}	
