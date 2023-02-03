@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/02 22:55:33 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/03 23:10:31 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	ft_bzero(&mini, sizeof(t_mini));
 	ft_parse_env(&mini, (const char **)envp);
+	fd_printf(1, WLCM_MSG, ft_atoi(find_str_env("SHLVL", &mini, VALUE)));
 	take_input(&mini);
 }
