@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/03 23:21:20 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 01:38:45 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # include <readline/history.h>
 # include <stddef.h>
 
-#define malloc(x) NULL
-
 //	colors
 # define BLUE_FONT	"\033[1;36m"
 # define RESET_FONT	"\033[0m"
@@ -42,12 +40,17 @@
 # define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
 # define UNSET_NO_ARG "unset: not enough arguments\n"
 
-
-#define WLCM_MSG "\n\033[1;37mThe default interactive shell \
-is now minishell.\nIf you like this shell, please give us \
-a follow on https://github.com/hadi14250.\n\n\
-about your shell:\nshell level: %d\n\
-\033[0m"
+# define WLCM_MSG "\033[1;37m\n██████████████████████████████████████████████████████████████\
+\n█                                                            █\n█ The default interactive shell \
+is now minishell.            █\n█ If you like this shell, please give us \
+a follow on         █\n█\033[1;4;34m https://github.com/hadi14250\033[0m\
+ \033[1;37m&\033[0m \033[1;4;34mhttps://github.com/mmassarw\033[0m\033[1;37m █\n█\
+                                                            █\n\
+█ About your shell 👇                                        █\n\
+█ • 🐚 shell level: %d                                        █\n\
+█ • 👤 User: %s                                        █\n█\
+                                                            █\n\
+██████████████████████████████████████████████████████████████\n\n\n\033[0m"
 
 // command flags
 # define BUILTIN 68
