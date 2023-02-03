@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/02 17:23:10 by mmassarw         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/02 17:58:23 by hakaddou         ###   ########.fr       */
->>>>>>> origin/hadi
+/*   Created: 2023/02/02 22:03:17 by hakaddou          #+#    #+#             */
+/*   Updated: 2023/02/03 13:02:43 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,5 +297,7 @@ int		is_parent_compatible(t_cmd *cmd);
 int		is_parent_exec(t_cmd *cmd);
 void	execute_in_parent(t_mini *mini);
 void	wait_for_children(t_mini *mini);
+
+void	ft_exit_ushell(t_mini *s_mini, int error, char *p_err, int fd, t_cmd *cmd);
 
 #endif

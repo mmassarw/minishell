@@ -360,12 +360,12 @@ char	**convert_linked_list(t_token *head)
 void	ft_tokenize(t_mini *mini)
 {
 	ft_tokenlist(mini);
-	print_linked_list_by_type(mini->l_token);
+	// print_linked_list_by_type(mini->l_token);
 	if (!ft_evaltokens(mini))
 		return ;
 	ft_expandvar(mini); // split by space and add nodes in the middle
 	ft_collapsequotes(mini);
 	mini->token = convert_linked_list(mini->l_token);
-	printf("\n\n");
+	// printf("\n\n");
 	// print_linked_list_by_type(mini->l_token);
-}
+}	

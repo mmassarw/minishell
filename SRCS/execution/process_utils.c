@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 07:53:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/02 20:24:01 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/02 23:48:43 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void	wait_for_children(t_mini *mini)
 {
 	int		status;
 	t_cmd	*cmd;
-	// int		i;
 
-	// i = 1;
 	status = 0;
 	cmd = mini->l_cmd;
 	while (cmd)
@@ -63,10 +61,7 @@ void	wait_for_children(t_mini *mini)
 		{
 			waitpid(cmd->fork_id, &status, 0);
 			if (WIFEXITED(status))
-			{
 				g_exit_code = WEXITSTATUS(status);
-				// fd_printf(2, "Child %d exit status: %d\n", i++, g_exit_code);
-			}
 		}
 		cmd = cmd->next;
 	}
