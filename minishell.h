@@ -6,11 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/02 17:23:10 by mmassarw         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/02 17:58:23 by hakaddou         ###   ########.fr       */
->>>>>>> origin/hadi
+/*   Updated: 2023/02/03 13:02:05 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +30,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stddef.h>
+
+#define malloc(x) NULL
 
 //	colors
 # define BLUE_FONT	"\033[1;36m"
@@ -210,6 +208,9 @@ void	print_env(t_mini *mini);
 void	ft_print_split(char **split);
 void	parse_input(t_mini *mini);
 bool	ft_syntaxerr(char *errmsg, int num);
+void	print_linked_list_by_type(t_token *head);
+void	pop_node(t_token **list, t_token *node);
+void	add_node_middle(t_token *node_before, t_token *new_node);
 
 // unset
 
