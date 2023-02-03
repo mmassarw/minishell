@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/03 14:18:39 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:26:22 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,5 +304,15 @@ void	execute_in_parent(t_mini *mini);
 void	wait_for_children(t_mini *mini);
 
 void	ft_exit_ushell(t_mini *s_mini, int error, char *p_err, int fd, t_cmd *cmd);
+
+// piping and execution
+
+void	execute_in_child(t_mini *mini);
+void	exec_children_cmds(t_mini *mini, t_cmd *cmd);
+int		ft_fork(t_cmd *cmd, t_mini *mini);
+void	dup_pipe_output(t_mini *mini, t_cmd *cmd);
+void	dup_pipe_input(t_mini *mini, t_cmd *cmd, t_cmd *prevcmd);
+void	close_pipe(t_cmd *prevcmd);
+int		ft_pipe(int fdpipe[2], t_mini *mini);
 
 #endif

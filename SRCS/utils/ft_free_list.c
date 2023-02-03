@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/03 00:37:00 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:52:45 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,14 @@ void	ft_exit_shell(t_mini *s_mini, int error, char *p_err, int fd)
 	if (p_err)
 		fd_printf(fd, "%s\n", p_err);
 	close_all_fds(s_mini);
+	if ((s_mini && s_mini->l_cmd
+		&& s_mini->l_cmd->next == NULL)
+		|| (s_mini->rl == NULL))
+	{
+		ft_close(0, 0, NULL);
+		ft_close(1, 0, NULL);
+		ft_close(2, 0, NULL);
+	}
 	ft_free_all(s_mini);
-	ft_close(0, 0, NULL);
-	ft_close(1, 0, NULL);
-	ft_close(2, 0, NULL);
 	exit(g_exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:10:26 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/30 01:45:49 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:13:00 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	builtin_check(t_mini *mini, t_cmd *cmd)
 		g_exit_code = COMMAND_FAIL;
 		return (0);
 	}
-	else if (!ft_strncmp(cmd->arg[0], "pwd", 4))
+	if (!ft_strncmp(cmd->arg[0], "pwd", 4))
 		print_pwd();
 	else if (!ft_strncmp(cmd->arg[0], "cd", 3))
 		ft_cd(&cmd->arg[1], mini);
