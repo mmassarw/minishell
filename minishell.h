@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 01:38:45 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 04:11:08 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ bool	ft_syntaxerr(char *errmsg, int num);
 void	print_linked_list_by_type(t_token *head);
 void	pop_node(t_token **list, t_token *node);
 void	add_node_middle(t_token *node_before, t_token *new_node);
+void	delete_empty_word_nodes(t_token **head);
 
 // unset
 
