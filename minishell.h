@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/04 18:02:40 by mmassarw         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/04 15:05:38 by hakaddou         ###   ########.fr       */
->>>>>>> origin/hadi
+/*   Created: 2023/02/04 19:26:15 by hakaddou          #+#    #+#             */
+/*   Updated: 2023/02/04 23:34:15 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +279,10 @@ int		check_file_rights(t_mini *mini, t_rdr *trdr);
 int		ft_redirect(t_mini *mini, t_cmd *cmd);
 void	ft_close_rdr_backv2(t_rdr *ordr, t_rdr *irdr);
 void	close_rdr_back(t_cmd *cmd);
+bool	empty_file_check(t_rdr *rdr);
+int		parse_redirect_errors(t_mini *mini, t_cmd *cmd, int flag);
+int		error_set_print_close(t_mini *mini, t_cmd *cmd, int error);
+void	close_rdr_files(t_mini *mini, t_cmd *cmd);
 
 // directory check and direct execution (ex: ./minishell)
 
