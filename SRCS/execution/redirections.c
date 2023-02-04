@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:52 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/04 23:29:11 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/05 00:05:01 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	ft_redirect(t_mini *mini, t_cmd *cmd)
 		return (0);
 	while (rdr != NULL && flag == 0)
 	{
-		if (empty_file_check(rdr) == true)
+		if (rdr->e_rdr != HEREDOC && empty_file_check(rdr) == true)
 			flag = 3;
 		else if (rdr->e_rdr != HEREDOC && access(rdr->file, F_OK) != EXIST)
 			flag = file_no_exist(mini, rdr);

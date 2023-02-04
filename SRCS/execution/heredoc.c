@@ -6,7 +6,11 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:27:57 by hakaddou          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/04 23:09:54 by mmassarw         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/05 00:01:21 by hakaddou         ###   ########.fr       */
+>>>>>>> origin/hadi
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +79,8 @@ void	take_heredoc_input(t_rdr *rdr, t_mini *mini)
 	}
 	input = ft_free(input);
 	rdr->file = ft_free(rdr->file);
+	if (!total)
+		total = ft_strdup("");
 	rdr->file = total;
 }
 
