@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/04 18:02:40 by mmassarw         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/04 15:05:38 by hakaddou         ###   ########.fr       */
->>>>>>> origin/hadi
+/*   Updated: 2023/02/04 22:33:37 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,9 +184,13 @@ char	*set_env_value(char *arg, t_env *new);
 char	*set_env_key(char *arg);
 void	print_export(t_mini *mini);
 
-// parsing
+// tokenizing
 
 void	ft_tokenize(t_mini *mini);
+char	*ft_check_var(char *quote, t_mini *mini);
+
+// parsing
+
 int		ft_check_rdr(char *string);
 void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, t_token **token);
 int		ft_count_till_pipe(t_token *token);
@@ -210,14 +210,17 @@ void	ft_free_all(t_mini *mini);
 
 void	ft_exit_shell(t_mini *m, int er, char *p_er, int fd);
 
+// printing
+
+// void	ft_print_cmd(t_cmd *s_head);
+// void	print_env(t_mini *mini);
+// void	ft_print_split(char **split);
+// void	print_linked_list_by_type(t_token *head);
+
 // utils
 
-void	ft_print_cmd(t_cmd *s_head);
-void	print_env(t_mini *mini);
-void	ft_print_split(char **split);
 void	parse_input(t_mini *mini);
 bool	ft_syntaxerr(char *errmsg, int num, bool ret);
-void	print_linked_list_by_type(t_token *head);
 void	pop_node(t_token **list, t_token *node);
 void	add_node_middle(t_token *node_before, t_token *new_node);
 void	delete_empty_nodes(t_token **head);
@@ -257,6 +260,8 @@ int		return_env_size(t_env *env);
 char	*join_key_val(char *key, char *value);
 char	*join_key_eq(char *key, t_env *env);
 char	**convert_env(t_mini *mini);
+void	print_env(t_mini *mini);
+
 
 // get path srcs
 
@@ -294,7 +299,7 @@ int		dot_dir_check(t_cmd *cmd);
 // heredoc
 
 void	handle_heredoc(t_mini *mini);
-void	take_heredoc_input(t_rdr *rdr);
+void	take_heredoc_input(t_rdr *rdr, t_mini *mini);
 int		ft_pipe_heredoc(t_rdr *rdr, t_mini *mini, t_cmd *cmd);
 
 // fd handlers

@@ -6,18 +6,25 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 15:27:40 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 23:33:25 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	ft_interupt(int sig)
+{
+	(void) sig;
+	g_exit_code = 1;
+}
+
 void	take_input(t_mini *mini)
 {
+		signal(SIGINT, &ft_interupt);
+		signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		mini->rl = read_line_colored(random_between(1, 6));
-		// mini->rl = readline("minishell-3.2$ ");
 		if (mini->rl == NULL)
 			ft_exit_shell(mini, 0, "exit", 1);
 		if (mini->rl[0] != '\0')
@@ -25,7 +32,6 @@ void	take_input(t_mini *mini)
 		ft_tokenize(mini);
 		if (mini->l_token)
 			ft_parse_token(mini);
-		// ft_print_cmd(mini->l_cmd);
 		if (mini->l_cmd)
 			parse_input(mini);
 		ft_free_cycle(mini);
@@ -34,18 +40,18 @@ void	take_input(t_mini *mini)
 
 void	print_wlcm_msg(t_mini *mini)
 {
-	char *user;
+	char	*user;
 
 	user = find_str_env("USER", mini, VALUE);
 	if (!user)
 	{
-		fd_printf(1, WLCM_MSG, ft_atoi(find_str_env("SHLVL", mini, VALUE))
-			, "unkown 🕵");
+		fd_printf(1, WLCM_MSG, ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
+		, "unkown 🕵");
 	}
 	else
 	{
-		fd_printf(1, WLCM_MSG, ft_atoi(find_str_env("SHLVL", mini, VALUE))
-			, user);
+		fd_printf(1, WLCM_MSG, ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
+		, user);
 	}
 }
 

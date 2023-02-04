@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 16:26:09 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 19:20:01 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:52:01 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,13 +195,18 @@ bool	ft_evaltokens(t_mini *mini)
 	current = mini->l_token;
 	while(current)
 	{
-		if (current->type == PIPE || current->type == REDIRECTION)
-			if (!ft_evalops(current, mini))
-				return (false);
 		if (current->type == SINGLE || current->type == DOUBLE)
 			if (!ft_strchr(current->content + 1, *current->content))
 				return (ft_syntaxerr("syntax error near unexpected token",\
 				258, false));
+		current = current->next;
+	}
+	current = mini->l_token;
+	while (current)
+	{
+		if (current->type == PIPE || current->type == REDIRECTION)
+			if (!ft_evalops(current, mini))
+				return (false);
 		current = current->next;
 	}
 	return (true);
@@ -366,8 +371,6 @@ void	ft_tokenize(t_mini *mini)
 	}
 	ft_expandvar(mini);
 	ft_collapsequotes(mini);
-	// delete_empty_word_nodes(&(mini->l_token));
 	join_same_type_nodes(mini->l_token);
-	// print_linked_list_by_type(mini->l_token);
 	delete_empty_nodes(&(mini->l_token));
 }

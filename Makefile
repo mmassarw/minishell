@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/04 19:07:23 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/02/04 21:30:21 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME	=	minishell
 
 CC		=	@gcc
-CFLAGS	=	-g3 -Wall -Wextra -Werror# -fsanitize=address
+CFLAGS	=	-g3 -Wall -Wextra -Werror -fsanitize=address
 RLFLAGS =	-L/usr/local/lib -I/usr/local/include -lreadline
 
 RM		=	@rm -f
@@ -36,7 +36,6 @@ SRCS	=	SRCS/main.c \
 			SRCS/parsing/ft_parse_token_utils.c \
 			SRCS/parsing/ft_tokenizer.c \
 			SRCS/utils/ft_free_list.c \
-			SRCS/utils/ft_print_list.c \
 			SRCS/utils/temp_funs.c \
 			SRCS/utils/ft_mani_list.c \
 			SRCS/execution/ft_unset.c \

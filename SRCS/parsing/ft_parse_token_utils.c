@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:48:47 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 06:55:52 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:18:53 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_rdr	*ft_add_to_rdrlist(t_rdr *rdr_head, t_token **token, t_mini *mini)
 void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, t_token **token)
 {
 	int	i;
-	
+
 	i = 0;
 	cmd->rdr = NULL;
 	while (*token && (*token)->type != PIPE)

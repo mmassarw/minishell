@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:27:57 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/04 04:34:34 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 23:09:54 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,42 @@ void	null_params(char **tmp, char **total, char **line)
 	*line = NULL;
 }
 
-void	take_heredoc_input(t_rdr *rdr)
+bool	parse_delimiter(t_rdr *rdr)
+{
+	char	*tmp;
+	char	hold;
+	bool	quoted;
+
+	quoted = false;
+	tmp = rdr->file;
+	while (*tmp)
+		tmp++;
+	while (tmp >= rdr->file)
+	{
+		while (tmp >= rdr->file && (*tmp != '\'' && *tmp != '\"'))
+			tmp--;
+		if (tmp < rdr->file)
+			return (quoted);
+		hold = *tmp;
+		ft_memmove(tmp, tmp + 1, ft_strlen(tmp));
+		ft_memmove(ft_strrchr(rdr->file, hold), \
+		ft_strrchr(rdr->file, hold) + 1, \
+		ft_strlen(ft_strrchr(rdr->file, hold)));
+		quoted = true;
+	}
+	return (quoted);
+}
+
+void	take_heredoc_input(t_rdr *rdr, t_mini *mini)
 {
 	char	*input;
 	char	*total;
 	char	*tmp;
 	char	*line;
+	bool	quoted;
 
 	null_params(&tmp, &total, &line);
+	quoted = parse_delimiter(rdr);
 	while (1)
 	{
 		input = readline("> ");
@@ -36,6 +64,8 @@ void	take_heredoc_input(t_rdr *rdr)
 			break ;
 		tmp = line;
 		line = gl_strjoin(input, "\n");
+		if (!quoted)
+			line = ft_check_var(line, mini);
 		tmp = ft_free(tmp);
 		tmp = total;
 		total = gl_strjoin(total, line);
@@ -87,7 +117,7 @@ void	handle_heredoc(t_mini *mini)
 			while (rdr)
 			{
 				if (rdr->e_rdr == HEREDOC)
-					take_heredoc_input(rdr);
+					take_heredoc_input(rdr, mini);
 				rdr = rdr->next;
 			}
 		}

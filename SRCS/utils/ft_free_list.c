@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 19:09:37 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:56:23 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,6 @@ void	ft_free_cycle(t_mini *s_mini)
 }
 
 /**
- * @brief frees and sets the struct <s_mini> to NULL
- * 
- * @param s_mini 
- */
-void	ft_free_all(t_mini *s_mini)
-{
-	ft_free_cycle(s_mini);
-	ft_free_env(s_mini->l_env);
-}
-
-/**
  * @brief frees the struct <s_mini>
  * and exits the program with the exit code <error>
  * 
@@ -115,14 +104,14 @@ void	ft_exit_shell(t_mini *s_mini, int error, char *p_err, int fd)
 	if (p_err)
 		fd_printf(fd, "%s\n", p_err);
 	close_all_fds(s_mini);
-	if ((s_mini && s_mini->l_cmd
-		&& s_mini->l_cmd->next == NULL)
-		|| (s_mini->rl == NULL))
+	if ((s_mini && s_mini->l_cmd && s_mini->l_cmd->next == NULL) \
+	|| (s_mini->rl == NULL))
 	{
 		ft_close(0, 0, NULL);
 		ft_close(1, 0, NULL);
 		ft_close(2, 0, NULL);
 	}
-	ft_free_all(s_mini);
+	ft_free_cycle(s_mini);
+	ft_free_env(s_mini->l_env);
 	exit(g_exit_code);
 }
