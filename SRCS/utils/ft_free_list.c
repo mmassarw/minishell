@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/03 19:52:45 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 08:01:06 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	ft_free_cycle(t_mini *s_mini)
 	ft_free_ltoken(s_mini->l_token);
 	s_mini->l_token = NULL;
 	s_mini->rl = (char *) ft_free(s_mini->rl);
-	s_mini->token = (char **) ft_free_split(s_mini->token);
 }
 
 /**

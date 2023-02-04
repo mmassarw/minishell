@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   ft_tokenizer.c									 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: mmassarw <mmassarw@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2023/01/25 23:12:20 by mmassarw		  #+#	#+#			 */
-/*   Updated: 2023/01/27 07:29:21 by mmassarw		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tokenizer.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/04 16:26:09 by mmassarw          #+#    #+#             */
+/*   Updated: 2023/02/04 18:04:55 by mmassarw         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
@@ -88,16 +88,14 @@ void	ft_tokenlist(t_mini *mini)
 	}
 }
 
-bool	ft_evalvar(char *name, t_mini *mini)
+size_t	ft_evalvar(t_env *env)
 {
 	char	**split;
 	size_t	word_count;
-	t_env	*env;
 
 	word_count = 0;
-	env = env_already_exist(name, mini);
 	if (!env || !env->initialised)
-		return (ft_syntaxerr("ambiguous redirect", 1));
+		return (word_count);
 	if (env && env->initialised)
 	{
 		split = ft_split(env->value, ' ');
@@ -105,39 +103,67 @@ bool	ft_evalvar(char *name, t_mini *mini)
 			word_count++;
 		ft_free_split(split);
 	}
-	if (word_count != 1)
-		return (ft_syntaxerr("ambiguous redirect", 1));
-	else
-		return (true);
+	return (word_count);
+}
+
+bool	ft_evalfile(t_token *current, t_mini *mini, bool heredoc_flag)
+{
+	bool	valid;
+	size_t	count;
+	t_env	*env;
+
+	valid = false;
+	while (current && current->type != SPACES && current->type != PIPE \
+	&& current->type != REDIRECTION)
+	{
+		if (heredoc_flag)
+			current->type = WORD;
+		if (current->type == VARIABLE)
+		{
+			env = env_already_exist(current->content, mini);
+			count = ft_evalvar(env);
+			if (count > 1)
+				return (ft_syntaxerr("ambiguous redirect", 1, false));
+			else
+				valid |= count;
+		}
+		else
+			valid = true;
+		current = current->next;
+	}
+	return (ft_syntaxerr("ambiguous redirect", 1, valid));
 }
 
 bool	ft_evalrdr(t_token *head, t_mini *mini)
 {
 	t_token	*current;
+	bool	heredoc_flag;
 
+	heredoc_flag = 0;
+	if (!ft_strncmp(head->content, "<<", 3))
+		heredoc_flag = true;
 	current = head->next;
 	if (!current)
-		return (ft_syntaxerr("syntax error near unexpected token", 258));
+		return (ft_syntaxerr("syntax error near unexpected token", 258, 0));
 	if (current->type == SPACES)
 		current = current->next;
 	if (!current || current->type == PIPE || current->type == REDIRECTION)
-		return (ft_syntaxerr("syntax error near unexpected token", 258));
-	while (current && current->type != SPACES && current->type != PIPE \
-	&& current->type != REDIRECTION)
-	{
-		if (current->type == VARIABLE)
-			if (!ft_evalvar(current->content, mini))
-				return (false);
-		current = current->next;
-	}
+		return (ft_syntaxerr("syntax error near unexpected token", 258, 0));
+	if (!ft_evalfile(current, mini, heredoc_flag))
+		return (false);
 	return (true);
 }
 
-bool	ft_syntaxerr(char *errmsg, int num)
+bool	ft_syntaxerr(char *errmsg, int num, bool ret)
 {
-	fd_printf(2, "minishell: %s\n", errmsg);
-	g_exit_code = num;
-	return (false);
+	if (ret == false)
+	{
+		fd_printf(2, "minishell: %s\n", errmsg);
+		g_exit_code = num;
+		return (ret);
+	}
+	else
+		return (true);
 }
 
 bool	ft_evalops(t_token *head, t_mini *mini)
@@ -148,14 +174,14 @@ bool	ft_evalops(t_token *head, t_mini *mini)
 	if (current->type == PIPE)
 	{
 		if (!current->prev)
-			return (ft_syntaxerr("syntax error near unexpected token", 1));
+			return (ft_syntaxerr("syntax error near unexpected token", 1, 0));
 		current = head->next;
 		if (!current)
-			return (ft_syntaxerr("syntax error near unexpected token", 1));
+			return (ft_syntaxerr("syntax error near unexpected token", 1, 0));
 		if (current->type == SPACES)
 			current = current->next;
 		if (!current || current->type == PIPE)
-			return (ft_syntaxerr("syntax error near unexpected token", 1));
+			return (ft_syntaxerr("syntax error near unexpected token", 1, 0));
 		return (true);
 	}
 	else
@@ -175,7 +201,7 @@ bool	ft_evaltokens(t_mini *mini)
 		if (current->type == SINGLE || current->type == DOUBLE)
 			if (!ft_strchr(current->content + 1, *current->content))
 				return (ft_syntaxerr("syntax error near unexpected token",\
-				258));
+				258, false));
 		current = current->next;
 	}
 	return (true);
@@ -223,6 +249,8 @@ void	ft_splitvar(t_mini *mini, t_token **current)
 		(*current)->content = ft_strdup(*split);
 		ft_init_splitvar(mini, current, split);
 	}
+	else
+		(*current)->content[0] = '\0';
 	split = (char **) ft_free_split(split);
 }
 
@@ -246,6 +274,7 @@ void	ft_expandvar(t_mini *mini)
 				else
 					current->content = ft_itoa(g_exit_code);
 			}
+			current->type = WORD;
 			ft_splitvar(mini, &current);
 		}
 		current = current->next;
@@ -321,55 +350,23 @@ void	ft_collapsequotes(t_mini *mini)
 			current->content[ft_strlen(current->content) - 2] = '\0';
 			if (current->type == DOUBLE)
 				current->content = ft_check_var(current->content, mini);
-			current->type = WORD;
 		}
 		current = current->next;
 	}
-}
-
-char	**convert_linked_list(t_token *head)
-{
-	size_t	i;
-	char	*hold;
-	char	**result;
-	t_token	*current;
-
-	i = 0;
-	result = (char **) ft_calloc(1, sizeof(char *));
-	current = head;
-	while (current != NULL)
-	{
-		if (current->type != SPACES)
-		{
-			if (current->prev != NULL && current->prev->type == WORD && current->type != REDIRECTION && current->type != PIPE)
-			{
-				hold = (char *) ft_strjoin(result[i - 1], current->content);
-				result[i - 1] = (char *) ft_free(result[i - 1]);
-				result[i - 1] = hold;
-			}
-			else
-			{
-				result[i] = (char *) ft_calloc(ft_strlen(current->content) + 1, 1);
-				ft_strcpy(result[i], current->content);
-				i++;
-				result = (char **) ft_realloc(result, sizeof(char *) * (i + 1), sizeof(char *) * (i));
-			}
-		}
-		current = current->next;
-	}
-	result[i] = NULL;
-	return (result);
 }
 
 void	ft_tokenize(t_mini *mini)
 {
 	ft_tokenlist(mini);
-	// print_linked_list_by_type(mini->l_token);
 	if (!ft_evaltokens(mini))
+	{
+		mini->l_token = (t_token *) ft_free(mini->l_token);
 		return ;
+	}
 	ft_expandvar(mini);
 	ft_collapsequotes(mini);
-	mini->token = convert_linked_list(mini->l_token);
-	// printf("\n\n");
+	// delete_empty_word_nodes(&(mini->l_token));
+	join_same_type_nodes(mini->l_token);
 	// print_linked_list_by_type(mini->l_token);
-}	
+	delete_empty_nodes(&(mini->l_token));
+}

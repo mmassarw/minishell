@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 03:41:53 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 15:27:40 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	take_input(t_mini *mini)
 		if (mini->rl[0] != '\0')
 			add_history(mini->rl);
 		ft_tokenize(mini);
-		if (mini->token)
-			ft_parse_token(mini, mini->token);
+		if (mini->l_token)
+			ft_parse_token(mini);
 		// ft_print_cmd(mini->l_cmd);
 		if (mini->l_cmd)
 			parse_input(mini);

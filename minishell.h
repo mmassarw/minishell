@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 17:52:16 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:47:44 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ typedef struct s_mini
 	t_env	*l_env;
 	char	*rl;
 	t_token	*l_token;
-	char	**token;
 	int		cmd_flag;
 }	t_mini;
 
@@ -189,10 +188,10 @@ void	print_export(t_mini *mini);
 
 void	ft_tokenize(t_mini *mini);
 int		ft_check_rdr(char *string);
-void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, char **token, int *i);
-int		ft_count_till_pipe(char **token);
+void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, t_token **token);
+int		ft_count_till_pipe(t_token *token);
 void	ft_parse_env(t_mini *mini, const char **envp);
-void	ft_parse_token(t_mini *mini, char **token);
+void	ft_parse_token(t_mini *mini);
 void	set_env_underscore(char *cmd, t_mini *mini);
 
 // frees
@@ -213,10 +212,13 @@ void	ft_print_cmd(t_cmd *s_head);
 void	print_env(t_mini *mini);
 void	ft_print_split(char **split);
 void	parse_input(t_mini *mini);
-bool	ft_syntaxerr(char *errmsg, int num);
+bool	ft_syntaxerr(char *errmsg, int num, bool ret);
 void	print_linked_list_by_type(t_token *head);
 void	pop_node(t_token **list, t_token *node);
 void	add_node_middle(t_token *node_before, t_token *new_node);
+void	delete_empty_nodes(t_token **head);
+void	join_same_type_nodes(t_token *head);
+
 
 // unset
 

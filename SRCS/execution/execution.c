@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/04 12:25:50 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:46:03 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	exec_children_cmds(t_mini *mini, t_cmd *cmd)
 {
+	if (!cmd->arg[0])
+		ft_exit_shell(mini, g_exit_code, NULL, 1);
 	if (ft_redirect(mini, cmd) != 0)
 		ft_exit_shell(mini, g_exit_code, NULL, 1);
 	if (cmd->arg[0] && builtin_check(mini, cmd) == 0)
