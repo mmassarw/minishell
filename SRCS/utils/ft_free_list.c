@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 08:01:06 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:09:37 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_free_ltoken(t_token *list)
 	t_token	*next;
 
 	current = list;
-	while (current != NULL)
+	while (current)
 	{
 		next = current->next;
 		current->content = (char *) ft_free(current->content);

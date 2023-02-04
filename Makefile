@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
+#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/03 22:36:53 by hakaddou         ###   ########.fr        #
+#    Updated: 2023/02/04 19:07:23 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,17 @@ exec:		all
 rexec:		re
 			@./$(NAME)
 
+leak:
+			make \
+			&& clear \
+			&& valgrind --leak-check=full \
+			--suppressions=.rl.supp \
+			--track-origins=yes \
+			--show-leak-kinds=all -s \
+			--track-fds=yes \
+			--trace-children=yes \
+			./minishell
+
 leaks:
 			make re && make clean \
 			&& clear \
@@ -91,6 +102,7 @@ leaks:
 			--track-origins=yes \
 			--show-leak-kinds=all -s \
 			--track-fds=yes \
+			--trace-children=yes \
 			./minishell
 
 # --log-file="valg_errors.log"\
