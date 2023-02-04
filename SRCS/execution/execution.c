@@ -6,12 +6,11 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/04 03:23:07 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 12:25:50 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 void	exec_children_cmds(t_mini *mini, t_cmd *cmd)
 {

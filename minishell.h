@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 03:41:57 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 15:05:38 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,7 @@ void	ft_exit_ushell(t_mini *s_mini, int error, char *p_err, int fd, t_cmd *cmd);
 // piping and execution
 
 int		is_slash_exec(t_mini *mini, t_cmd *cmd);
+int		check_exec_permission(char *cmd);
 void	execute_in_dir(t_mini *mini, t_cmd *cmd);
 void	execute_command_fork(t_mini *mini, t_cmd *cmd, char *cmd_path);
 void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd);
