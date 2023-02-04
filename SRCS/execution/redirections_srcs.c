@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 19:20:47 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/29 19:03:26 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 23:32:18 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ void	close_rdr_files(t_mini *mini, t_cmd *cmd)
 		}
 		rdr = rdr->next;
 	}
-}
-
-int	error_set_print_close(t_mini *mini, t_cmd *cmd, int error)
-{
-	g_exit_code = error;
-	fd_printf (2, "minishell: %s\n", strerror(errno));
-	close_rdr_files(mini, cmd);
-	return (1);
 }
 
 void	ft_close_rdr_backv2(t_rdr *ordr, t_rdr *irdr)

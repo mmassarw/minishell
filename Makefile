@@ -3,10 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
+#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2023/02/04 21:30:21 by mmassarw         ###   ########.fr        #
+=======
+#    Updated: 2023/02/04 23:33:40 by hakaddou         ###   ########.fr        #
+>>>>>>> origin/hadi
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +58,8 @@ SRCS	=	SRCS/main.c \
 			SRCS/execution/fd_handler.c \
 			SRCS/execution/process_utils.c \
 			SRCS/execution/pipe_utils.c \
-			SRCS/execution/env_utils.c
+			SRCS/execution/env_utils.c \
+			SRCS/execution/redirections_srcs2.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -90,7 +95,6 @@ leak:
 			--track-origins=yes \
 			--show-leak-kinds=all -s \
 			--track-fds=yes \
-			--trace-children=yes \
 			./minishell
 
 leaks:
@@ -101,7 +105,6 @@ leaks:
 			--track-origins=yes \
 			--show-leak-kinds=all -s \
 			--track-fds=yes \
-			--trace-children=yes \
 			./minishell
 
 # --log-file="valg_errors.log"\

@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/04 19:25:01 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:14:16 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	exec_children_cmds(t_mini *mini, t_cmd *cmd)
 {
-	if (!cmd->arg[0])
-		ft_exit_shell(mini, g_exit_code, NULL, 1);
 	if (ft_redirect(mini, cmd) != 0)
 		ft_exit_shell(mini, g_exit_code, NULL, 1);
 	if (cmd->arg[0] && builtin_check(mini, cmd) == 0)
