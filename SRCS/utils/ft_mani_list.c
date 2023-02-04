@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:26:50 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 23:19:15 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 00:10:07 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	join_same_type_nodes(t_token *head)
 	temp = head;
 	while (temp && temp->next)
 	{
-		if (temp->type == temp->next->type || (temp->type != SPACES && \
+		if (temp->type == temp->next->type || ((temp->type != SPACES && \
+		temp->type != REDIRECTION && temp->type != PIPE) && \
 		(temp->next->type == SINGLE || temp->next->type == DOUBLE)))
 		{
 			new_content = (char *) ft_realloc(temp->content, \

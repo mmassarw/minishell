@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+         #
+#    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/02/04 21:30:21 by mmassarw         ###   ########.fr        #
-=======
-#    Updated: 2023/02/04 23:33:40 by hakaddou         ###   ########.fr        #
->>>>>>> origin/hadi
+#    Updated: 2023/02/04 23:56:19 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +14,7 @@
 NAME	=	minishell
 
 CC		=	@gcc
-CFLAGS	=	-g3 -Wall -Wextra -Werror -fsanitize=address
+CFLAGS	=	-g3 -Wall -Wextra -Werror# -fsanitize=address
 RLFLAGS =	-L/usr/local/lib -I/usr/local/include -lreadline
 
 RM		=	@rm -f
@@ -105,6 +101,7 @@ leaks:
 			--track-origins=yes \
 			--show-leak-kinds=all -s \
 			--track-fds=yes \
+			--trace-children=yes \
 			./minishell
 
 # --log-file="valg_errors.log"\
