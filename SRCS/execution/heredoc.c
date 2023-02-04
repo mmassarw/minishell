@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:27:57 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/04 04:34:34 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/05 00:01:21 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	take_heredoc_input(t_rdr *rdr)
 	}
 	input = ft_free(input);
 	rdr->file = ft_free(rdr->file);
+	if (!total)
+		total = ft_strdup("");
 	rdr->file = total;
 }
 
