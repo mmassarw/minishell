@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 16:26:09 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 18:04:55 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:20:01 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ bool	ft_evalfile(t_token *current, t_mini *mini, bool heredoc_flag)
 			current->type = WORD;
 		if (current->type == VARIABLE)
 		{
-			env = env_already_exist(current->content, mini);
+			env = env_already_exist(current->content + 1, mini);
 			count = ft_evalvar(env);
 			if (count > 1)
 				return (ft_syntaxerr("ambiguous redirect", 1, false));
@@ -360,7 +360,8 @@ void	ft_tokenize(t_mini *mini)
 	ft_tokenlist(mini);
 	if (!ft_evaltokens(mini))
 	{
-		mini->l_token = (t_token *) ft_free(mini->l_token);
+		ft_free_ltoken(mini->l_token);
+		mini->l_token = NULL;
 		return ;
 	}
 	ft_expandvar(mini);
