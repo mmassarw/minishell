@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:09:00 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 04:11:08 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 04:12:18 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,13 @@
 # define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
 # define UNSET_NO_ARG "unset: not enough arguments\n"
 
-# define WLCM_MSG "\033[1;37m\n██████████████████████████████████████████████████████████████\
-\n█                                                            █\n█ The default interactive shell \
-is now minishell.            █\n█ If you like this shell, please give us \
-a follow on         █\n█\033[1;4;34m https://github.com/hadi14250\033[0m\
- \033[1;37m&\033[0m \033[1;4;34mhttps://github.com/mmassarw\033[0m\033[1;37m █\n█\
-                                                            █\n\
-█ About your shell 👇                                        █\n\
-█ • 🐚 shell level: %d                                        █\n\
-█ • 👤 User: %s                                        █\n█\
-                                                            █\n\
-██████████████████████████████████████████████████████████████\n\n\n\033[0m"
+# define WLCM_MSG "\033[1;37m\nThe default interactive shell \
+is now minishell.\n If you like this shell, please give us \
+a follow on\n\033[1;4;34m https://github.com/hadi14250\033[0m\
+ \033[1;37m&\033[0m \033[1;4;34mhttps://github.com/mmassarw\033[0m\033[1;37m \n\n\
+ About your shell 👇\n\
+ • 🐚 shell level: %d\n\
+ • 👤 User: %s\n\n\033[0m"
 
 // command flags
 # define BUILTIN 68
