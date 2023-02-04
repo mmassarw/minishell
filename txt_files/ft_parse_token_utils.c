@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_token_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:48:47 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 06:55:52 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:05:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ t_rdr	*ft_get_rdr_tail(t_rdr *rdr_head)
  * @param token 
  * @return returns an int representing how many objects to be allocated
  */
-int	ft_count_till_pipe(t_token *token)
+int	ft_count_till_pipe(char **token)
 {
 	int	flag;
 	int	count;
 
 	count = 0;
 	flag = false;
-	while (token && token->type != PIPE)
+	while (*token && ft_strncmp(*token, "|", 2))
 	{
-		if (token->type != REDIRECTION)
+		if (!ft_check_rdr(*token))
 		{
 			if (flag == false)
 				count++;
@@ -72,7 +72,7 @@ int	ft_count_till_pipe(t_token *token)
 		}
 		else
 			flag = true;
-		token = token->next;
+		token++;
 		if (token == NULL)
 			break ;
 	}
@@ -89,23 +89,22 @@ int	ft_count_till_pipe(t_token *token)
  * @param i 
  * @return a pointer to the head of the rdr linked list
  */
-t_rdr	*ft_add_to_rdrlist(t_rdr *rdr_head, t_token **token, t_mini *mini)
+t_rdr	*ft_add_to_rdrlist(t_rdr *rdr_head, char **token, int *i, t_mini *mini)
 {
 	t_rdr	*rdr_new;
 	t_rdr	*rdr_tail;
 
 	rdr_tail = ft_get_rdr_tail(rdr_head);
 	rdr_new = (t_rdr *) ft_calloc(1, sizeof(t_rdr));
-	if (!rdr_new)
-		ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
 	rdr_new->fd = -2;
 	rdr_new->og_fd = -2;
 	rdr_new->dup2_fd = -2;
 	rdr_new->fdpipe[0] = -2;
 	rdr_new->fdpipe[1] = -2;
-	rdr_new->e_rdr = ft_check_rdr((*token)->content);
-	(*token) = (*token)->next;
-	rdr_new->file = ft_strdup((*token)->content);
+	if (!rdr_new)
+		ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
+	rdr_new->e_rdr = ft_check_rdr(token[(i[0])++]);
+	rdr_new->file = ft_strdup(token[i[0]]);
 	if (!rdr_new->file)
 		ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
 	rdr_new->next = NULL;
@@ -125,23 +124,20 @@ t_rdr	*ft_add_to_rdrlist(t_rdr *rdr_head, t_token **token, t_mini *mini)
  * @param j counter for <cmd->arg>
  * @param i counter for <token>
  */
-void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, t_token **token)
+void	ft_populate_cmd(t_mini *mini, t_cmd *cmd, char **token, int i[0])
 {
-	int	i;
-	
-	i = 0;
 	cmd->rdr = NULL;
-	while (*token && (*token)->type != PIPE)
+	while (token[i[0]] && ft_strncmp(token[i[0]], "|", 2))
 	{
-		if ((*token)->type == REDIRECTION)
-			cmd->rdr = ft_add_to_rdrlist(cmd->rdr, token, mini);
+		if (ft_check_rdr(token[i[0]]))
+			cmd->rdr = ft_add_to_rdrlist(cmd->rdr, token, i, mini);
 		else
 		{
-			cmd->arg[i] = ft_strdup((*token)->content);
-			if (!cmd->arg[i])
+			cmd->arg[i[1]] = ft_strdup(token[i[0]]);
+			if (!cmd->arg[i[1]])
 				ft_exit_shell(mini, 137, "Page allocation failure\n", 2);
-			i++;
+			(i[1])++;
 		}
-		(*token) = (*token)->next;
+		(i[0])++;
 	}
 }

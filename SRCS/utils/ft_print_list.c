@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:57:41 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/03 12:28:32 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 04:47:09 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,22 @@ void print_linked_list_by_type(t_token *head) {
 	 while (current != NULL) {
 		 if (current->type == SINGLE) {
 			 strcat(single, current->content);
-			 strcat(single, " ");
+			 strcat(single, "¶ ");
 		 } else if (current->type == DOUBLE) {
 			 strcat(doubleq, current->content);
-			 strcat(doubleq, " ");
+			 strcat(doubleq, "¶ ");
 		 } else if (current->type == VARIABLE) {
 			 strcat(variable, current->content);
-			 strcat(variable, " ");
+			 strcat(variable, "¶ ");
 		 } else if (current->type == REDIRECTION) {
 			 strcat(redirection, current->content);
-			 strcat(redirection, " ");
+			 strcat(redirection, "¶ ");
 		 } else if (current->type == PIPE) {
 			 strcat(pipe, current->content);
-			 strcat(pipe, " ");
+			 strcat(pipe, "¶ ");
 		 } else if (current->type == WORD) {
 			 strcat(word, current->content);
-			 strcat(word, " ");
+			 strcat(word, "¶ ");
 		 }
 		 current = current->next;
 	 }

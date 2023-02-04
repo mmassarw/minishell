@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:26:50 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 04:12:40 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/04 14:41:41 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,25 @@ void	add_node_middle(t_token *node_before, t_token *new_node)
 	new_node->prev = node_before;
 }
 
-void join_same_type_nodes(t_token *head)
+void	join_same_type_nodes(t_token *head)
 {
-	t_token *temp = head;
+	t_token *temp;
+	char *new_content;
+	int new_len;
+	t_token *to_delete;
+	
+	temp = head;
 	while (temp && temp->next)
 	{
-		if ((temp->type == SPACES || temp->type == WORD) && temp->type == temp->next->type)
+		if (temp->type == temp->next->type || (temp->type != SPACES && (temp->next->type == SINGLE || temp->next->type == DOUBLE)))
 		{
-			int new_len = strlen(temp->content) + strlen(temp->next->content) + 1;
-			char *new_content = (char *)malloc(new_len);
+			new_len = strlen(temp->content) + strlen(temp->next->content) + 1;
+			new_content = (char *)malloc(new_len);
 			strcpy(new_content, temp->content);
 			strcat(new_content, temp->next->content);
 			free(temp->content);
 			temp->content = new_content;
-			t_token *to_delete = temp->next;
+			to_delete = temp->next;
 			temp->next = temp->next->next;
 			if (temp->next)
 				temp->next->prev = temp;
@@ -63,7 +68,7 @@ void join_same_type_nodes(t_token *head)
 	}
 }
 
-void delete_empty_word_nodes(t_token **head)
+void	delete_empty_nodes(t_token **head)
 {
 	t_token *temp;
 	t_token *to_delete;
@@ -71,7 +76,7 @@ void delete_empty_word_nodes(t_token **head)
 	temp = *head;
 	while (temp)
 	{
-		if (temp->type == WORD && temp->content[0] == '\0')
+		if ((temp->type == SPACES || temp->content[0] == '\0') && (temp->type != SINGLE && temp->type != DOUBLE))
 		{
 			if (temp->prev)
 				temp->prev->next = temp->next;
