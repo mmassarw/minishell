@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 03:59:03 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/27 03:59:49 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 15:04:58 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,27 @@ int	dot_dir_check(t_cmd *cmd)
 	{
 		g_exit_code = 126;
 		return (fd_printf(2, "minishell: %s: is a directory\n", cmd->arg[0]));
+	}
+	return (0);
+}
+
+int	check_exec_permission(char *cmd)
+{
+	int	i;
+
+	i = 1;
+	if (!cmd && !cmd[0] && !cmd[1] && !cmd[2] && cmd[0] != '.' && cmd[1] != '/')
+		return (0);
+	while (cmd[i] != '\0' && cmd[i] == '/')
+		i++;
+	if (access(cmd + i, F_OK) == 0)
+	{
+		if (access(cmd + i, X_OK) != 0)
+		{
+			fd_printf(2, "minishell: %s: permission denied\n", cmd);
+			g_exit_code = 126;
+			return (1);
+		}
 	}
 	return (0);
 }

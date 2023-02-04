@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:27:57 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/29 19:29:46 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 04:34:34 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_pipe_heredoc(t_rdr *rdr, t_mini *mini, t_cmd *cmd)
 		rdr->fdpipe[1] = ft_close (rdr->fdpipe[1], 3, cmd);
 		rdr->og_fd = dup(STDIN_FILENO);
 		rdr->dup2_fd = dup2(rdr->fdpipe[0], STDIN_FILENO);
-		waitpid(rdr->fork_id, &rdr->ret, WEXITSTATUS(rdr->ret));
+		waitpid(rdr->fork_id, &rdr->ret, 0);
 	}
 	return (0);
 }

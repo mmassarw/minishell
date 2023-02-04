@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:39:56 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/02 23:42:22 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 15:04:46 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	execute_pathed_cmd(t_mini *mini, t_cmd *cmd)
 			g_exit_code = COMMAND_FAIL;
 			return ;
 		}
+		if (check_exec_permission(cmd->arg[0]) != 0)
+			return ;
 	}
 	if (find_str_env("PATH", mini, KEY) == NULL)
 		return (command_failed_message(cmd, COMMAND_FAIL));

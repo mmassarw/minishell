@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:07:10 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/30 00:44:24 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/04 15:47:05 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_cd(char **args, t_mini *mini)
 
 	i = 42;
 	old_pwd = getcwd(cwd, sizeof(cwd));
-	if (!args[0])
+	if (!args[0] || ft_strncmp(args[0], "~", 2) == 0)
 	{
 		go_to_home (mini, old_pwd);
 		return ;
