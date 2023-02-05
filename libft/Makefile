@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/03 05:44:09 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/02/05 20:39:12 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,9 +78,8 @@ SRCS	=	ft_atoi.c \
 			fd_putstr.c \
 			gl_strchr.c \
 			gl_strlen.c \
-			gl_strjoin.c
-			
-			
+			gl_strjoin.c \
+			ft_strcat.c
 
 OBJS	=	$(SRCS:.c=.o)
 

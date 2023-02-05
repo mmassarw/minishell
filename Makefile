@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/05 19:25:34 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/02/05 21:35:01 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@
 NAME	=	minishell
 
 CC		=	@gcc
-CFLAGS	=	-g3 -Wall -Wextra -Werror# -fsanitize=address
-RLFLAGS =	-L/usr/local/lib -I/usr/local/include -lreadline
+CFLAGS	=	-g3 -Wall -Wextra -Werror -I/usr/local/opt/readline/include# -fsanitize=address
+LRLFLAG =	-L/usr/local/opt/readline/lib -lreadline
 
 RM		=	@rm -f
 ECHO	=	@echo
@@ -60,14 +60,15 @@ SRCS	=	SRCS/main.c \
 			SRCS/execution/process_utils.c \
 			SRCS/execution/pipe_utils.c \
 			SRCS/execution/env_utils.c \
-			SRCS/execution/redirections_srcs2.c
+			SRCS/execution/redirections_srcs2.c \
+			SRCS/utils/ft_signals.c
 
 OBJS	=	$(SRCS:.c=.o)
 
 $(NAME):	$(OBJS)
 			$(MAKELIB)
 			$(ECHO) "Compiling minishell ......"
-			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(RLFLAGS) 
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(LRLFLAG) 
 
 all:		$(NAME)
 

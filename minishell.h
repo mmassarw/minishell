@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 19:26:15 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/05 19:25:32 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:34:41 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,5 +346,9 @@ void	set_env_underscore(char *cmd, t_mini *mini);
 void	add_shlvl(t_env *env, t_mini *mini);
 void	increase_shlvl(t_env *env, t_mini *mini);
 char	**add_basic_env(t_mini *mini);
+
+// signals
+
+void	ft_interupt(int sig);
 
 #endif

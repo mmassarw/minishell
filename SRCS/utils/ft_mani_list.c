@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:26:50 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/05 00:10:07 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:43:03 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,15 @@ void	join_same_type_nodes(t_token *head)
 	{
 		if (temp->type == temp->next->type || ((temp->type != SPACES && \
 		temp->type != REDIRECTION && temp->type != PIPE) && \
-		(temp->next->type == SINGLE || temp->next->type == DOUBLE)))
+		(temp->next->type == SINGLE || temp->next->type == DOUBLE)) \
+		|| ((temp->type == SINGLE || temp->type == DOUBLE) && \
+		(temp->next->type != SPACES && temp->next->type != REDIRECTION && \
+		temp->next->type != PIPE)))
 		{
 			new_content = (char *) ft_realloc(temp->content, \
 			ft_strlen(temp->content) + ft_strlen(temp->next->content) + 1, \
 			ft_strlen(temp->content));
-			ft_strlcat(new_content, temp->next->content, \
-			ft_strlen(temp->next->content));
+			ft_strcat(new_content, temp->next->content);
 			temp->content = new_content;
 			pop_node(&head, temp->next);
 		}
