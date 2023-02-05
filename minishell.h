@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsarhan <hsarhan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 19:26:15 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/05 03:30:13 by hsarhan          ###   ########.fr       */
+/*   Updated: 2023/02/05 19:25:32 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_rdr
 	pid_t			fork_id;
 	int				ret;
 	int				fdpipe[2];
+	int				herepipe[2];
 	enum e_rdr		e_rdr;
 	struct s_rdr	*next;
 }	t_rdr;

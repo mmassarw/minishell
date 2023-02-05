@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/05 15:07:09 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/02/05 19:25:34 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,7 +106,6 @@ leaks:
 			--track-origins=yes \
 			--show-leak-kinds=all -s \
 			--track-fds=yes \
-			--trace-children=yes \
 			./minishell
 
 # --log-file="valg_errors.log"\
