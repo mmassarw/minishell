@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:10:26 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/04 20:22:10 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/06 03:33:09 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	builtin_check(t_mini *mini, t_cmd *cmd)
 		print_pwd();
 	else if (!ft_strncmp(cmd->arg[0], "cd", 3))
 		ft_cd(&cmd->arg[1], mini);
-	else if (!ft_strncmp(cmd->arg[0], "exit", 5)
-		|| cmd->arg[0][0] == 'q')
+	else if (!ft_strncmp(cmd->arg[0], "exit", 5))
 		ft_exit(cmd->arg, mini);
 	else if (!ft_strncmp(cmd->arg[0], "env", 4))
 		print_env(mini);
