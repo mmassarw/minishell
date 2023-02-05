@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:45:41 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/28 18:47:40 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:25:40 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_env_pwd(t_mini *mini)
 	pwd = ft_strjoin("PWD=", getcwd(cwd, sizeof(cwd)));
 	if (!pwd)
 	{
-		fd_printf(2, "minishell: error in set_env_pwd\n");
+		fd_printf(2, "minishell: PWD not found\n");
 		return ;
 	}
 	parse_new_export(pwd, mini);
@@ -52,7 +52,7 @@ void	set_old_pwd(t_mini *mini, char *old_pwd)
 	old = ft_strjoin("OLDPWD=", old_pwd);
 	if (!old)
 	{
-		fd_printf(2, "minishell: error in set_old_pwd\n");
+		fd_printf(2, "minishell: OLDPWD not found\n");
 		return ;
 	}
 	parse_new_export(old, mini);

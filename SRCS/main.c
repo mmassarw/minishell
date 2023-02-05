@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 23:33:25 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:47:38 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ void	print_wlcm_msg(t_mini *mini)
 	user = find_str_env("USER", mini, VALUE);
 	if (!user)
 	{
-		fd_printf(1, WLCM_MSG, ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
+		fd_printf(1, WLC""WLC2""WLC3""WLC4""WLC5,
+		ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
 		, "unkown 🕵");
 	}
 	else
 	{
-		fd_printf(1, WLCM_MSG, ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
+		fd_printf(1, WLC""WLC2""WLC3""WLC4""WLC5,
+		ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
 		, user);
 	}
 }

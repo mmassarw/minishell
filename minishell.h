@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 19:26:15 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/05 18:49:48 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:48:27 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@
 # define ALPHA_EXIT "minishell: exit: %s: numeric argument required\n"
 # define UNSET_NO_ARG "unset: not enough arguments\n"
 
-# define WLCM_MSG "\033[1;37m\nThe default interactive shell \
-is now minishell.\n If you like this shell, please give us \
-a follow on\n\033[1;4;34m https://github.com/hadi14250\033[0m\
- \033[1;37m&\033[0m \033[1;4;34mhttps://github.com/mmassarw\033[0m\033[1;37m \n\n\
- About your shell 👇\n\
- • 🐚 shell level: %d\n\
- • 👤 User: %s\n\n\033[0m"
+# define WLC "\033[1;37m\nThe default interactive shell is now minishell.\nIf"
+# define WLC2 " you like this shell, please give us a follow on\n"
+# define WLC3 "\033[1;4;34mgithub.com/hadi14250\033[0m\033[1;37m &\033[0m "
+# define WLC4 "\033[1;4;34mgithub.com/mmassarw\033[0m\033[1;37m \n\nAbout"
+# define WLC5 " your shell 👇\n • 🐚 shell level: %d\n • 👤 User: %s\n\n\033[0m"
 
 // command flags
 # define BUILTIN 68
@@ -303,9 +301,16 @@ int		dot_dir_check(t_cmd *cmd);
 
 // heredoc
 
-void	handle_heredoc(t_mini *mini);
+bool	parse_delimiter(t_rdr *rdr);
+void	trim_last_new_line(char *file);
+void	send_input_to_parent(t_mini *mini, char *input, t_rdr *rdr, char *total);
 void	take_heredoc_input(t_rdr *rdr, t_mini *mini);
 int		ft_pipe_heredoc(t_rdr *rdr, t_mini *mini, t_cmd *cmd);
+void	read_heredoc_child(t_rdr *rdr);
+int		ft_fork_heredoc(t_rdr *rdr);
+int		pipe_heredoc(t_rdr *rdr);
+int		take_input_from_child(t_mini *mini, t_rdr *rdr);
+void	handle_heredoc(t_mini *mini);
 
 // fd handlers
 

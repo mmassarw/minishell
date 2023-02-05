@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 21:43:27 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/17 23:43:57 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:32:27 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,7 @@ void	delete_env_list(char *arg, t_mini *mini)
 		temp = temp->next;
 	}
 	if (!temp)
-	{
-		printf("%s not found\n", arg);
 		return ;
-	}
-	printf("%s found and deleted\n", arg);
 	prev->next = temp->next;
 	free_single_env(temp);
 }
