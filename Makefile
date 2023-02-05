@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/04 23:56:19 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/02/05 15:07:09 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,11 @@ SRCS	=	SRCS/main.c \
 			SRCS/parsing/ft_parse_token.c \
 			SRCS/parsing/ft_parse_token_utils.c \
 			SRCS/parsing/ft_tokenizer.c \
+			SRCS/parsing/ft_collapsequotes.c \
+			SRCS/parsing/ft_evaltokens.c \
+			SRCS/parsing/ft_expandvar.c \
+			SRCS/parsing/ft_tokenizer_utils.c \
+			SRCS/parsing/ft_tokenlist.c \
 			SRCS/utils/ft_free_list.c \
 			SRCS/utils/temp_funs.c \
 			SRCS/utils/ft_mani_list.c \

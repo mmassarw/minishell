@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsarhan <hsarhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 19:26:15 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/04 23:42:22 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 03:30:13 by hsarhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_rdr
 }	t_rdr;
 
 // token enumiration
-enum e_tokentype
+typedef enum e_tokentype
 {
 	SPACES,
 	SINGLE,
@@ -110,7 +110,7 @@ enum e_tokentype
 	REDIRECTION,
 	PIPE,
 	WORD,
-};
+}	t_type;
 
 // token structure
 typedef struct s_token
@@ -133,7 +133,6 @@ typedef struct s_cmd
 	int				fd_pipe[2];
 	struct s_cmd	*next;
 	pid_t			fork_id;
-	
 }	t_cmd;
 
 // enviromental linked list
@@ -188,6 +187,13 @@ void	print_export(t_mini *mini);
 
 void	ft_tokenize(t_mini *mini);
 char	*ft_check_var(char *quote, t_mini *mini);
+t_type	ft_label_token(char c);
+void	ft_eovchr(size_t *i, const char *str, enum e_tokentype *type);
+bool	ft_syntaxerr(char *errmsg, int num, bool ret);
+void	ft_tokenlist(t_mini *mini);
+bool	ft_evaltokens(t_mini *mini);
+void	ft_collapsequotes(t_mini *mini);
+void	ft_expandvar(t_mini *mini);
 
 // parsing
 
@@ -226,7 +232,6 @@ void	add_node_middle(t_token *node_before, t_token *new_node);
 void	delete_empty_nodes(t_token **head);
 void	join_same_type_nodes(t_token *head);
 
-
 // unset
 
 void	ft_unset(char **args, t_mini *mini);
@@ -261,7 +266,6 @@ char	*join_key_val(char *key, char *value);
 char	*join_key_eq(char *key, t_env *env);
 char	**convert_env(t_mini *mini);
 void	print_env(t_mini *mini);
-
 
 // get path srcs
 
@@ -299,7 +303,6 @@ int		is_directory(const char *path);
 int		file_exists(const char *pathname);
 int		dot_dir_check(t_cmd *cmd);
 
-
 // heredoc
 
 void	handle_heredoc(t_mini *mini);
@@ -318,7 +321,8 @@ int		is_parent_exec(t_cmd *cmd);
 void	execute_in_parent(t_mini *mini);
 void	wait_for_children(t_mini *mini);
 
-void	ft_exit_ushell(t_mini *s_mini, int error, char *p_err, int fd, t_cmd *cmd);
+void	ft_exit_ushell(t_mini *s_mini, int error, char *p_err, \
+int fd, t_cmd *cmd);
 
 // piping and execution
 
