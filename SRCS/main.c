@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/06 01:26:27 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:31:55 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ void	print_wlcm_msg(t_mini *mini)
 	if (!user)
 	{
 		fd_printf(1, WLC""WLC2""WLC3""WLC4""WLC5,
-		ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
+			ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
 		, "unkown 🕵");
 	}
 	else
 	{
 		fd_printf(1, WLC""WLC2""WLC3""WLC4""WLC5,
-		ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
+			ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
 		, user);
 	}
 }

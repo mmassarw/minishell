@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:41:59 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/06 00:59:17 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:31:56 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	parse_input(t_mini *mini)
 
 	signal(SIGINT, SIG_IGN);
 	cmd = mini->l_cmd;
-	handle_heredoc(mini);
+	if (handle_heredoc(mini) != 0)
+		return ;
 	if (is_parent_compatible(cmd))
 		execute_in_parent(mini);
 	else

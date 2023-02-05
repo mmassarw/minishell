@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 21:33:20 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/05 23:26:11 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:32:34 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	ft_interupt(int sig)
 	if (sig == SIGINT)
 	{
 		g_exit_code = 1;
-		rl_on_new_line();
-		rl_redisplay();
 		write(STDERR_FILENO, "  \n", 4);
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -30,7 +28,7 @@ void	ft_intheredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_exit_code = -420;
+		g_exit_code = 69;
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		write(STDERR_FILENO, "  \n", 4);

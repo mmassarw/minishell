@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 21:04:08 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/06 00:58:59 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:32:38 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,18 @@ int	pipe_heredoc(t_rdr *rdr)
 	return (0);
 }
 
+int	here_check_exit(int status, t_rdr *rdr)
+{
+	if (WEXITSTATUS(status) == 69)
+	{
+		ft_close(rdr->herepipe[1], 3, NULL);
+		ft_close(rdr->herepipe[0], 3, NULL);
+		g_exit_code = 1;
+		return (69);
+	}
+	return (0);
+}
+
 int	take_input_from_child(t_mini *mini, t_rdr *rdr)
 {
 	int	status;
@@ -77,8 +89,10 @@ int	take_input_from_child(t_mini *mini, t_rdr *rdr)
 		take_heredoc_input(rdr, mini);
 	else
 	{
-		ft_close(rdr->herepipe[1], 3, NULL);
 		waitpid(rdr->fork_id, &status, 0);
+		if (WIFEXITED(status) && WEXITSTATUS(status) == 69)
+			return (here_check_exit(status, rdr));
+		ft_close(rdr->herepipe[1], 3, NULL);
 		read_heredoc_child(rdr);
 		ft_close(rdr->herepipe[0], 3, NULL);
 	}
