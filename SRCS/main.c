@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/06 00:58:26 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:26:27 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	take_input(t_mini *mini)
 	{
 		mini->rl = read_line_colored(random_between(1, 6));
 		if (mini->rl == NULL)
-			ft_exit_shell(mini, 0, "exit", 1);
+			ft_exit_shell(mini, g_exit_code, "exit", 1);
 		if (mini->rl[0] != '\0')
 			add_history(mini->rl);
 		ft_tokenize(mini);

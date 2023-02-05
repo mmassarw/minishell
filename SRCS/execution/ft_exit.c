@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 00:37:39 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/03 13:05:36 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:28:24 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	ft_exit(char **args, t_mini *mini)
 	int	code;
 
 	if (!args[1] && !mini->l_cmd->next)
-		ft_exit_shell(mini, SUCCESS, "exit", 2);
+		ft_exit_shell(mini, g_exit_code, "exit", 2);
 	else if (!args[1])
-		ft_exit_shell(mini, SUCCESS, NULL, 2);
+		ft_exit_shell(mini, g_exit_code, NULL, 2);
 	else if (2 < arg_count(args))
 	{
 		fd_printf(2, "minishell: exit: too many arguments\n");
