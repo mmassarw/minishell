@@ -51,7 +51,7 @@ void	ft_parse_token(t_mini *mini)
 			mini->l_token = mini->l_token->next;
 		cmd_new = (t_cmd *) ft_calloc(1, sizeof(t_cmd));
 		if (!cmd_new)
-			ft_exit_shell(mini, 137, "malloc fail", 2);
+			ft_exit_shell(mini, 137, "page alocation failure", 2);
 		ft_init_arg_n_rdr(mini, cmd_new, &(mini->l_token));
 		cmd_new->next = NULL;
 		if (mini->l_cmd == NULL)

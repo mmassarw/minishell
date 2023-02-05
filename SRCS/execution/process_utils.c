@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 07:53:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/05 21:37:50 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/06 02:03:19 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	wait_for_children(t_mini *mini)
 			waitpid(cmd->fork_id, &status, 0);
 			if (WIFEXITED(status))
 				g_exit_code = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				g_exit_code = 128 + WTERMSIG(status);
 		}
 		cmd = cmd->next;
 	}

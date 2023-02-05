@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_evaltokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsarhan <hsarhan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 16:26:09 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/05 03:08:44 by hsarhan          ###   ########.fr       */
+/*   Updated: 2023/02/06 01:49:12 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ bool	ft_evalops(t_token *head, t_mini *mini)
 	if (current->type == PIPE)
 	{
 		if (!current->prev)
-			return (ft_syntaxerr("syntax error near unexpected token", 1, 0));
+			return (ft_syntaxerr("syntax error near unexpected token", 258, 0));
 		current = head->next;
 		if (!current)
-			return (ft_syntaxerr("syntax error near unexpected token", 1, 0));
+			return (ft_syntaxerr("syntax error near unexpected token", 258, 0));
 		if (current->type == SPACES)
 			current = current->next;
 		if (!current || current->type == PIPE)
-			return (ft_syntaxerr("syntax error near unexpected token", 1, 0));
+			return (ft_syntaxerr("syntax error near unexpected token", 258, 0));
 		return (true);
 	}
 	else
