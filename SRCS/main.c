@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/05 21:47:38 by hakaddou         ###   ########.fr       */
-=======
-/*   By: hsarhan <hsarhan@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/05 01:36:34 by hsarhan          ###   ########.fr       */
->>>>>>> origin/mmassarw
+/*   Updated: 2023/02/06 01:22:12 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_interupt(int sig)
-{
-	(void) sig;
-	g_exit_code = 1;
-}
 
 void	take_input(t_mini *mini)
 {
@@ -53,13 +40,13 @@ void	print_wlcm_msg(t_mini *mini)
 	if (!user)
 	{
 		fd_printf(1, WLC""WLC2""WLC3""WLC4""WLC5,
-		ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
+			ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
 		, "unkown 🕵");
 	}
 	else
 	{
 		fd_printf(1, WLC""WLC2""WLC3""WLC4""WLC5,
-		ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
+			ft_atoi(find_str_env("SHLVL", mini, VALUE)) \
 		, user);
 	}
 }
