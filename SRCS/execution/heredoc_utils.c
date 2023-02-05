@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 20:54:27 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/05 21:05:55 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/06 00:37:47 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,19 @@ bool	parse_delimiter(t_rdr *rdr)
 
 	quoted = false;
 	tmp = rdr->file;
-	while (*tmp)
-		tmp++;
-	while (tmp >= rdr->file)
+	while (1)
 	{
-		while (tmp >= rdr->file && (*tmp != '\'' && *tmp != '\"'))
-			tmp--;
-		if (tmp < rdr->file)
+		while (*tmp && *tmp != '\'' && *tmp != '\"')
+			tmp++;
+		if (!*tmp || !(ft_strchr(tmp + 1, *tmp)))
 			return (quoted);
 		hold = *tmp;
 		ft_memmove(tmp, tmp + 1, ft_strlen(tmp));
-		ft_memmove(ft_strrchr(rdr->file, hold), \
-		ft_strrchr(rdr->file, hold) + 1, \
-		ft_strlen(ft_strrchr(rdr->file, hold)));
+		tmp = ft_strchr(tmp, hold);
+		ft_memmove(tmp, tmp + 1, ft_strlen(tmp));
 		quoted = true;
 	}
+	printf("%s\n", rdr->file);
 	return (quoted);
 }
 
