@@ -1,0 +1,5 @@
+hello
+     1	heredoc 2 pipe 2$
+     2	$
+     1	heredoc 2 pipe 2$
+     2	$
