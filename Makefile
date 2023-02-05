@@ -6,7 +6,7 @@
 #    By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/06 19:58:12 by mmassarw          #+#    #+#              #
-#    Updated: 2023/02/05 21:35:01 by mmassarw         ###   ########.fr        #
+#    Updated: 2023/02/05 21:52:13 by mmassarw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,9 @@ SRCS	=	SRCS/main.c \
 			SRCS/execution/pipe_utils.c \
 			SRCS/execution/env_utils.c \
 			SRCS/execution/redirections_srcs2.c \
-			SRCS/utils/ft_signals.c
+			SRCS/utils/ft_signals.c \
+			SRCS/execution/heredoc_utils.c \
+			SRCS/execution/heredoc_utils2.c
 
 OBJS	=	$(SRCS:.c=.o)
 
