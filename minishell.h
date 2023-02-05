@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 19:26:15 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/05 21:52:37 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 22:41:50 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,5 +355,6 @@ char	**add_basic_env(t_mini *mini);
 // signals
 
 void	ft_interupt(int sig);
+void	ft_intheredoc(int sig);
 
 #endif

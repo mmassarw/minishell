@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:27:57 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/05 21:53:24 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 23:09:23 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,18 @@ void	take_heredoc_input(t_rdr *rdr, t_mini *mini)
 	char	*line;
 	bool	quoted;
 
+	signal(SIGINT, &ft_intheredoc);
 	null_params(&tmp, &total, &line);
 	quoted = parse_delimiter(rdr);
 	while (1)
 	{
 		input = readline("> ");
+		if (g_exit_code == -420)
+		{
+			rdr->herepipe[0] = ft_close(rdr->herepipe[0], 0, NULL);
+			rdr->herepipe[1] = ft_close(rdr->herepipe[1], 0, NULL);
+			ft_exit_shell(mini, -420, NULL, 2);
+		}
 		if (!input)
 			break ;
 		if (ft_strncmp(input, rdr->file, ft_strlen(rdr->file) + 1) == 0)

@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:43:27 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/04 19:56:23 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 23:10:53 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	ft_exit_shell(t_mini *s_mini, int error, char *p_err, int fd)
 	if ((s_mini && s_mini->l_cmd && s_mini->l_cmd->next == NULL) \
 	|| (s_mini->rl == NULL))
 	{
-		ft_close(0, 0, NULL);
+		if (error != -420)
+			ft_close(0, 0, NULL);
 		ft_close(1, 0, NULL);
 		ft_close(2, 0, NULL);
 	}

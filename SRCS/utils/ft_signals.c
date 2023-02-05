@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 21:33:20 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/05 21:36:01 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 22:59:08 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,17 @@ void	ft_interupt(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+	}
+}
+
+void	ft_intheredoc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_exit_code = -420;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		write(STDERR_FILENO, "  \n", 4);
+		close(0);
 	}
 }
