@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
 /*   Updated: 2023/02/05 21:47:38 by hakaddou         ###   ########.fr       */
+=======
+/*   By: hsarhan <hsarhan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/15 16:49:59 by mmassarw          #+#    #+#             */
+/*   Updated: 2023/02/05 01:36:34 by hsarhan          ###   ########.fr       */
+>>>>>>> origin/mmassarw
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +27,8 @@ void	ft_interupt(int sig)
 
 void	take_input(t_mini *mini)
 {
-		signal(SIGINT, &ft_interupt);
-		signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &ft_interupt);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		mini->rl = read_line_colored(random_between(1, 6));
