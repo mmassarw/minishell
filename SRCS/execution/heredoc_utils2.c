@@ -6,7 +6,7 @@
 /*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 21:04:08 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/05 22:36:42 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/05 23:17:51 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	take_input_from_child(t_mini *mini, t_rdr *rdr)
 {
 	int	status;
 
-	signal(SIGINT, SIG_IGN);
 	status = 0;
 	if (pipe_heredoc(rdr) == -1)
 		return (-1);
