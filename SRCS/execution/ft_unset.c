@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 21:43:27 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/05 21:32:27 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/06 03:46:39 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	ft_unset(char **args, t_mini *mini)
 		if (check_unset_args(args[i]))
 			fd_printf(2, "minishell: unset: `%s': not a valid identifier\n",
 				args[i]);
+		else if (ft_strncmp(args[i], "_", 2) == 0)
+			;
 		else
 			delete_env_list(args[i], mini);
 		i++;

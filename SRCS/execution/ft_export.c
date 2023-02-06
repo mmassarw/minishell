@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:58:43 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/01 15:05:07 by codespace        ###   ########.fr       */
+/*   Updated: 2023/02/06 03:43:22 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,7 @@ void	ft_export(char **args, t_mini *mini)
 
 	i = -1;
 	if (!mini->l_env)
-	{
-		fd_printf(2, "export: permission denied\n");
 		return ;
-	}
 	if (!args[0])
 	{
 		print_export(mini);

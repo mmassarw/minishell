@@ -6,7 +6,7 @@
 /*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 19:11:24 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/01/20 19:12:15 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/06 03:53:07 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,20 @@ char	*get_path(char *cmd, char *env)
 	char	**splitted;
 
 	splitted = ft_split(env, ':');
+	if (!splitted || !splitted[0])
+	{
+		ft_free_split(splitted);
+		return (NULL);
+	}
 	i = -1;
 	while (++i < word_count(env, ':'))
 	{
 		str = split_and_join(cmd, splitted[i]);
 		if (access(str, X_OK) == 0)
 			break ;
-		free(splitted[i]);
-		splitted[i] = NULL;
-		free(str);
-		str = NULL;
+		splitted[i] = ft_free(splitted[i]);
+		str = ft_free(str);
 	}
-	while (splitted[i] != NULL)
-	{
-		free(splitted[i]);
-		splitted[i++] = NULL;
-	}
-	free(splitted);
-		splitted = NULL;
+	ft_free_split(splitted);
 	return (str);
 }

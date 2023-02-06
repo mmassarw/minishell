@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:10:26 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/04 20:22:10 by mmassarw         ###   ########.fr       */
+/*   Updated: 2023/02/06 03:40:47 by hakaddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	print_env(t_mini *mini)
 	env = mini->l_env;
 	if (!env)
 	{
-		fd_printf(2, "env: permission denied\n");
 		g_exit_code = ENV_FAIL_CODE;
 		return ;
 	}
