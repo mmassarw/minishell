@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaddou <hakaddou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 07:53:21 by hakaddou          #+#    #+#             */
-/*   Updated: 2023/02/06 02:03:19 by hakaddou         ###   ########.fr       */
+/*   Updated: 2023/02/06 03:34:00 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	is_parent_exec(t_cmd *cmd)
 		return (1);
 	if (!ft_strncmp(cmd->arg[0], "cd", 3)
 		|| !ft_strncmp(cmd->arg[0], "exit", 5)
-		|| cmd->arg[0][0] == 'q'
 		|| !ft_strncmp(cmd->arg[0], "export", 7)
 		|| !ft_strncmp(cmd->arg[0], "unset", 6))
 		return (1);

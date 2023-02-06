@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokenizer copy.c                                :+:      :+:    :+:   */
+/*   ft_collapsequotes.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsarhan <hsarhan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmassarw <mmassarw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 16:26:09 by mmassarw          #+#    #+#             */
-/*   Updated: 2023/02/05 03:06:37 by hsarhan          ###   ########.fr       */
+/*   Updated: 2023/02/06 03:28:09 by mmassarw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	*ft_addmidstrerror(char *start, size_t i)
+{
+	char	*result;
+	char	*hold;
+
+	hold = ft_itoa(g_exit_code);
+	result = ft_strjoin(hold, start + i);
+	hold = (char *) ft_free(hold);
+	return (result);
+}
 
 char	*ft_addmidstr(char *start, t_env *match, size_t i, t_mini *mini)
 {
@@ -33,7 +44,10 @@ char	*ft_str_expand(char *start, char *quote, t_mini *mini, size_t i)
 
 	temp = NULL;
 	hold = ft_substr(start + 1, 0, i - 1);
-	temp = ft_addmidstr(start, env_already_exist(hold, mini), i, mini);
+	if (*(start + 1) == '?')
+		temp = ft_addmidstrerror(start, i);
+	else
+		temp = ft_addmidstr(start, env_already_exist(hold, mini), i, mini);
 	hold = (char *) ft_free(hold);
 	*start = '\0';
 	start = ft_strjoin(quote, temp);
